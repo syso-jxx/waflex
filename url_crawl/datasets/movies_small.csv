@@ -1,0 +1,301 @@
+영화코드,영화명,장르
+1,기생충 (PARASITE),드라마
+2,겨울왕국 (Frozen),애니메이션
+3,범죄도시 (THE OUTLAWS),범죄
+4,극한직업 (Extreme Job),코미디
+5,신과함께-죄와 벌 (Along with the Gods: The Two Worlds),판타지
+6,베테랑 (Veteran),액션
+7,보스 베이비 (The Boss Baby),애니메이션
+8,신세계 (New World),범죄
+9,곡성 (THE WAILING),미스터리
+10,관상 (The Face Reader),사극
+11,어벤져스: 인피니티 워 (Avengers: Infinity War),액션
+12,후궁 : 제왕의 첩 (The Concubine),사극
+13,도둑들 (The Thieves),액션
+14,럭키 (LUCK-KEY),코미디
+15,암살 (Assassination),액션
+16,"광해, 왕이 된 남자 (Masquerade)",사극
+17,7번방의 선물 (Miracle in Cell No.7),코미디
+18,마녀 (The Witch : Part 1. The Subversion),미스터리
+19,검사외전 (A Violent Prosecutor),범죄
+20,명량 (Roaring Currents),사극
+21,부산행 (TRAIN TO BUSAN),액션
+22,모아나 (Moana ),애니메이션
+23,신과함께-인과 연 (Along with the Gods: The Last 49 Days),판타지
+24,어벤져스 (The Avengers),액션
+25,엑시트 (EXIT),코미디
+26,쥬라기 월드 (Jurassic World),액션
+27,수상한 그녀 (Miss Granny),드라마
+28,완벽한 타인 (Intimate Strangers),드라마
+29,범죄와의 전쟁: 나쁜놈들 전성시대 (Nameless Gangster : Rules of the Time),범죄
+30,공조 (Confidential Assignment),액션
+31,"악인전 (The Gangster, The Cop, The Devil)",범죄
+32,킹스맨 : 시크릿 에이전트 (Kingsman: The Secret Service),액션
+33,청년경찰 (Midnight Runners),액션
+34,내부자들: 디 오리지널 (Inside Men: The Original),범죄
+35,국제시장 (Ode to My Father),드라마
+36,택시운전사 (A Taxi Driver),드라마
+37,친구 2 (Friend : The Great Legacy),액션
+38,주토피아 (Zootopia),애니메이션
+39,독전 (Believer),범죄
+40,백두산 (ASHFALL),어드벤처
+41,간신 (The Treacherous),사극
+42,미니언즈 (Minions),애니메이션
+43,강철비 (Steel Rain),액션
+44,겨울왕국 2 (Frozen 2),애니메이션
+45,성난황소 (Unstoppable),범죄
+46,아가씨 (The Handmaiden),스릴러
+47,어벤져스: 엔드게임 (Avengers: Endgame),액션
+48,점박이:한반도의 공룡3D (Speckles: The Tarbosaurus),애니메이션
+49,변호인 (The Attorney),드라마
+50,알라딘 (Aladdin),어드벤처
+51,1987 (1987: When the Day Comes),드라마
+52,뽀로로 극장판 컴퓨터 왕국 대모험 (Pororo3 : Cyber Space Adventure),애니메이션
+53,건축학개론 (Architecture 101),멜로/로맨스
+54,데드풀 (Deadpool),액션
+55,쥬라기 월드: 폴른 킹덤 (JURASSIC WORLD: FALLEN KINGDOM),액션
+56,꾼 (The Swindlers),범죄
+57,해적: 바다로 간 산적 (The Pirates),어드벤처
+58,코코 (COCO),애니메이션
+59,더 킹 (The King),범죄
+60,프리즌 (The Prison),범죄
+61,닥터 스트레인지 (Doctor Strange),액션
+62,아수라 (Asura : The City of Madness),범죄
+63,타짜-신의 손 (Tazza-The Hidden Card),드라마
+64,암수살인 (Dark Figure of Crime),범죄
+65,연평해전 (Northern Limit Line),드라마
+66,안시성 (The Great Battle),사극
+67,다만 악에서 구하소서 (DELIVER US FROM EVIL),범죄
+68,사도 (The Throne),사극
+69,킹스맨: 골든 서클 (Kingsman: The Golden Circle),액션
+70,신의 한 수 (The Divine Move),범죄
+71,나쁜 녀석들: 더 무비 (The Bad Guys: Reign of Chaos),범죄
+72,박수건달 (Man on the Edge),코미디
+73,블랙 팬서 (Black Panther),액션
+74,토르: 라그나로크 (THOR: RAGNAROK),액션
+75,베를린 (The Berlin File),액션
+76,스파이더맨: 홈 커밍 (Spider-Man: Homecoming),액션
+77,은교 (Eungyo),멜로/로맨스
+78,그것만이 내 세상 (Keys to the Heart),코미디
+79,미이라 (The Mummy),액션
+80,터널 (Tunnel),드라마
+81,인간중독 (Obsessed),멜로/로맨스
+82,라라랜드 (LA LA LAND),드라마
+83,시동 (START-UP),드라마
+84,봉오동 전투 (The Battle: Roar to Victory),사극
+85,내 아내의 모든 것 (All About My Wife),코미디
+86,마스터 (Master),액션
+87,극비수사 (The Classified File),드라마
+88,마션 (The Martian ),액션
+89,남산의 부장들 (The Man Standing Next),드라마
+90,내부자들 (Inside Men),범죄
+91,해리포터와 마법사의 돌 (Harry Potter And The Socrerers Stone),가족
+92,어벤져스: 에이지 오브 울트론 (The Avengers: Age of Ultron),액션
+93,역린 (The Fatal Encounter),사극
+94,베놈 (Venom),액션
+95,아이언맨 3 (Iron Man 3),액션
+96,신의 한 수: 귀수편 (The Divine Move 2: The Wrathful),범죄
+97,메이즈 러너 (The Maze Runner),액션
+98,국가부도의 날 (Default),드라마
+99,내안의 그놈 (The Dude in Me),판타지
+100,뽀로로 극장판 슈퍼썰매 대모험 (Pororo: The Racing Adventure),애니메이션
+101,아쿠아맨 (AQUAMAN),액션
+102,브레이킹 던 part2 (The Twilight Saga: Breaking Dawn Part 2),드라마
+103,오케이 마담 (OK! MADAM),코미디
+104,미션 임파서블: 폴아웃 (Mission:Impossible- Fallout),액션
+105,밀정 (The Age of Shadows),액션
+106,타짜: 원 아이드 잭 (Tazza: One Eyed Jack),범죄
+107,인사이드 아웃 (Inside Out),애니메이션
+108,군함도 (The Battleship Island),액션
+109,정직한 후보 (HONEST CANDIDATE),코미디
+110,검은 사제들 (The Priests),미스터리
+111,탐정 : 더 비기닝 (THE ACCIDENTAL DETECTIVE),코미디
+112,탐정: 리턴즈 (The Accidental Detective 2: In Action),코미디
+113,설국열차 (Snowpiercer),SF
+114,군도: 민란의 시대 (KUNDO : Age of the Rampant),사극
+115,슈퍼배드 2 (Despicable Me 2),애니메이션
+116,은밀하게 위대하게 (Secretly Greatly),액션
+117,완득이 (Punch),드라마
+118,히트맨 (HITMAN: AGENT JUN),코미디
+119,공작 (The Spy Gone North),드라마
+120,인턴 (The Intern),코미디
+121,어바웃 타임 (ABOUT TIME),멜로/로맨스
+122,월드 워 Z (World War Z ),드라마
+123,나우 유 씨 미 : 마술사기단 (Now You See Me ),범죄
+124,뺑반 (Hit-and-Run Squad),범죄
+125,숨바꼭질 (Hide and Seek),스릴러
+126,감시자들 (Cold Eyes),범죄
+127,스파이 (Spy),액션
+128,걸캅스 (Miss & Mrs. Cops),코미디
+129,감기 (Flu),드라마
+130,히말라야 (The Himalayas),드라마
+131,반도 (Peninsula),액션
+132,롱 리브 더 킹: 목포 영웅 (Long Live the King),액션
+133,가디언즈 오브 갤럭시 VOL. 2 (Guardians of the Galaxy VOL. 2),액션
+134,챔피언 (Champion),드라마
+135,캡틴 아메리카: 시빌 워 (Captain America: Civil War),액션
+136,담보 (Pawn),드라마
+137,늑대소년 (A Werewolf Boy),멜로/로맨스
+138,분노의 질주: 더 세븐 (Fast & Furious 7),액션
+139,전설의 주먹 (Fists of Legend),드라마
+140,용의자 (The Suspect),액션
+141,마약왕 (The Drug King),범죄
+142,오블리비언 (Oblivion),액션
+143,끝까지 간다 (A Hard Day),액션
+144,인터스텔라 (Interstellar),SF
+145,신비한 동물사전 (Fantastic Beasts and Where to Find Them),어드벤처
+146,쥬만지: 새로운 세계 (Jumanji: Welcome to the Jungle),액션
+147,미션 임파서블: 로그네이션 (Mission: Impossible - Rogue Nation),액션
+148,보헤미안 랩소디 (Bohemian Rhapsody),드라마
+149,"뽀로로 극장판 공룡섬 대모험 (Pororo, Dinosaur Island Adventure)",애니메이션
+150,돈 (Money),범죄
+151,남한산성 (The Fortress),사극
+152,퍼펙트맨 (Man of Men),코미디
+153,브레이킹 던 part1 (The Twilight Saga: Breaking Dawn - Part 1),드라마
+154,가디언즈 오브 갤럭시 (Guardians of the Galaxy),액션
+155,해리포터와 비밀의 방 (Harry Potter And The Chamber Of Secrets),드라마
+156,판도라 (Pandora),드라마
+157,데드풀 2 (DEADPOOL 2),액션
+158,동네사람들 (Ordinary People),액션
+159,형 (MY ANNOYING BROTHER),코미디
+160,연가시 (Deranged),공포(호러)
+161,돈의 맛 (The Taste of Money),드라마
+162,#살아있다 (#ALIVE),드라마
+163,빅 히어로 (Big Hero 6),애니메이션
+164,쿵푸팬더3 (Kung Fu Panda 3),애니메이션
+165,분노의 질주: 더 익스트림 (The Fast and The Furious 8),액션
+166,보안관 (The Sheriff In Town),범죄
+167,기술자들 (The Con Artists),범죄
+168,메이즈 러너: 스코치 트라이얼 (Maze Runner: The Scorch Trials),액션
+169,터미네이터 제니시스 (Terminator Genisys),액션
+170,인천상륙작전 (Operation Chromite ),전쟁
+171,"더 테러 라이브 (The Terror, LIVE)",범죄
+172,곤지암 (GONJIAM: Haunted Asylum),공포(호러)
+173,겟 아웃 (GET OUT),공포(호러)
+174,미션임파서블:고스트프로토콜 (Mission: Impossible: Ghost Protocol),액션
+175,미쓰 와이프 (Wonderful Nightmare),코미디
+176,강철비2: 정상회담 (Steel Rain2: Summit),드라마
+177,헝거게임: 판엠의 불꽃 (The Hunger Games),액션
+178,뷰티 인사이드 (The Beauty Inside),판타지
+179,"82년생 김지영 (KIM JI-YOUNG, BORN 1982 )",드라마
+180,슈퍼배드 3 (Despicable Me 3),애니메이션
+181,조작된 도시 (Fabricated City),범죄
+182,그레이의 50가지 그림자 (Fifty Shades of Grey),드라마
+183,부라더 (The Bros),코미디
+184,공모자들 (Traffickers),범죄
+185,레미제라블 (Les Miserables),드라마
+186,임금님의 사건수첩 (The King's Case Note),코미디
+187,불한당: 나쁜 놈들의 세상 (The Merciless),범죄
+188,이웃사람 (The Neighbors),스릴러
+189,마이펫의 이중생활 (The Secret Life of Pets),애니메이션
+190,협상 (THE NEGOTIATION),범죄
+191,램페이지 (Rampage),액션
+192,바람과 함께 사라지다 (The Grand Heist),코미디
+193,비긴 어게인 (Begin Again),멜로/로맨스
+194,루시 (LUCY),액션
+195,조커 (Joker),액션
+196,어메이징 스파이더맨 (The Amazing Spider - Man),액션
+197,컨저링 (The Conjuring),공포(호러)
+198,회사원 (A Company Man),액션
+199,분노의 질주: 홉스&쇼 (Fast & Furious Presents: Hobbs & Shaw),액션
+200,목격자 (The Witness),스릴러
+201,드래곤 길들이기 2 (How To Train Your Dragon 2),애니메이션
+202,치외법권 (Untouchable Lawmen),액션
+203,해리포터와 아즈카반의 죄수 (Harry Potter And The Prisoner Of Azkaban),드라마
+204,앤트맨 (Ant-Man),액션
+205,굿바이 싱글 (Familyhood),코미디
+206,컨테이젼 (Contagion),액션
+207,트랜스포머: 사라진 시대 (Transformers : Age of Extinction),액션
+208,엑스맨: 아포칼립스 (X-Men: Apocalypse),액션
+209,토르: 다크 월드 (Thor: The Dark World ),액션
+210,나의 PS 파트너 (Whatcha Wearin'),멜로/로맨스
+211,테이큰 3 (Taken 3),액션
+212,블랙머니 (BLACK MONEY),범죄
+213,위대한 쇼맨 (The Greatest Showman),드라마
+214,너의 이름은. (your name.),애니메이션
+215,제이슨 본 (Jason Bourne),액션
+216,라푼젤 (Tangled),애니메이션
+217,악녀 (The Villainess),액션
+218,명당 (FENGSHUI),사극
+219,존 윅 3: 파라벨룸 (John Wick: Chapter 3 - parabellum ),액션
+220,서치 (Searching),드라마
+221,대호 (The Tiger),사극
+222,황제를 위하여 (For the Emperor),액션
+223,미녀와 야수 (Beauty and the Beast),멜로/로맨스
+224,간기남 (The Scent),코미디
+225,킬러의 보디가드 (The Hitman's Bodyguard),액션
+226,가장 보통의 연애 (Crazy Romance),멜로/로맨스
+227,해리 포터와 불의 잔 (Harry Potter and the Goblet of Fire),액션
+228,내가 살인범이다 (Confession of Murder),액션
+229,봉이 김선달 (Seondal: The Man who Sells the River ),사극
+230,캡틴 마블 (Captain Marvel),액션
+231,혹성탈출: 종의 전쟁 (WAR FOR THE PLANET OF THE APES),액션
+232,점쟁이들 (Ghost Sweepers),코미디
+233,스파이 (The Spy: Undercover Operation),액션
+234,혹성탈출: 반격의 서막 (Dawn of the Planet of the Apes),액션
+235,더 폰 (The Phone),스릴러
+236,화이: 괴물을 삼킨 아이 (Hwayi: A Monster Boy),액션
+237,나우 유 씨 미 2 (Now You See Me 2),범죄
+238,조선명탐정 : 사라진 놉의 딸 (Detective K : Secret of the Lost Island),사극
+239,인셉션 (Inception),드라마
+240,노무현입니다 (OUR PRESIDENT),다큐멘터리
+241,타워 (The Tower),드라마
+242,테이큰 2 (Taken 2),액션
+243,레버넌트: 죽음에서 돌아온 자 (The Revenant),어드벤처
+244,아이 캔 스피크 (I Can Speak ),코미디
+245,엑스맨: 데이즈 오브 퓨처 패스트 (X-Men: Days of Future Past),액션
+246,퓨리 (Fury),액션
+247,니모를 찾아서 (Finding Nemo),애니메이션
+248,주먹왕 랄프 2: 인터넷 속으로 (Ralph Breaks the Internet),애니메이션
+249,몬스터 호텔 2 (Hotel Transylvania 2),애니메이션
+250,앤트맨과 와스프 (Ant-Man and the Wasp),액션
+251,국제수사 (The Golden Holiday),코미디
+252,지.아이.조 2 (G.I. Joe 2: Retaliation),액션
+253,콩: 스컬 아일랜드 (Kong: Skull Island),액션
+254,악의 연대기 (The Chronicles of Evil),스릴러
+255,존 윅 - 리로드 (John Wick Chapter Two),액션
+256,원더풀 고스트 (THE SOUL-MATE),코미디
+257,트랜스포머: 최후의 기사 (TRANSFORMERS: THE LAST KNIGHT),액션
+258,해리 포터와 불사조 기사단 (Harry Potter And The Order Of The Phoenix),판타지
+259,잭 리처: 네버 고 백 (Jack Reacher: Never Go Back),액션
+260,몽타주 (Montage),스릴러
+261,원더 우먼 (Wonder Woman),액션
+262,배틀쉽 (Battleship),SF
+263,메이즈 러너: 데스 큐어 (Maze Runner: The Death Cure),액션
+264,수어사이드 스쿼드 (Suicide Squad),액션
+265,조선명탐정: 흡혈괴마의 비밀 (Detective K: Secret of the Living Dead),사극
+266,스파이더맨: 파 프롬 홈 (Spider-Man: Far From Home),액션
+267,해리포터와 죽음의 성물2 (Harry Potter and the Deathly Hallows: Part 2),판타지
+268,매드 맥스: 분노의 도로 (Mad Max: Fury Road),액션
+269,차이나타운 (Coin Locker Girl),범죄
+270,표적 (The Target),액션
+271,반창꼬 (Love 911),멜로/로맨스
+272,미스 페레그린과 이상한 아이들의 집 (Miss Peregrine's Home For Peculiar Children),미스터리
+273,지오스톰 (Geostorm),액션
+274,창궐 (Rampant),사극
+275,씽 (Sing),애니메이션
+276,댄싱퀸 (Dancing Queen),코미디
+277,피끓는 청춘 (Hot Young Bloods),코미디
+278,인크레더블 2 (INCREDIBLES 2),애니메이션
+279,가문의 영광5 - 가문의 귀환 (Return of the Mafia),코미디
+280,화차 (Helpless),미스터리
+281,해리 포터와 혼혈 왕자 (Harry Potter And The Half-Blood Prince),어드벤처
+282,로건 (Logan),액션
+283,다크 나이트 (The Dark Knight),범죄
+284,뽀로로의 대모험 (Pororo To The Cookie Castle),애니메이션
+285,몬스터 호텔 (HOTEL TRANSYLVANIA),애니메이션
+286,악질경찰 (Jo Pil-ho: The Dawning Rage),범죄
+287,도리를 찾아서 (Finding Dory),애니메이션
+288,굿 다이노 (The Good Dinosaur),애니메이션
+289,간첩 (The Spies),드라마
+290,다크 나이트 라이즈 (The Dark Knight Rises),액션
+291,증인 (Innocent Witness),드라마
+292,광대들: 풍문조작단 (Jesters: The Game Changers),사극
+293,스물 (Twenty),코미디
+294,캡틴 아메리카: 윈터 솔져 (Captain America: The Winter Soldier),액션
+295,"님아, 그 강을 건너지 마오 (My Love, Don't Cross That River)",다큐멘터리
+296,고령화 가족 (Boomerang Family),드라마
+297,헝거게임: 캣칭 파이어 (The Hunger Games: Catching Fire),판타지
+298,성난 변호사 (The Advocate : A Missing Body),범죄
+299,나를 찾아줘 (Gone Girl),스릴러
+300,더 이퀄라이저 2 (The Equalizer 2),액션
