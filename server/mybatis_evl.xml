@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select_evl">
+		select 
+			   e.movie_no movie_no,
+			   m.title title,
+		       m.release_date release_date,
+		       n.name nation_name,
+		       g.name genre_name,
+		       m.director director,
+		       e.rate rate,
+		       e.in_date
+		  from 
+		       evl e, movie m, nation n, genre g
+		 where 
+		 	   e.user_id = :1
+		   and m.movie_no = e.movie_no
+		   and n.nation_code = m.nation_code
+		   and g.genre_code = m.genre_code
+		 order by 8 desc
+	</select>
+	
+	<select id="check_vali">
+		select
+			in_user_id
+		  from
+		    evl
+		 where
+		 	user_id = :1
+		   and
+		    movie_no = :2  	
+	</select>
+	
+	<select id="select_all">
+		select 
+			user_id,
+			movie_no,
+			rate,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		from 
+		    evl
+		order by 7  
+	</select>
+	
+	<update id="insert">
+		insert into evl (
+			user_id,
+			movie_no,
+			rate,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		) 
+		values(
+			:1,
+			:2,
+			0,	 
+			to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			:3,
+			to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			:4
+		)
+	</update>
+	
+	<update id="update">
+		update
+			evl
+		   set
+		    rate     	= :1,
+		    up_date     = to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			up_user_id  = :2
+		 where
+		 	user_id  = :3
+		   and 
+		    movie_no = :4	   	
+	</update>
+		
+	<update id="delete">
+		delete from evl
+		 where user_id		=:1
+		   and movie_no  	=:2	
+	</update>
+</mapper>

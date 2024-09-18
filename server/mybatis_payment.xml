@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="check">
+		select
+			payday,
+			payment_flag,
+			payment_renew,
+			in_date,
+			in_user_id,
+			up_date,
+			up_date_id
+		  from
+		    payment
+		 where
+		 	user_id = :1
+		   and
+		    ticket_no = :2		
+	</select>
+	
+	<select id="select_all">
+		select 
+			user_id,
+			ticket_no,
+			(select name
+               from ticket
+              where ticket_no = '1') name,
+            (select price
+               from ticket
+              where ticket_no = '1') price,  
+			payday,
+			payment_flag,
+			payment_renew,
+			in_date,
+			in_user_id,
+			up_date,
+			up_date_id
+		from 
+		    payment
+	  order by 6 desc
+	</select>
+	
+	<update id="merge_payment">
+		MERGE INTO payment
+			using dual
+			on (user_id = :1 and ticket_no = :2)
+			when matched then
+			     update set
+			        payday  = to_char(sysdate,'DD'),
+					payment_flag  	= 'y',
+					payment_renew 	= to_char(sysdate + 30,'YYYY-MM-DD'),
+		    		up_date     	= to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+					up_user_id  	= :3
+			when not matched then
+				insert(
+					user_id,
+					ticket_no,
+					payday,
+					payment_flag,
+					payment_renew,
+					in_date,
+					in_user_id,
+					up_date,
+					up_date_id
+				) values(
+					:1,
+					:2,
+					to_char(sysdate,'DD'),
+					'y',
+					to_char(sysdate + 30,'YYYY-MM-DD'),				 
+					to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+					:3,
+					to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+					:4
+				)
+	</update>
+	
+	<update id="insert">
+		insert into payment (
+			user_id,
+			ticket_no,
+			payday,
+			payment_flag,
+			payment_renew,
+			in_date,
+			in_user_id,
+			up_date,
+			up_date_id
+		) 
+		values(
+			:1,
+			1,
+			to_char(sysdate,'DD'),
+			'y',
+			to_char(sysdate + 30,'YYYY-MM-DD'),				 
+			to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			:2,
+			to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			:3
+		)
+	</update>
+	
+	<update id="update">
+		update
+			payment
+		   set
+		    payday		  	= to_char(sysdate,'DD'),
+			payment_flag  	= 'y',
+			payment_renew 	= to_char(sysdate + 30,'YYYY-MM-DD'),
+		    up_date     	= to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			up_user_id  	= :1
+		 where
+		 	user_id  = :2
+		   and 
+		    ticket_no = :3	   	
+	</update>
+		
+	<update id="delete">
+		delete from payment
+		 where user_id		= :1
+		   and ticket_no  	= :2	
+	</update>
+</mapper>

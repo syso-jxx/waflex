@@ -1,0 +1,177 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content%}
+<style>
+
+header{
+	color:#ffffff; 
+	font-size: 25px; 
+	font-weight: bold; 
+}
+input {
+  width:500px;
+  font-size:20px;
+  text-align:center;
+}
+
+.intro {
+	margin: 50px;
+	display: flex;
+	justify-content: center;
+	font-family: 'Do hyeon', sans-serif;
+}
+
+#content{
+	display:flex;
+	justify-content: center;
+
+	
+	}
+table{
+	border-collapse:collapse;
+}
+th{
+	width:170px;
+	height:50px;
+	text-align:center;
+	color:#ffffff; 
+	font-size: 25px; 
+	font-weight: bold; 
+	border-bottom: 1px solid rgba(169,169,169,1);
+}
+tr .col1{
+width:100px;
+}
+tr .col3{
+width:500px;
+}
+td{
+width:170px;
+height:50px;
+text-align:center;
+color:#ffffff; 
+font-size: 15px; 
+border-bottom: 1px solid rgba(169,169,169,0.4);
+}
+.write_btn{
+	border-bottom:0;
+	text-align:right;
+}
+footer{
+	background-color:#000000;
+	
+}
+.footer-flex-container{
+color:#ffffff;
+display:flex;
+flex-direction: row;
+}
+footer ul{
+list-style-type:none;
+}
+.inner-flex0{
+flex-grow:2;
+}
+.inner-flex1{
+flex-grow:5;
+}
+.inner-flex2{
+flex-grow:2;
+}
+button{
+  	font-size: 15px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:3px 10px;
+	width:auto;
+}
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+.search{
+	display:flex;
+	justify-content:center;
+	position: relative;
+	left: 50px;
+	margin-bottom: 30px;
+}
+.search_btn{
+	margin-left: 30px;
+	margin-right: 30px;
+	cursor:pointer;
+	width: auto;
+	color:#fff; 
+	font-size: 17px;
+	font-family: 'Noto Sans KR', sans-serif;
+	border:none;
+	font-weight: bold;
+	border-radius:5px;
+	background: #2581dc;
+	width:70px;
+	height: 35px;
+}
+.search_btn:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+
+
+@media(max-width:1440px){
+input[type=text]{
+	width:200px;
+}
+.btn{
+	width:80px;
+	font-size:15px;
+	position: relative;
+}
+.search{
+	left:10%;
+	width: 90%;
+}
+.col4{
+	display:none;
+	width:50px;
+}
+table{
+	display:flex;
+	justify-content:center;
+}
+tr .col2{
+	width:200px;
+}
+}
+</style>
+<script type="text/javascript">
+
+function fn_detail(qestn_no){
+	location.href = "qna_detail_admin?qestn_no="+qestn_no;
+}
+</script>
+<header>
+	<div class="intro">Q & A 관리</div>
+</header>
+<section id="content">
+	<table class="moviecon">
+		<tr class="th">
+			<th class="col1">번호</th>
+			<th class="col2">작성자</th>
+			<th class="col3">제목</th>
+			<th class="col5">등록일</th>
+		</tr>
+		{%for q in list%}
+		<tr>
+			<td class="col1">{{q.qestn_no}}</td>
+			<td class="col2">{{q.user_id}}</td>
+			<td class="col3"><a href="javascript:fn_detail('{{q.qestn_no}}')">{{q.title}}</a></td>
+			<td class="col5">{{q.in_date}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+</section>
+{% endblock %}

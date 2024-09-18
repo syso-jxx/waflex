@@ -1,0 +1,194 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<script type="text/javascript">
+	
+	function formCheck() {
+		var frm = document.testForm
+		if (!frm.title.value) {
+			alert("제목을 입력하세요");
+			frm.title.focus();
+			return false;
+		} else if(!frm.content.value) {
+			alert("내용을 입력하세요");
+			frm.content.focus();
+			return false;
+		}
+		return true;
+	}
+	
+	function fn_list(){
+		location.href = "notice_admin";
+	}
+	
+		//수정
+	function fn_del_ajax(){
+// 		var del_file = document.getElementById("del_file");
+// 		if(del_file=="{{attach_file}}" && "{{notice.notice_title}}" == "{{notice_title}}" && "{{notice.notice_content}}" == "{{notice_content}}" ){
+// 			document.frm.submit();
+// 			alert("1")
+// 		}else if(del_file!="{{attach_file}}" || "{{notice.notice_title}}" == "{{notice_title}}" || "{{notice.notice_content}}" == "{{notice_content}}"){
+// 			document.frm.submit();	
+// 			alert("12")
+// 			let param = Math.random();
+// 		    param += "&notice_no=" + $('input[name=notice_no]').val();
+		    if (!confirm("첨부파일을 삭제하시겠습니까?")) {
+		    }
+		    else { let param = Math.random();
+			param += "&notice_no=" + $('input[name=notice_no]').val();
+		
+		    $.ajax({
+		             type : "post",
+		             url : "/notice_del.ajax",
+		             dataType : "json",
+		             data : param,
+		             error : function() {
+		                alert('통신 실패!!');
+		             },
+		             success : function(data) {
+		                if (data.msg == 'ok') {
+		                   location.href = "notice_mod_admin?notice_no={{notice.notice_no}}";
+		                } else {
+		                   alert('삭제 실패!!');
+		                }
+		             }
+		          });
+		    }
+		
+		}
+	
+// 	function fn_del_ajax(){
+// 		let param = Math.random();
+// 		param += "&notice_no=" + $('input[name=notice_no]').val();
+// 		var del_file = document.getElementById("del_file").innerHTML;
+// 		$(document).ready(function(){
+// 			$('#del_file').html("")
+// 			})
+// 	}
+	
+</script>
+<style type="text/css">
+.notice{
+	display: flex;
+	justify-content:center;
+	color: #ffffff;
+	font-size: 35px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin-bottom: 50px;
+}
+form{
+	display: flex;
+	justify-content:center;
+}
+th {
+	text-align: center;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+tr .col1 {
+	width: 100px;
+}
+
+tr .col2 {
+	width: 200px;
+}
+
+td {
+	text-align: center;
+	color: #ffffff;
+	font-size: 17px;
+	padding:10px;
+}
+td>input[type=file]{
+	font-size:15px;
+}
+td>input[type=text]{
+	width:490px;
+}
+table{
+border:1px solid rgba(169,169,169,0.5); 
+border-radius: 30px;
+font-family: 'Noto Sans KR', sans-serif;
+}
+th{
+	width:120px;
+}
+td{
+	width:550px;
+	padding: 20px;
+}
+button{
+  	font-size: 17px; 
+	color:#fff; 
+	float : right;
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:3px 10px;
+	width:auto;
+}
+
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+</style>
+<header>
+<div class="notice">공지사항</div>
+</header>
+<section class="content">
+<!-- onsubmit="return formCheck()" name="testForm" -->
+	<form action="notice_modact_admin"  method="post" enctype="multipart/form-data" onsubmit="return formCheck()" name=testForm >
+	<input type="hidden" name="notice_no" value="{{notice.notice_no}}">
+	<input type="hidden" name="attach_path" value="{{notice.attach_path}}">
+	<input type="hidden" name="attach_file" value="{{notice.attach_file}}">
+		<table>
+			
+			<tr>
+				<th>제목</th>
+				<td>
+					<input type="text" name="title" value="{{notice.title}}">
+				</td>
+			</tr>
+			
+			<tr>
+				<th>내용</th>
+				<td>
+					<textarea name="content" rows="20" cols="70">{{notice.content}}</textarea>
+				
+				</td>
+				
+			<tr>
+				<th>첨부파일</th>
+				<td>
+					{% if notice.attach_file %}
+					<input type = "file" name = "file" /> 
+						<a href="javascript:fn_del_ajax()" id="del_file">{{notice.attach_file}}</a>
+					{% else %}
+			 	 	    <input type = "file" name = "file"  />
+					{% endif %}
+				
+				</td>
+			</tr>
+			
+			<tr>
+				<th></th>
+				<td>
+<!-- 					<button type="submit" value = '수정'>수정</button> -->
+					<button type="button" value = '목록' onclick="fn_list()">목록</button>
+<!-- 					<button type="button" value = '수정' onclick="fn_mod()">수정</button> -->
+ 				<button type="submit" value = '수정'>수정</button> 
+					
+					
+				</td>
+			</tr>
+
+		</table>
+	</form>
+</section>
+	{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content%}
+<style>
+.moviecon{
+	display:flex;
+	justify-content: center;
+	font-size: 30px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin: 20px;
+}
+table{
+	text-align:center;
+	color:#ffffff;
+}
+th{
+	font-size:20px;
+	text-align:center;
+}
+td{
+	padding:10px;
+	font-size:15px;
+}
+.intro{
+    margin: 50px;
+   	display: flex;	
+    justify-content: center;
+    font-family: 'Do hyeon', sans-serif;
+}
+input[type=button]{
+width:auto;
+color:black;
+font-size:20px;
+}
+</style>
+<section id = "content">
+	<div class="intro">Q & A 관리</div>
+<table class="moviecon">
+	<tr>
+		<th>
+			질문번호
+		</th>
+		<td>
+			1
+		</td>
+	</tr>
+	<tr>
+		<th>
+			아이디
+		</th>
+		<td>
+			asdf
+		</td>
+	</tr>
+	<tr>
+		<th>
+			제목
+		</th>
+		<td>
+			아이디 관련 질문입니다
+		</td>
+	</tr>
+	<tr>
+		<th>
+			내용
+		</th>
+		<td>
+			아이디 변경은 못하나요?
+		</td>
+	</tr>
+	<tr>
+		<th>
+			이름
+		</th>
+		<td>
+			이경민
+		</td>
+	</tr>
+</table>
+<table class="moviecon">
+	<tr>
+		<th>
+			질문 답변
+		</th>
+		<td>
+			<textarea rows="5" cols="30"></textarea>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			아이디
+		</th>
+		<td>
+			admin
+		</td>
+	</tr>
+	<tr>
+		<th>
+			답변등록일
+		</th>
+		<td>
+			2021-04-29
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="button" value="답변등록" onclick="location.href='qna_admin'">
+			<input type="button" value="답변삭제" onclick="location.href='qna_admin'">
+			<input type="button" value="목록" onclick="location.href='qna_admin'">
+		</td>
+	</tr>
+</table>
+</section>
+{% endblock %}

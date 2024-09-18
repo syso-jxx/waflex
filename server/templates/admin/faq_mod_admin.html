@@ -1,0 +1,136 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<script type="text/javascript">
+
+	$(document).ready(function(){
+
+	});
+	
+	function fn_list(){
+		location.href = "faq_admin";
+	}
+	function fn_mod(){
+		document.frm.submit();
+		
+	}
+	function formCheck() {
+		if (!document.testForm.title.value) {
+			alert("제목을 입력하세요");
+			document.testForm.title.focus();
+			return false
+		} else if(!document.testForm.content.value) {
+			alert("내용을 입력하세요");
+			document.testForm.content.focus();
+			return false;
+		}
+	}
+
+
+</script>
+<style type="text/css">
+.notice{
+	display: flex;
+	justify-content:center;
+	color: #ffffff;
+	font-size: 35px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin-bottom: 50px;
+}
+form{
+	display: flex;
+	justify-content:center;
+}
+th {
+	text-align: center;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+tr .col1 {
+	width: 100px;
+}
+
+tr .col2 {
+	width: 200px;
+}
+
+td {
+	text-align: center;
+	color: #ffffff;
+	font-size: 17px;
+	padding:10px;
+}
+td>input[type=file]{
+	font-size:15px;
+}
+td>input[type=text]{
+	width:490px;
+}
+table{
+border:1px solid rgba(169,169,169,0.5); 
+border-radius: 30px;
+font-family: 'Noto Sans KR', sans-serif;
+}
+th{
+	width:120px;
+}
+td{
+	width:550px;
+	padding: 20px;
+}
+button{
+  	font-size: 17px; 
+	color:#fff; 
+	float : right;
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:3px 10px;
+	width:auto;
+}
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+</style>
+
+<section class="content">
+	<div class="faq">공지사항</div>
+	<form action="faq_modact_admin"  method="post" enctype="multipart/form-data" onsubmit="return formCheck()" name=testForm>
+	<input type="hidden" name="faq_no" value="{{faq.faq_no}}">
+		<table>
+			<tr>
+				<th>공지번호</th>
+				<td>{{faq.faq_no}}</td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<td>
+					<input type="text" name="title" value="{{faq.title}}">
+				</td>
+			</tr>
+			
+			<tr>
+				<th>내용</th>
+				<td>
+					<textarea name="content" rows="20" cols="70">{{faq.content}}</textarea>
+				
+				</td>
+			<tr>
+			<th></th>
+				<td>
+					<button type="button" value = '목록' onclick="fn_list()">목록</button>
+					<button type="submit" value = '수정' >수정</button>
+				</td>
+			</tr>
+
+		</table>
+		
+	</form>
+</section>
+	{% endblock %}

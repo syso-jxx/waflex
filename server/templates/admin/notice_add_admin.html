@@ -1,0 +1,157 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<script src="js/jquery-3.5.1.js"></script>
+<script>
+function formCheck() {
+	var frm = document.testForm;
+	
+	if (!frm.title.value) {
+		alert("제목을 입력하세요");
+		frm.title.focus();
+		return false;
+	}
+	else if(!frm.content.value) {
+		alert("내용을 입력하세요");
+		frm.content.focus();
+		return false;
+	}
+	return true;
+}
+
+function fn_list(){
+	location.href = "notice_admin";
+}
+
+</script>
+<style type="text/css">
+.notice{
+	display: flex;
+	justify-content:center;
+	color: #ffffff;
+	font-size: 35px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin-top: 100px;
+	margin-bottom: 50px;
+}
+form{
+	display: flex;
+	justify-content:center;
+}
+
+tr .col1 {
+	width: 100px;
+}
+
+tr .col2 {
+	width: 200px;
+}
+
+td>input[type=file]{
+	font-size:15px;
+}
+td>input[type=text]{
+	width:490px;
+}
+table{
+border:1px solid rgba(169,169,169,0.5); 
+border-radius: 30px;
+font-family: 'Noto Sans KR', sans-serif;
+}
+th{
+	text-align: center;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+	width:120px;
+}
+td{
+	text-align: center;
+	color: #ffffff;
+	font-size: 17px;
+	padding:10px;
+	width:100px;
+	padding: 20px;
+}
+button{
+	font-size: 15px; 
+	float: right; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	padding:3px 10px;
+}
+button{
+  	font-size: 17px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:3px 10px;
+	width:auto;
+}
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+@media(max-width:1440px){
+	th{
+		width:100px;
+	}
+	td{
+		wdith:200px;
+	}
+	#title{
+		width:220px;
+	}
+	input[type=file]{
+		width:220px;
+	}
+	textarea{
+		width:220px;
+	}
+}
+</style>
+
+<header>
+	<div class="notice">공지사항 등록</div>
+</header>
+<section class="content">
+	<form action="notice_addact_admin" method="post" enctype="multipart/form-data" onsubmit="return formCheck()" name=testForm>
+		<table>
+			<tr>
+				<th>제목</th>
+				<td>
+					<input type="text" name="title" id="title" />
+				</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td>
+					<textarea name="content" id="content" rows="20" cols="70"></textarea>
+				</td>
+				
+			<tr>
+				<th>첨부파일</th>
+				<td><input type="file" name="file"></td>
+			</tr>
+
+			<tr>
+				<td colspan="2">
+					<button type="button" value = '목록' onclick="fn_list()">목록</button>
+					<button type="submit" value = '등록'>등록</button>
+				</td>
+			</tr>
+
+		</table>
+		
+	</form>
+</section>
+	{% endblock %}

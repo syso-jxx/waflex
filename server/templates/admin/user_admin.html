@@ -1,0 +1,308 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content%}
+<style>
+.moviecon {
+	display: flex;
+	justify-content: center;
+	font-size: 30px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin: 20px;
+}
+
+table {
+	text-align: center;
+	color: #ffffff;
+	border-collapse:collapse;
+}
+
+th {
+	font-size: 20px;
+	text-align: center;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-bottom: 1px solid rgba(169,169,169,1);
+}
+
+td {
+	padding: 10px;
+	font-size: 15px;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-bottom: 1px solid rgba(169, 169, 169, 0.4);
+}
+
+.intro {
+	margin: 50px;
+	display: flex;
+	justify-content: center;
+	font-family: 'Do hyeon', sans-serif;
+}
+
+input[type=button] {
+  	font-size: 15px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:3px 10px;
+	width:auto;
+}
+input[type=button]:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+#edit_btn{
+	text-align:right;
+}
+.search{
+	display:flex;
+	justify-content:center;
+	position: relative;
+	left: 50px;
+}
+.search_btn{
+	margin-left: 30px;
+	margin-right: 30px;
+	width: auto;
+	color: black;
+	font-size: 17px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+@media(max-width:1440px){
+input[type=text]{
+	width:200px;
+}
+.btn{
+	width:80px;
+	font-size:15px;
+	position: relative;
+}
+.search{
+	left:10%;
+	width: 90%;
+}
+.col4{
+	display:none;
+}
+
+.col5{
+	display:none;
+}
+.col6{
+	display:none;
+}
+th{
+	font-size: 15px;
+}
+
+table{
+	display:flex;
+	justify-content:center;
+}
+}
+</style>
+<script type="text/javascript">
+	function fn_add(){
+		var user_id = $("#user_id").val();
+		var user_nm = $("#user_nm").val();
+		var user_telno = $("#user_telno").val();
+		var user_email = $("#user_email").val();
+		var in_date = $("#in_date").val();
+		var mngr_flag = $("#mngr_flag").val();
+		var act_flag = $("#act_flag").val();
+			var param = "";
+			param += "dummy=" + Math.random();
+			param += "&user_id="+user_id;
+			param += "&user_nm="+user_nm;
+			param += "&user_telno="+user_telno;
+			param += "&user_email="+user_email;
+			param += "&in_date="+in_date;
+			param += "&mngr_flag="+mngr_flag;
+			param += "&act_flag="+act_flag;
+			
+			$.ajax({
+				url : "suser_ins.ajax",
+				data : param,
+				dataType : "json",
+				type : "post",
+				async: false,
+				statusCode : {
+					404 : function() {
+						alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+					}
+				},
+				success : function(data) {
+					if(data.msg=="ok"){
+						location.reload();
+					} else{
+						alert("추가도중 문제가 생겼습니다.");
+					}
+					console.log(data.msg)
+				}
+			});
+		}
+		
+	
+	function fn_upd(){
+		var user_id = $("#user_id").val();
+		var pwd = $("#pwd").val();
+		var user_name = $("#user_name").val();
+		var mobile = $("#mobile").val();
+		var email = $("#email").val();
+		var birthday = $("#birthday").val();
+		var in_date = $("#in_date").val();
+		var up_date = $("#up_date").val();
+		var in_user_id = $("#in_user_id").val();
+		var up_user_id = $("#up_user_id").val();
+			var param = "";
+			param += "dummy=" + Math.random();
+			param += "&user_id="+user_id;
+			param += "&pwd="+pwd;
+			param += "&user_name="+user_name;
+			param += "&mobile="+mobile;
+			param += "&email="+email;
+			param += "&birthday="+birthday;
+			param += "&in_date="+in_date;
+			param += "&up_date="+up_date;
+			param += "&in_user_id="+in_user_id;
+			param += "&up_user_id="+up_user_id;
+			
+			$.ajax({
+				url : "suser_upd.ajax",
+				data : param,
+				dataType : "json",
+				type : "post",
+				async: false,
+				statusCode : {
+					404 : function() {
+						alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+					}
+				},
+				success : function(data) {
+					if(data.msg=="ok"){
+						location.reload();
+					} else{
+						alert("수정도중 문제가 생겼습니다.");
+					}
+					console.log(data.msg)
+				}
+			});
+		}
+		
+	function fn_del(){
+		var user_id = $("#user_id").val();
+			var param = "";
+			param += "dummy=" + Math.random();
+			param += "&user_id="+user_id;
+			
+			$.ajax({
+				url : "suser_del.ajax",
+				data : param,
+				dataType : "json",
+				type : "post",
+				async: false,
+				statusCode : {
+					404 : function() {
+						alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+					}
+				},
+				success : function(data) {
+					if(data.msg=="ok"){
+						location.reload();
+					} else{
+						alert("삭제도중 문제가 생겼습니다.");
+					}
+					console.log(data.msg)
+				}
+			});
+		}	
+	
+	function fn_search(){
+		var target = $('#search').val().trim();
+		
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&target=" + target;
+		
+		$.ajax({
+			url : "/user_search.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async: false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				var users = data.users;
+				
+				for(var i = 0; i < $('.user_lists').length; i++){
+					$('.user_lists').eq(i).empty();
+				}
+				
+				for(var j = 0; j < users.length; j++){
+					var content = '';
+					content += '	<td>'+ users[j].user_id +'</td>       '                                       
+					content += '	<td>'+ users[j].user_nm +'</td>       '                            
+					content += '	<td>'+ users[j].user_telno +'</td> '                                          
+					content += '	<td>'+ users[j].user_email +'</td>  '                                       
+					content += '	<td>'+ users[j].in_date +'</td>   '                                     
+					content += '	<td>'+ users[j].act_flag +'</td>     '                          
+					content += '	<td>'+ users[j].name +'</td>     '                                        
+					$('.user_lists').eq(j).append(content);
+				}
+				
+			}
+		});
+	} 
+	
+</script>
+<section id="content">
+	<div class="intro">사용자 관리</div>
+	<div class="search">
+		<input type="text" id="search">
+		<input class="search_btn" type="button" onclick="fn_search()" value="검색">
+	</div>
+	<table class="moviecon">
+		<tr class="th">
+			<th class="col1" id="user_id">아이디</th>
+			<th class="col2" id="user_nm">이름</th>
+			<th class="col3" id="user_telno">전화번호</th>
+			<th class="col4" id="user_email">이메일</th>
+			<th class="col5" id="in_date">가입일</th>
+			<th class="col6" id="act_flag">회원상태</th>
+			<th class="col7" id="payment_flag">이용권</th>
+		</tr>
+		{% for u in list %}
+		<tr class="user_lists">
+			<td class="col1">{{u.user_id}}</td>
+			<td class="col2">{{u.user_nm}}</td>
+			<td class="col3">{{u.user_telno}}</td>
+			<td class="col4">{{u.user_email}}</td>	
+			<td class="col5">{{u.in_date}}</td>	
+			<td class="col6">{{u.act_flag}}</td>	
+			<td class="col7">
+				{% if u.user_id == u.pay_id %}
+				O
+				{% else %}
+				X
+				{% endif %}
+			</td>	
+		</tr>
+		{% endfor %}
+<!-- 		<tr> -->
+<!-- 		<td colspan="7" id="edit_btn"> -->
+<!-- 		<input type="button" onclick="fn_add()" value="추가"> -->
+<!-- 		<input type="button" onclick="fn_upd()" value="수정"> -->
+<!-- 		<input type="button" onclick="fn_del()" value="삭제"> -->
+<!-- 		</td> -->
+<!-- 		</tr> -->
+	</table>
+</section>
+{% endblock %}
+
+

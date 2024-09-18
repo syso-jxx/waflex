@@ -1,0 +1,220 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content %}
+
+<script src="js/jquery-3.5.1.js"></script>
+<script type="text/javascript">
+	function fn_back(bbs_no) {
+		location.href = "community_detail?bbs_no="+bbs_no;
+	}
+	
+	function formCheck() {
+		if (!document.testForm.title.value) {
+			alert("제목을 입력하세요");
+			document.testForm.title.focus();
+			return false
+		} else if(!document.testForm.content.value) {
+			alert("내용을 입력하세요");
+			document.testForm.content.focus();
+			return false;
+		}
+	}
+	
+	
+	function fn_del_ajax(){
+		    if (!confirm("첨부파일을 삭제하시겠습니까? 삭제 후 복구가 불가능합니다.")) {
+		    }
+    else { let param = Math.random();
+	param += "&bbs_no=" + $('input[name=bbs_no]').val();
+    $.ajax({
+             type : "post",
+             url : "/community_del.ajax",
+             dataType : "json",
+             data : param,
+             error : function() {
+                alert('통신 실패!!');
+             },
+             success : function(data) {
+                if (data.msg == 'ok') {
+                   location.href = "community_mod?bbs_no={{shows.bbs_no}}";
+                } else {
+                   alert('삭제 실패!!');
+                }
+             }
+          });
+      }
+	}
+		
+
+</script>
+
+<style type="text/css">
+input {
+	width: 500px;
+	font-size: 20px;
+	text-align: center;
+}
+
+body {
+	background-color: #000000;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+.table1 {
+	display: flex;
+	justify-content: center;
+}
+
+.table2 {
+	display: flex;
+	justify-content: center;
+}
+
+th {
+	height: 20px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 10px;
+	border-bottom: 1px solid rgba(169, 169, 169, 0.4);
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+td {
+	text-align: center;
+	color: #ffffff;
+	font-size: 15px;
+	border-bottom: 1px solid rgba(169, 169, 169, 0.4);
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+#cmt {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 700px;
+}
+
+#cmt_btn {
+	margin: 10px;
+}
+
+.edit_btn {
+	text-align: right;
+	padding: 20px;
+	text-align:center;
+}
+
+.cmt_list {
+	padding-top: 200px;
+	display: flex;
+	justify-content: center;
+	color: #ffffff;
+	font-size: 35px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin-bottom: 50px;
+}
+
+.t2_row1 {
+	padding: 10px;
+}
+
+.good_bad {
+	display: flex;
+	justify-content: center;
+	padding: 30px;
+}
+
+.good_bad td {
+	width: 300px;
+	border-bottom: none;
+}
+td>input[type=file]{
+	font-size:15px;
+}
+input[type=button]{
+	font-size: 15px;
+	color: #fff;
+	background: #2581dc;
+	border: none;
+	margin: 5px;
+	cursor: pointer;
+	border-radius: 5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding: 3px 10px;
+	width: auto;
+}
+input[type=submit]{
+	font-size: 15px;
+	color: #fff;
+	background: #2581dc;
+	border: none;
+	margin: 5px;
+	cursor: pointer;
+	border-radius: 5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding: 3px 10px;
+	width: auto;
+}
+</style>
+<div class=""></div>
+<section id="content1">
+	<form action="bbs_modact" method="post" enctype="multipart/form-data" onsubmit="return formCheck()" name=testForm>
+		<div class="cmt">
+			<table class="table1">
+				<tr>
+					<td><input name="bbs_no" type="hidden" value="{{shows.bbs_no}}" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td><input name="title" type="text" value="{{shows.title}}"></td>
+				</tr>
+				<tr>
+					<th>조회수</th>
+					<td>{{shows.rdcnt}}</td>
+				</tr>
+				<tr>
+					<th>작성일</th>
+					<td>{{shows.in_date}}</td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td>{{shows.user_id}}</td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td>
+						<textarea name="content" rows="8" cols="80">{{shows.content}}</textarea>
+					</td>
+				</tr>
+
+				<tr>
+					<th class="col1">첨부파일</th>
+					<td>
+						{% if shows.attach_file == None %}
+							<input type="file" name="file"/>
+						{% else %}
+							<input type="file" name="file"/>
+<!-- 							<img src="download?attach_file={{shows.attach_file}}&attach_path={{shows.attach_path}}" width="25px" > -->
+							<a href="javascript:fn_del_ajax()">{{shows.attach_file}}</a>
+							<br>
+						{% endif %}
+
+					</td>
+				</tr>
+				<tr>
+					<td class="edit_btn" colspan="2">
+						<input type="submit" value="수정" />
+						<input type="button" value="목록" onclick="fn_back('{{shows.bbs_no}}')" />
+					</td>
+				</tr>
+			</table>
+	</form>
+</section>
+{% endblock %}

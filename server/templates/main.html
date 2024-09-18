@@ -1,0 +1,840 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content%}
+<script>
+function zoomIn(event) {
+    event.target.style.transform = "scale(1.1)";
+    event.target.style.zIndex = 1;
+    event.target.style.transition = "all 0.5s";
+  }
+function zoomOut(event) {
+  event.target.style.transform = "scale(1)";
+  event.target.style.zIndex = 0;
+  event.target.style.transition = "all 0.5s";
+}
+
+// 슬라이드
+var commonJS = {
+		  imgRolling : function (autoRollingClass, autoBoolean){
+		    var findElement = $("."+autoRollingClass).find(" > ul");
+		    var itemLength = findElement.find(" > li").length;
+		    var prev = $(".btnControl").find(".prev");
+		    var next = $(".btnControl").find(".next");
+		    var play = $(".btnControl").find(".play");
+		    var stop = $(".btnControl").find(".stop");
+		    var btnPlay = autoBoolean; 
+		    var autoState = true;
+		    var timer = 0;
+		    var speed = 3000;
+		    var move = 300;
+
+		    if(findElement.children().length<= 4){
+		      play.hide();
+		      stop.hide();
+		      prev.hide();
+		      next.hide();
+		      findElement.css("width", "2000");
+		    } else {
+		      findElement.css({"left" : "0", "width" : itemLength * 300});
+		    }
+
+		    if(btnPlay){
+		      timer = setInterval(moveNextSlide, speed);
+		      play.addClass("on");
+		    } else {
+		      autoState = false;
+		      stop.addClass("on");
+		    }
+
+		    findElement.on({
+		      "mouseenter" : function(){
+		        clearInterval(timer);
+		        play.removeClass("on");
+		      },
+		      "mouseleave" : function(){
+		        timer = setInterval(moveNextSlide,speed);
+		        play.removeClass("on");
+		      }
+		    });
+
+		    play.click(function(){
+		      timer = setInterval(moveNextSlide,speed);
+		      $(this).addClass("on");
+		      stop.removeClass("on");
+		      autoState = true;
+		    });
+
+		    stop.click(function(){
+		      clearInterval(timer);
+		      $(this).addClass("on");
+		      play.removeClass("on");
+		    });
+
+		    prev.on({
+		      "click" : function(){
+		        play.removeClass("on");
+		        stop.removeClass("on");
+		        movePrevSlide();
+		        autoState = false;
+		      },
+		      "mouseenter" : function(){
+		        clearInterval(timer);
+		        play.removeClass("on");
+		        stop.removeClass("on");
+		      },
+		      "mouseleave" : function(){
+		        timer = setInterval(moveNextSlide,speed);
+		        play.addClass("on");
+		      }
+		    });
+
+		    next.on({
+		      "click" : function(){
+		        play.removeClass("on");
+		        stop.removeClass("on");
+		        moveNextSlide();
+		        autoState = false;
+		      },
+		      "mouseenter" : function(){
+		        clearInterval(timer);
+		        play.removeClass("on");
+		        stop.removeClass("on");
+		      },
+		      "mouseleave" : function(){
+		        timer = setInterval(moveNextSlide,speed);
+		        play.addClass("on");
+		      }
+		    });
+
+		    function movePrevSlide(){
+		      var lastChild = findElement.children().filter(":last-child").clone(true);
+		      lastChild.prependTo(findElement);
+		      findElement.css("left","-"+move+"px");
+		      findElement.children().filter(":last-child").remove();
+		      findElement.animate({"left":"0"},"normal");
+		    }
+
+		    function moveNextSlide(){
+		      var firstChild = findElement.children().filter(":first-child").clone(true);
+		      firstChild.appendTo(findElement);
+		      findElement.children().filter(":first-child").remove();
+		      findElement.css("left","0");
+		      findElement.animate({"left":"-"+move+"px"},"normal");
+		    }
+		  }
+		}
+
+		$(document).ready(function(){
+		  commonJS.imgRolling("rollingList", true);
+		});
+		
+		
+		
+var commonJS2 = {
+		  imgRolling : function (autoRollingClass, autoBoolean){
+		    var findElement = $("."+autoRollingClass).find(" > ul");
+		    var itemLength = findElement.find(" > li").length;
+		    var prev = $(".btnControl2").find(".prev");
+		    var next = $(".btnControl2").find(".next");
+		    var play = $(".btnControl2").find(".play");
+		    var stop = $(".btnControl2").find(".stop");
+		    var btnPlay = autoBoolean; 
+		    var autoState = true;
+		    var timer = 0;
+		    var speed = 3000;
+		    var move = 300;
+
+		    if(findElement.children().length<= 4){
+		      play.hide();
+		      stop.hide();
+		      prev.hide();
+		      next.hide();
+		      findElement.css("width", "2000");
+		    } else {
+		      findElement.css({"left" : "0", "width" : itemLength * 300});
+		    }
+
+		    if(btnPlay){
+		      timer = setInterval(moveNextSlide, speed);
+		      play.addClass("on");
+		    } else {
+		      autoState = false;
+		      stop.addClass("on");
+		    }
+
+		    findElement.on({
+		      "mouseenter" : function(){
+		        clearInterval(timer);
+		        play.removeClass("on");
+		      },
+		      "mouseleave" : function(){
+		        timer = setInterval(moveNextSlide,speed);
+		        play.removeClass("on");
+		      }
+		    });
+
+		    play.click(function(){
+		      timer = setInterval(moveNextSlide,speed);
+		      $(this).addClass("on");
+		      stop.removeClass("on");
+		      autoState = true;
+		    });
+
+		    stop.click(function(){
+		      clearInterval(timer);
+		      $(this).addClass("on");
+		      play.removeClass("on");
+		    });
+
+		    prev.on({
+		      "click" : function(){
+		        play.removeClass("on");
+		        stop.removeClass("on");
+		        movePrevSlide();
+		        autoState = false;
+		      },
+		      "mouseenter" : function(){
+		        clearInterval(timer);
+		        play.removeClass("on");
+		        stop.removeClass("on");
+		      },
+		      "mouseleave" : function(){
+		        timer = setInterval(moveNextSlide,speed);
+		        play.addClass("on");
+		      }
+		    });
+
+		    next.on({
+		      "click" : function(){
+		        play.removeClass("on");
+		        stop.removeClass("on");
+		        moveNextSlide();
+		        autoState = false;
+		      },
+		      "mouseenter" : function(){
+		        clearInterval(timer);
+		        play.removeClass("on");
+		        stop.removeClass("on");
+		      },
+		      "mouseleave" : function(){
+		        timer = setInterval(moveNextSlide,speed);
+		        play.addClass("on");
+		      }
+		    });
+
+		    function movePrevSlide(){
+		      var lastChild = findElement.children().filter(":last-child").clone(true);
+		      lastChild.prependTo(findElement);
+		      findElement.css("left","-"+move+"px");
+		      findElement.children().filter(":last-child").remove();
+		      findElement.animate({"left":"0"},"normal");
+		    }
+
+		    function moveNextSlide(){
+		      var firstChild = findElement.children().filter(":first-child").clone(true);
+		      firstChild.appendTo(findElement);
+		      findElement.children().filter(":first-child").remove();
+		      findElement.css("left","0");
+		      findElement.animate({"left":"-"+move+"px"},"normal");
+		    }
+		  }
+		}
+
+		$(document).ready(function(){
+		  commonJS2.imgRolling("rollingList2", true);
+		});
+		
+		
+		
+
+var commonJS3 = {
+		  imgRolling : function (autoRollingClass, autoBoolean){
+		    var findElement = $("."+autoRollingClass).find(" > ul");
+		    var itemLength = findElement.find(" > li").length;
+		    var prev = $(".btnControl3").find(".prev");
+		    var next = $(".btnControl3").find(".next");
+		    var play = $(".btnControl3").find(".play");
+		    var stop = $(".btnControl3").find(".stop");
+		    var btnPlay = autoBoolean; 
+		    var autoState = true;
+		    var timer = 0;
+		    var speed = 3000;
+		    var move = 300;
+
+		    if(findElement.children().length<= 4){
+		      play.hide();
+		      stop.hide();
+		      prev.hide();
+		      next.hide();
+		      findElement.css("width", "640");
+		    } else {
+		      findElement.css({"left" : "0", "width" : itemLength * 300});
+		    }
+
+		    if(btnPlay){
+		      timer = setInterval(moveNextSlide, speed);
+		      play.addClass("on");
+		    } else {
+		      autoState = false;
+		      stop.addClass("on");
+		    }
+
+		    findElement.on({
+		      "mouseenter" : function(){
+		        clearInterval(timer);
+		        play.removeClass("on");
+		      },
+		      "mouseleave" : function(){
+		        timer = setInterval(moveNextSlide,speed);
+		        play.removeClass("on");
+		      }
+		    });
+
+		    play.click(function(){
+		      timer = setInterval(moveNextSlide,speed);
+		      $(this).addClass("on");
+		      stop.removeClass("on");
+		      autoState = true;
+		    });
+
+		    stop.click(function(){
+		      clearInterval(timer);
+		      $(this).addClass("on");
+		      play.removeClass("on");
+		    });
+
+		    prev.on({
+		      "click" : function(){
+		        play.removeClass("on");
+		        stop.removeClass("on");
+		        movePrevSlide();
+		        autoState = false;
+		      },
+		      "mouseenter" : function(){
+		        clearInterval(timer);
+		        play.removeClass("on");
+		        stop.removeClass("on");
+		      },
+		      "mouseleave" : function(){
+		        timer = setInterval(moveNextSlide,speed);
+		        play.addClass("on");
+		      }
+		    });
+
+		    next.on({
+		      "click" : function(){
+		        play.removeClass("on");
+		        stop.removeClass("on");
+		        moveNextSlide();
+		        autoState = false;
+		      },
+		      "mouseenter" : function(){
+		        clearInterval(timer);
+		        play.removeClass("on");
+		        stop.removeClass("on");
+		      },
+		      "mouseleave" : function(){
+		        timer = setInterval(moveNextSlide,speed);
+		        play.addClass("on");
+		      }
+		    });
+
+		    function movePrevSlide(){
+		      var lastChild = findElement.children().filter(":last-child").clone(true);
+		      lastChild.prependTo(findElement);
+		      findElement.css("left","-"+move+"px");
+		      findElement.children().filter(":last-child").remove();
+		      findElement.animate({"left":"0"},"normal");
+		    }
+
+		    function moveNextSlide(){
+		      var firstChild = findElement.children().filter(":first-child").clone(true);
+		      firstChild.appendTo(findElement);
+		      findElement.children().filter(":first-child").remove();
+		      findElement.css("left","0");
+		      findElement.animate({"left":"-"+move+"px"},"normal");
+		    }
+		  }
+		}
+
+		$(document).ready(function(){
+		  commonJS3.imgRolling("rollingList3", true);
+		});
+		
+// $(document).ready(function(){
+// 	setTimeout(function() {
+// 	$(".intro").animate({left: '+=67%'},"slow");
+// 	}, 1000);
+// 	setTimeout(function() {
+// 		$(".intro").animate({left: '+=67%'}, "slow");
+// 		}, 3000);
+	
+// 	setInterval(function animate(){
+// 		$(".intro").css('left','67%');
+// 		$(".intro").animate({left: '+=67%'},"slow");
+// 		setTimeout(function() {
+// 			$(".intro").animate({left: '+=67%'}, "slow");
+// 			}, 3000);
+// 		console.log(cnt);
+// 	},4000)
+// })
+</script>
+<style>
+.intro{
+	position:relative;
+	margin-bottom: 40px;
+}
+.content1{
+	color: white;
+}
+.content2{
+	color: white;
+}
+.content3{
+	color: white;
+}
+.content1_title{
+	color: white;
+	font-size: 30px;
+	position:relative;
+	left : 50px;
+	font-family: 'Do Hyeon', sans-serif;
+}
+.content2_title{
+	color: white;
+	font-size: 30px;
+	position:relative;
+	left : 50px;
+	font-family: 'Do Hyeon', sans-serif;
+	
+}
+.content3_title{
+	color: white;
+	font-size: 30px;
+	position:relative;
+	left : 50px;
+	font-family: 'Do Hyeon', sans-serif;
+	
+}
+.row1 li{
+	list-style:none;
+}
+.row2 li{
+	list-style:none;
+}
+.row3 li{
+	list-style:none;
+}
+.title{
+	color:white;
+	font-family:'Jua';
+	font-size: 25px;
+	margin-bottom: 15px;
+	line-height: 25px;
+}
+p{
+	font-family:'Jua';
+	font-size: 15px;
+}
+ 
+/* 슬라이드 */
+a, body, button, div, html, ul, li{ 
+  padding:0;
+  margin:0; 
+}
+
+body{ 
+  position:relative; 
+  font-family:arial, sans-serif; 
+  font-size:12px; 
+  color:#555;
+}
+
+ul{ 
+  list-style:none;
+}
+
+
+/*** Rolling Container ***/
+.rollingContainer:after{ 
+  display:block; 
+  clear:both; 
+  content:"";
+}
+
+.rollingContainer{ 
+
+  margin:0 auto;
+  width : 1500px;  
+  position: relative;  
+  *zoom:1; 
+}
+
+.rollingContainer .rollingList{ 
+  width:1500px;  
+  height:460px;  
+  border: none;  
+  float:left;  
+  position:relative;  
+  overflow:hidden; 
+}
+
+.rollingContainer .rollingList2{ 
+  width:1500px;  
+  height:460px;  
+  border: none;  
+  float:left;  
+  position:relative;  
+  overflow:hidden; 
+ 
+
+}
+.rollingContainer .rollingList3{ 
+  width:1500px;  
+  height:460px;  
+  border: none;  
+  float:left;  
+  position:relative;  
+  overflow:hidden; 
+  
+  
+}
+
+.rollingContainer .rollingList ul{ 
+  height:100%;  
+  margin:0px 0 0 0;  
+  position:absolute;  
+  left:0;  
+  top:0; 
+}
+.rollingContainer .rollingList2 ul{ 
+  height:100%;  
+  margin:0px 0 0 0;  
+  position:absolute;  
+  left:0;  
+  top:0; 
+}
+.rollingContainer .rollingList3 ul{ 
+  height:100%;  
+  margin:0px 0 0 0;  
+  position:absolute;  
+  left:0;  
+  top:0; 
+}
+
+.rollingContainer .rollingList ul li{ 
+  margin:0 5px 0 5px; 
+  float:left;
+}
+.rollingContainer .rollingList2 ul li{ 
+  margin:0 5px 0 5px; 
+  float:left;
+}
+.rollingContainer .rollingList3 ul li{ 
+  margin:0 5px 0 5px; 
+  float:left;
+}
+
+.rollingContainer .rollingList ul li a{ 
+  display:block;
+}
+.rollingContainer .rollingList2 ul li a{ 
+  display:block;
+}
+.rollingContainer .rollingList3 ul li a{ 
+  display:block;
+}
+
+.rollingContainer .btnControl{ 
+  float:left;
+}
+.rollingContainer .btnControl2{ 
+  float:left;
+}
+.rollingContainer .btnControl3{ 
+  float:left;
+}
+
+.rollingContainer .btnControl button{ 
+  height:32px; 
+  padding:0 10px; 
+  border: none;
+  background-color:#000000;
+  margin-right:3px; 
+  display:inline-block; 
+  cursor:pointer;
+}
+.rollingContainer .btnControl2 button{ 
+  height:32px; 
+  padding:0 10px; 
+  border: none;
+  background-color:#000000;
+  margin-right:3px; 
+  display:inline-block; 
+  cursor:pointer;
+}
+.rollingContainer .btnControl3 button{ 
+  height:32px; 
+  padding:0 10px; 
+  border: none;
+  background-color:#000000;
+  margin-right:3px; 
+  display:inline-block; 
+  cursor:pointer;
+}
+
+.rollingContainer .btnControl button.on, .rollingContainer .btnControl button:hover{ 
+  color:#fc0303;
+}
+.rollingContainer .btnControl2 button.on, .rollingContainer .btnControl2 button:hover{ 
+  color:#fc0303;
+}
+.rollingContainer .btnControl3 button.on, .rollingContainer .btnControl3 button:hover{ 
+  color:#fc0303;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top : 50%;
+  width: 50px;
+  padding: 800px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 40px;
+  border-radius: 0 10px 10px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.prev {
+  right: 99%;
+  border-radius: 3px 0 0 3px;
+  font-family:'Jua'
+}
+
+/* Position the "next button" to the right */
+.next {
+  border-radius: 3px 0 0 3px;
+  font-family:'Jua'
+}
+
+.snip1361 {
+  font-family: 'Quattrocento', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  min-width: 230px;
+  max-width: 315px;
+  width: 100%;
+  color: #141414;
+  text-align: left;
+  line-height: 1.4em;
+  font-size: 16px;
+}
+.snip1361 * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.snip1361 img {
+  max-width: 250px;
+  vertical-align: none;
+}
+.snip1361 figcaption {
+  position: absolute;
+  top: calc(120%);
+  width: 100%;
+  background-color: #000000;
+  opacity: 0.9;
+  padding: 15px 25px 65px;
+}
+.snip1361 figcaption:before {
+  position: absolute;
+  content: '';
+  z-index: 2;
+  left: 0;
+  width: 100%;
+  bottom: 100%;
+  height: 120px;
+  background-image: -webkit-linear-gradient(top, transparent 0%, #000000 100%);
+  background-image: linear-gradient(to bottom, transparent 0%, #000000 100%);
+}
+.snip1361 h3,
+.snip1361 p {
+  margin: 0 0 10px;
+  color : #ffffff;
+}
+.snip1361 h3 {
+  font-weight: 300;
+  font-size: 1.4em;
+  line-height: 1.2em;
+  font-family: 'Oswald', Arial, sans-serif;
+  text-transform: uppercase;
+  
+}
+.snip1361 p {
+  font-size: 0.9em;
+  color : #ffffff;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
+.snip1361 a {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+.snip1361:hover figcaption,
+.snip1361.hover figcaption {
+  top: 200px;
+}
+#dog img{
+	width:100px;
+	position:relative;
+	top:70px;
+}
+@media (max-width: 1440px) {
+
+	.intro{
+		font-size:	200%;
+		text-align: center;
+	}
+	.rollingContainer .rollingList{
+		width:300px;
+	}
+	.rollingContainer .rollingList2{
+		width:300px;
+	}
+	.rollingContainer .rollingList3{
+		width:300px;
+	}
+	.rollingContainer{
+		width:80%;
+		display: flex;
+    	justify-content: center;
+	}
+	.rollingContainer2{
+		width:80%;
+		display: flex;
+    	justify-content: center;
+	}
+	.rollingContainer3{
+		width:80%;
+		display: flex;
+    	justify-content: center;
+	}
+	#dog{
+		margin-top:0;
+	}
+	.content1_title{
+		font-size:30px;
+	}
+	.prev{
+	right:70%;
+	}
+}
+@media (max-width: 900px) {
+.prev{
+	right:90%;
+	}
+}
+</style>
+	<div class="intro" id="dog"><img src="img/dog.gif"></div>
+	<div class="intro">와플렉스에서 재미있는 영화를 시청하세요!</div>
+{% if session.user_id %}
+{% if bkmks %}
+<div class="rollingContainer">
+	<div class="btnControl">
+		<div class="content1_title">내가 찜한 영화</div>
+		
+		<section class="content1">
+			<div class="rollingList">
+				<ul class="row2">
+				{% for bkmk in bkmks %}
+					<li>
+						<figure class="snip1361">
+							<img src="img/{{bkmk.poster}}" alt="sample45" onmouseenter="zoomIn(event)" onmouseleave="zoomOut(event)" />
+							<figcaption>
+								<div class="title">{{bkmk.title|truncate(15, True)}}</div>
+								<p>장르 : {{bkmk.genre_name}}</p>
+								<p>감독 : {{bkmk.director}}</p>
+							</figcaption>
+						</figure>
+					</li>
+				{% endfor %}
+				</ul>
+			</div>
+			<button type="button" class="prev"><</button>
+			<button type="button" class="next">></button>
+
+		</section>
+	</div>
+</div>
+{% endif %}
+{% endif %}	
+<div class="rollingContainer">
+	<div class="btnControl2">
+		
+		<div class="content2_title">멜로/로맨스</div>
+		<section class="content2">
+			<div class="rollingList2">
+				<ul class="row2">
+				{% for movie in movies %}
+				{% if movie.genre_name == '멜로/로맨스' %}
+					<li class="test">
+						<figure class="snip1361">
+							<img src="img/{{movie.poster}}" alt="sample45" onmouseenter="zoomIn(event)" onmouseleave="zoomOut(event)" />
+						<figcaption>
+							<div class="title">{{movie.title|truncate(15, True)}}</div>
+							<p>장르 : {{movie.genre_name}}</p>
+							<p>감독 : {{movie.director}}</p>
+						</figcaption>
+						</figure>
+					</li>
+				{% endif %}
+				{% endfor %}
+				</ul>
+			</div>
+			<button type="button" class="prev"><</button>
+			<button type="button" class="next">></button>
+		</section>
+	</div>
+</div>
+
+<div class="rollingContainer">
+	<div class="btnControl3">
+		
+		<div class="content3_title">판타지</div>
+		<section class="content3">
+			<div class="rollingList3">
+				<ul class="row3">
+				{% for movie in movies %}
+				{% if movie.genre_name == '판타지' %}
+					<li>
+						<figure class="snip1361">
+							<img src="img/{{movie.poster}}" alt="sample45" onmouseenter="zoomIn(event)" onmouseleave="zoomOut(event)" />
+						<figcaption>
+							<div class="title">{{movie.title|truncate(15, True)}}</div>
+							<p>장르 : {{movie.genre_name}}</p>
+							<p>감독 : {{movie.director}}</p>
+						</figcaption>
+						</figure>
+					</li>
+				{% endif %}
+				{% endfor %}
+				</ul>
+			</div>
+			<button type="button" class="prev"><</button>
+			<button type="button" class="next">></button>
+		</section>
+	</div>
+</div>
+{% endblock %}

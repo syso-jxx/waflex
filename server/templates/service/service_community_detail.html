@@ -1,0 +1,481 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content %}
+
+<script src="js/jquery-3.5.1.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		showReply();
+	 });
+	
+	function fn_reply_write() {
+		
+		var bbs_no = $("#bbs_no").text();
+		var content = $("textarea[name=content]").val();
+		
+		if (content == ""){
+			alert("내용을 입력하세요");
+			return location.href = "community_detail?bbs_no="+bbs_no;
+		}
+
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&bbs_no=" + bbs_no;
+		param += "&content=" + content;
+
+		$.ajax({
+			url : "reply_write.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async : false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg == "ok"){
+					alert("댓글 작성완료")
+					$("textarea[name=content]").val("");
+					showReply();
+				} else{
+					alert("댓글 작성 중 문제발생");
+				}
+			}
+		});
+	}
+	
+	function showReply(){
+		var bbs_no = '{{shows.bbs_no}}';
+
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&bbs_no=" + bbs_no;
+
+		$.ajax({
+			url : "reply_list.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async : false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				var list = data.list;
+				var txt = "";
+				var users = '{{session.user_id}}';
+				var y = "y";
+				var n = "n";
+				
+				
+				for(var i = list.length-1; i > -1; i--){
+					txt += "<tr>"+"\n";
+					txt += "	<td class='t2_row2' colspan='2'>"+"\n";
+					txt += "		<span>"+(i+1)+"번"+"</span>"+"&nbsp;&nbsp;&nbsp";
+					txt += "		<span>"+list[i].user_id+"님"+"</span>"+"&nbsp;&nbsp;&nbsp";
+					txt += "		<span>"+list[i].in_date+"</span>";
+					txt += "	</td>"+"\n";
+					txt += "	<td id='t2_thumb' rowspan='2'>"+"\n";
+    			if(users == list[i].user_id){
+					txt += "		<button onclick='fn_reply_del(\""+list[i].bbs_no+"\", \""+list[i].comm_no+"\")'>"+"삭제"+"</button><br>";
+					txt += "		<a href='javascript:fn_reply_likes(\""+list[i].comm_no+"\", \""+list[i].user_id+"\", \""+y+"\")'>" + "<img src='img/thumb_up.png' style='width: 35px'/>"+list[i].likes+"</a>"
+					txt += "		<a href='javascript:fn_reply_likes(\""+list[i].comm_no+"\", \""+list[i].user_id+"\", \""+n+"\")'>" + "<img src='img/thumb_down.png' style='width: 35px'/>"+list[i].dislike+"</a>"
+    			}else{
+					txt += "		<a href='javascript:fn_reply_likes(\""+list[i].comm_no+"\", \""+ users +"\", \""+y+"\")'>" + "<img src='img/thumb_up.png' style='width: 35px'/>"+list[i].likes+"</a>"
+					txt += "		<a href='javascript:fn_reply_likes(\""+list[i].comm_no+"\", \""+ users +"\", \""+n+"\")'>" + "<img src='img/thumb_down.png' style='width: 35px'/>"+list[i].dislike+"</a>"
+	    		}
+					txt += "	</td>"+"\n";
+					txt += "</tr>"+"\n";
+					txt += "<tr>"+"\n";
+					txt += "	<td class='t2_col2'>"+list[i].content+"</td>";
+					txt += "</tr>"+"\n";
+				}
+
+				$("#tbody_reply").html(txt);
+				
+			}
+		});
+	}
+
+	
+	function fn_reply_del(bbs_no, comm_no){
+		var flag_ok =confirm("댓글을 삭제합니다.");
+		if(!flag_ok){
+			return	
+		}
+
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&bbs_no=" + bbs_no;
+		param += "&comm_no=" + comm_no;
+
+		$.ajax({
+			url : "reply_del.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async : false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg == "ok"){
+					showReply();
+				} else{
+					showReply();
+				}
+			}
+		});
+	}
+	
+	function fn_mod(bbs_no){
+		location.href = "community_mod?bbs_no="+bbs_no;
+		
+	}
+	
+	function fn_reply_likes(comm_no, user_id, like_yn){
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&comm_no=" + comm_no;
+		param += "&user_id=" + user_id;
+		param += "&like_yn=" + like_yn;
+		
+		$.ajax({
+			url : "reply_likes.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async : false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg == "ok"){
+					showReply();
+				} else{
+					alert("문제발생")
+					showReply();
+				}
+
+			}
+		});
+	
+	}
+	
+	function fn_reply_dislike(comm_no){
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&comm_no=" + comm_no;
+
+		$.ajax({
+			url : "reply_dislike",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async : false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg == "ok"){
+					showReply();
+				} else{
+					alert("문제발생")
+				}
+
+			}
+		});
+	
+	}
+	
+	function fn_del(bbs_no){
+		var flag_ok =confirm("게시글을 삭제합니다.");
+		if(!flag_ok){
+			return	
+		}
+		
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&bbs_no=" + bbs_no;
+
+		$.ajax({
+			url : "community_del",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async : false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				console.log(data.msg)
+				if(data.msg == "ok"){
+					alert("삭제완료");
+					location.href = "service_community"
+				} else{
+					alert("삭제실패");
+					location.href = "service_community"
+				}
+			}
+		});
+		
+	}
+	
+</script>
+<style type="text/css">
+input {
+	width: 500px;
+	font-size: 20px;
+	text-align: center;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+.table1 {
+	display: flex;
+	justify-content: center;
+}
+
+.cmt th {
+	height: 20px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 10px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.cmt td {
+	text-align: center;
+	color: #ffffff;
+	font-size: 15px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+#cmt {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 700px;
+}
+
+#cmt_btn {
+	margin: 10px;
+}
+
+.cmt_list {
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+	text-align: left;
+	text-decoration:underline;
+	text-underline-position:under;
+	border-bottom:0;
+}
+
+.edit_btn {
+	width: 180px;
+	border-bottom:0;
+}
+
+.cmt_write {
+	display: flex;
+	justify-content: center;
+	padding-top: 20px;
+	padding-bottom: 200px;
+	align-items: center;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+textarea {
+	margin: 10px;
+}
+
+.table2 {
+	width: 800px;
+}
+
+.table2 td {
+	color: #ffffff;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+th{
+	border-bottom: 1px solid rgba(169,169,169,0.4);
+}
+td{
+	border-bottom: 1px solid rgba(169,169,169,0.4);
+}
+.t2_col1 {
+	width: 100px;
+}
+
+.notice {
+	color: white;
+	font-size: 30px;
+	display: flex;
+	justify-content: center;
+	font-family: 'Do Hyeon', sans-serif;
+	margin: 20px;
+}
+
+button {
+	font-size: 15px;
+	color: #fff;
+	background: #2581dc;
+	border: none;
+	margin: 5px;
+	cursor: pointer;
+	border-radius: 5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding: 3px 10px;
+	width: auto;
+}
+
+button:hover {
+	background-color: rgba(37, 129, 220, 0.9);
+}
+
+.t2_div {
+	display: flex;
+	justify-content: center;
+}
+
+.t2_row2 {
+	border-bottom: 0;
+	text-align: left;
+}
+
+#t2_thumb img {
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+#t2_thumb {
+	text-align: right;
+	
+}
+
+.t2_col2 {
+	width: 400px;
+	text-align: center;
+}
+
+.cmt_edit {
+	margin: 3px;
+}
+.td_content{
+	height:300px;
+	width:350px;
+}
+@media(max-width:1440px){
+textarea{
+	width:180px;
+}
+#t2_thumb {
+	width:80px;
+}
+.table2 td{
+	width:100px;
+	text-align:left;
+}
+.t2_col2{
+	width:200px;
+}
+.table2{
+	width:400px;
+}
+}
+</style>
+
+
+<div class=""></div>
+<header>
+	<div class="notice">와글와글</div>
+</header>
+<section id="content1">
+	<div class="cmt">
+		<table class="table1">
+			<tr>
+				<th>공지번호</th>
+				<td id="bbs_no" colspan="2">{{shows.bbs_no}}</td>
+			</tr>
+
+			<tr>
+				<th>제목</th>
+				<td id="bbs_title" colspan="2">{{shows.title}}</td>
+			</tr>
+			<tr>
+				<th>조회수</th>
+				<td colspan="2">{{shows.rdcnt}}</td>
+			</tr>
+			<tr>
+				<th>작성일</th>
+				<td colspan="2">{{shows.in_date}}</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td colspan="2">{{shows.user_id}}</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td class="td_content" colspan="2">{{shows.content}}</td>
+				<td></td>
+			</tr>
+			<tr>
+				<th class="col1" rowspan="2">첨부파일</th>
+				<td>{% if shows.attach_file %} <a href="download?attach_file={{shows.attach_file}}&attach_path={{shows.attach_path}}">{{shows.attach_file}}</a> <img
+					src="download?attach_file={{shows.attach_file}}&attach_path={{shows.attach_path}}" width="25px"> {% else %} 첨부파일없음 {% endif %}
+				</td>
+			<tr></tr>
+			<td class="edit_btn" colspan="2">
+				<button onclick="location.href='service_community'">목록</button> {% if shows.user_id == session.user_id %}
+				<button onclick="fn_mod('{{shows.bbs_no}}')">수정</button>
+				<button onclick="fn_del('{{shows.bbs_no}}')">삭제</button> {% else %} {% endif %}
+			</td>
+			</tr>
+
+		</table>
+	</div>
+	<div class="cmt_write">
+		댓글 작성
+		<textarea name="content" rows="7" cols="85"></textarea>
+		<button onclick="fn_reply_write()">댓글쓰기</button>
+	</div>
+
+
+	<div class="t2_div">
+		<table class="table2">
+			<tr>
+				<td class="cmt_list">댓글 목록</td>
+			</tr>
+			<tbody id="tbody_reply">
+				<!-- showReply()에서 작성됨 -->
+			</tbody>
+		</table>
+	</div>
+</section>
+<br>
+<br>
+<br>
+{% endblock %}

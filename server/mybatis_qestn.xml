@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select_list">
+		select 
+			qestn_no,
+			user_id,
+			title,
+			content,
+			writer,
+			answer,
+			answrr,
+			in_date,
+			id_user_id,
+			up_date,
+			up_user_id
+		from 
+			qestn q
+		order by 
+			in_date desc
+	</select>
+	<select id="select_qnalist">
+		select 
+			qestn_no,
+			user_id,
+			title,
+			content,
+			writer,
+			answer,
+			answrr,
+			in_date,
+			id_user_id,
+			up_date,
+			up_user_id,
+			(select user_nm from users u where u.user_id=q.user_id) in_user_name
+		from 
+			qestn q
+		where
+			user_id=:1
+		order by 
+			in_date desc
+	</select>
+	<select id="select">
+		select 
+			qestn_no,
+			user_id,
+			title,
+			content,
+			writer,
+			answer,
+			answrr,
+			in_date,
+			id_user_id,
+			up_date,
+			up_user_id,
+			(select user_nm from users u where u.user_id=q.user_id) in_user_name
+		from 
+			qestn q
+		where
+			qestn_no =: 1
+	</select>
+	
+	<select id="my_info">
+		select 
+			user_id,
+			user_nm,
+			user_password,
+			user_telno,
+			user_email,
+			mngr_flag,
+			act_flag,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		from 
+			users
+	   where
+	   	 	user_id = :1		
+	</select>
+	
+	<update id="insert">
+		insert into 
+		qestn
+		(
+			qestn_no, 
+			user_id, 
+			title,
+			content, 
+			in_date,
+			answer,
+			writer
+			
+		) 
+		values
+		(
+			(SELECT NVL(MAX(qestn_no)+1,0) FROM qestn), 
+			:1, 
+			:2,
+			:3,
+			to_char(sysdate, 'YYYY-MM-DD.HH24:MI:SS'),
+			' ',
+			' '
+		)
+		</update>
+	<update id="update_answer">
+	
+        update 
+        	qestn 
+        set 
+	        answer=:1, 
+	        up_date=to_char(sysdate, 'YYYY-MM-DD.HH24:MI:SS'), 
+	        writer=:2
+        where qestn_no=:3
+	</update>
+	
+	<update id="del_answer">
+		update 
+			qestn 
+		set 
+			answer = ' '
+		where qestn_no=:1
+	</update>
+	
+	<update id="delete">
+		delete from
+			qestn
+		where
+			qestn_no = :1	   		
+	</update>
+</mapper>

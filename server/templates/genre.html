@@ -1,0 +1,459 @@
+{% extends 'layout.html' %} {% block content %}
+<meta charset="UTF-8">
+<script src="js/jquery-3.5.1.js"></script>
+<link rel="stylesheet" href="css/style.css">
+
+<style type="text/css">
+#genre_main {
+	text-align: center;
+}
+
+#sel_container {
+	text-align: center;
+}
+
+#sel_title {
+	color: white;
+	font-size: 40px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin-top:20px;
+	margin-bottom: 30px;
+	
+}
+input[type=button] {
+	width: auto;
+	color: black;
+	font-size: 17px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+#sel_genre {
+	width: 200px;
+	height: 35px;
+	font-size: 20px;
+	background-color: black;
+	color: #E2E2E2;
+	font-weight: bold;
+}
+
+#sel_nation {
+	margin-right: 500px;
+	width: 200px;
+	height: 35px;
+	font-size: 20px;
+	background-color: black;
+	color: #E2E2E2;
+	font-weight: bold;
+}
+
+#sel_reco {
+	width: 200px;
+	height: 35px;
+	font-size: 20px;
+	background-color: black;
+	color: #E2E2E2;
+	font-weight: bold;
+}
+
+#main_container {
+	text-align: center;
+}
+
+#movie_list {
+	margin-top: 40px;
+}
+
+.img {
+	width: 200px;
+}
+.row_ul {
+	display: inline-block;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.row_li {
+	display: inline-block;
+}
+.search{
+	display:flex;
+	justify-content:center;
+	position: relative;
+	left: 50px;
+	margin: 60px;
+}
+.search_btn{
+	margin-left: 30px;
+	margin-right: 30px;
+}
+@media (max-width: 1440px) {
+
+#sel_genre {
+	width: 30%;
+	font-size: 15px;
+}
+#sel_nation {
+	margin-right: 0;
+	width: 30%;
+	font-size: 15px;
+}
+#sel_reco {
+	width: 30%;
+	height: 35px;
+	font-size: 15px;
+}
+
+.card{
+margin-top:50%;
+}
+input[type=text]{
+	width:200px;
+}
+.search{
+	left: 5%;
+	width: 90%;
+}
+}
+
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#sel_genre').on('change', function() {
+		var sel_genre = $('#sel_genre option:selected').val();
+		var sel_nation = $('#sel_nation option:selected').val();
+		var sel_reco = $('#sel_reco option:selected').val();
+		
+		// ajax
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&sel_genre=" + sel_genre;
+		param += "&sel_nation=" + sel_nation;
+		param += "&sel_reco=" + sel_reco;
+		
+		$.ajax({
+			url : "/movie_sel_list.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async: false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				var list = data.movies
+				var bkmks = data.bkmks
+				show_movie_list(list, bkmks);
+			}
+		});
+	});
+
+	$('#sel_nation').on('change', function() {
+		var sel_genre = $('#sel_genre option:selected').val();
+		var sel_nation = $('#sel_nation option:selected').val();
+		var sel_reco = $('#sel_reco option:selected').val();
+
+		// ajax
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&sel_genre=" + sel_genre;
+		param += "&sel_nation=" + sel_nation;
+		param += "&sel_reco=" + sel_reco;
+		
+		$.ajax({
+			url : "/movie_sel_list.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async: false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				var list = data.movies
+				var bkmks = data.bkmks
+				show_movie_list(list, bkmks);
+			}
+		});
+	});
+
+	$('#sel_reco').on('change', function() {
+		var sel_genre = $('#sel_genre option:selected').val();
+		var sel_nation = $('#sel_nation option:selected').val();
+		var sel_reco = $('#sel_reco option:selected').val();
+
+		// ajax
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&sel_genre=" + sel_genre;
+		param += "&sel_nation=" + sel_nation;
+		param += "&sel_reco=" + sel_reco;
+		
+		$.ajax({
+			url : "/movie_sel_list.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async: false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				var list = data.movies
+				var bkmks = data.bkmks
+				show_movie_list(list, bkmks);
+			}
+		});
+	});
+});	
+	
+	function show_movie_list(list, bkmks){
+		$('.row_ul').empty();
+		var content = ''
+		for(var i = 0; i < list.length; i++){
+			content += '<li class="row_li">                                                                        '
+			content += '	<div class="card middle">                                                               '
+			content += '		<div class="front">                                                                 '
+			content += '			<a class="movie_a">                                                             '
+			content += '				<img class="img" src="img/'+list[i].poster+'">                                '
+			content += '			</a>                                                                            '
+			content += '		</div>                                                                              '
+			content += '	<div class="back">                                                                      '
+			content += '		<div class="back-content middle">                                                   '
+			if(list[i].title.length > 14){
+				content += '			<h3>'+list[i].title.substr(0, 14)+'..</h3>                                                        '
+			}else{
+				content += '			<h3>'+ list[i].title +'</h3>                                                        '
+			}
+			content += '			<p>국가 : '+list[i].nation_name+'</p>                                             '
+			content += '			<p>감독 : '+list[i].director+'</p>                                                '
+			content += '			<p>장르 : '+list[i].genre_name+'</p>                                              '
+			content += '			<p>배우 : '+list[i].actor.substring(0, 10)+'...</p>                         '
+			content += '			<p>개봉 : '+list[i].release_date+'</p>                                            '
+			content += '			<p>런타임 : '+list[i].runtime+'</p>                                               '
+			{% if session.user_id %}
+			{% if session.payment_flag == 'y' %}
+			content += '				<button type="button" onclick="fn_stream('+list[i].movie_no+', \''+list[i].url+'\')">영화보기</button>'
+			{% endif %}
+			if(bkmks.indexOf(list[i].movie_no) == -1){
+				content += '<button type="button" onclick="fn_bkmk_add('+ list[i].movie_no +')">찜하기</button>'
+			}else{
+				content += '<button type="button" onclick="fn_bkmk_del('+ list[i].movie_no +')">찜취소</button>'
+			}
+			{% endif %}
+			content += '			</div>                                                                          '
+			content += '		</div>                                                                              '
+			content += '	</div>	                                                                                '
+			content += '</li>                                                                                      '
+		}
+		$('.row_ul').append(content);
+	}
+	
+	function fn_search(){
+		var target = $('#search').val().trim();
+		
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&target=" + target;
+		
+		$.ajax({
+			url : "/movie_search.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async: false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				var list = data.movies
+				var bkmks = data.bkmks
+				show_movie_list(list, bkmks);
+			}
+		});
+	} 
+
+	function fn_bkmk_add(movie_no){
+		// ajax
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&movie_no=" + movie_no;
+		
+		$.ajax({
+			url : "/movie_bkmk_add.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async: false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg == 'ok'){
+					alert('정상적으로 추가되었습니다.')
+				}else{
+					alert('추가 도중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요.')
+				}
+				location.reload();
+			}
+		});
+	} 
+	
+	function fn_bkmk_del(movie_no){
+		// ajax
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&movie_no=" + movie_no;
+		
+		$.ajax({
+			url : "/movie_bkmk_del.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async: false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg == 'ok'){
+					alert('정상적으로 삭제되었습니다.')
+				}else{
+					alert('삭제 도중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요.')
+				}
+				location.reload();
+			}
+		});
+	}
+	
+	function fn_stream(movie_no, url){
+		window.open(url);
+		
+		// ajax
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&movie_no=" + movie_no;
+		
+		console.log(movie_no)
+		$.ajax({
+			url : "/movie_stream.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async: false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				location.reload();			
+			}
+		});
+	}
+	
+
+</script>
+
+<!-- body에 들어갈 내용 -->
+<div id="genre_main">
+	
+	<div id="sel_container">
+		<div id="sel_title">
+			작품 찾기
+		</div>
+		<!-- 	검색용 div -->
+	<div class="search">
+		<input type="text" id="search">
+		<input class="search_btn" type="button" onclick="fn_search()" value="검색">
+	</div>
+			<!-- 	장르 선택 -->
+			<select id="sel_genre">
+				<option value="all" selected>모든장르</option>
+				{% for genre in genres %}
+				<option value="{{genre.genre_code}}">{{genre.name}}</option>
+				{% endfor %}
+			</select>
+			<!-- 	국가 선택 -->
+			<select id="sel_nation">
+				<option value="all" selected>모든국가</option>
+				{% for nation in nations %}
+				<option value="{{nation.nation_code}}">{{nation.name}}</option>
+				{% endfor %}
+			</select>
+
+			<!-- 	정렬 -->
+			<select id="sel_reco">
+				<option value="stream_cnt desc" selected>인기순</option>
+				<option value="release_date desc">최신순</option>
+				<option value="title asc">이름순</option>
+			</select>
+	</div>
+	
+	
+	<!-- 	장르별 -->
+	<!-- movie_container -->
+	<div id="movie_container">
+		<!-- movie_list -->
+		<ul id="movie_list">
+			<!-- movie_row -->
+			<li class="movie_row">
+				<!-- row_div -->
+				<div class="row_div">
+					<!-- row_ul -->
+					<ul class="row_ul">
+						{% for movie in movies %} 
+						<li class="row_li">
+							<div class="card middle">
+								<div class="front">
+									<a class="movie_a">
+										<img class="img" src="img/{{movie.poster}}">
+									</a>
+								</div>
+								<div class="back">
+									<div class="back-content middle">
+										<h3>{{movie.title|truncate(15, True)}}</h3>
+										<p>국가 : {{movie.nation_name}}</p>
+										<p>감독 : {{movie.director}}</p>
+										<p>장르 : {{movie.genre_name}}</p>
+										<p>배우 : {{movie.actor|truncate(10, True, '...')}}</p>
+										<p>개봉 : {{movie.release_date}}</p>
+										<p>런타임 : {{movie.runtime}}</p>
+										{% if session.user_id %}
+										  {% if session.payment_flag == 'y' %}	
+      										<button type="button" onclick="fn_stream({{movie.movie_no}},'{{movie.url}}')">영화보기</button>
+	      								  {% endif %}	
+	      									{% if movie.movie_no in bkmks %}
+	      									<button type="button" onclick="fn_bkmk_del({{movie.movie_no}})">찜취소</button>
+	      									{% else %}
+	      									<button type="button" onclick="fn_bkmk_add({{movie.movie_no}})">찜하기</button>
+	      									{% endif %}
+      									{% endif %}
+									</div>
+								</div>
+							</div>	
+						</li>
+						{% endfor %}
+					</ul>
+					<!-- row_ul end-->
+				</div> <!-- row_div end-->
+			</li>
+			<!-- movie_row end -->
+		</ul>
+		<!-- movie_list end-->
+	</div>
+	<!--  movie_container end -->
+</div>
+<!-- 장르 div end -->
+
+{% endblock %}

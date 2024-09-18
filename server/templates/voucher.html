@@ -1,0 +1,164 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<script src="./js/jquery-3.5.1.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function () {
+    $('#pay').on('click', function () {
+    	window.open("/payment");  
+   	
+//     	if(payment_flag == "y"){
+//     		location.href("/main");
+//     	}
+    });
+})
+
+function fn_already(){
+	alert("이미 사용 중인 이용권입니다")
+
+}
+	
+</script>
+<style type="text/css">
+
+#title {
+	color:white;
+	display:flex;
+	justify-content:center;
+}
+
+#button{
+	text-align : center;
+	margin-right : auto;
+	margin-left : auto;
+	margin-top : 20px;
+}
+#confirm{
+	width : 500px;
+	height : 50px;
+	color : white;
+	font-weight : bold;
+	font-size : 20px;
+	outline : 0;
+	border : 0;
+}
+table{
+	border-collapse:collapse;
+}
+th{
+	font-weight:bold;
+	font-size:20px;
+	width:300px;
+	height:50px;
+	border-bottom: 1px solid rgba(169, 169, 169, 0.4);
+}
+
+td{
+	vertical-align:center;
+	width:500px;
+	height:50px;
+	border-bottom: 1px solid rgba(169, 169, 169, 0.4);
+}
+.purchase_table{
+	display:flex;
+	justify-content:center;
+	color: white;
+	text-align:center;
+}
+
+#pay{
+	color : white;
+	font-weight : bold;
+}
+#guide{
+	color:white;
+	margin-left: 20%	
+	
+}
+input[type=button]{
+  	font-size: 30px; 
+	color:#fff; 
+	border:none;
+	margin:20px;
+	cursor:pointer;
+	border-radius:15px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:5px 15px;
+	width:auto;
+}
+input[type=button]:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+#title{
+text-decoration:underline;
+text-underline-position: under;
+}
+</style>
+
+</head>
+<body>
+
+		<div class="table-responsive">
+			<div id="title">
+				<h1>WAFLEX 이용권 결제</h1>
+			</div>
+
+			<br/>
+
+				<table class="purchase_table">
+						<tr>
+							<th class="row1">요금명</th>
+							<th>Standard(스탠다드)</th>
+						</tr>
+						<tr>
+							<th class = "row2">월 요금</th>
+							<td>12,500원</td>
+						</tr>
+						
+						<tr>
+							<th class = "row5">해상도</th>
+							<td>4K+HDR</td>
+						</tr>
+						<tr>
+							<th class = "row6">지원 기기</th>
+							<td>TV, 컴퓨터, 스마트폰,
+									태블릿으로 시청</td>
+						</tr>
+				</table>
+				
+							
+			</div>
+			<div id = "button">
+			{% if session.payment_flag == 'y' %}
+				<input type="button" value="구매할 수 없는 이용권" id="notpay" style="background: #ca3435;" onclick="fn_already()">
+			{% else %}
+				<input type="button" value="결제하기" id="pay" style="background: #2581dc;">
+			{% endif %}
+			</div>
+			
+			<div id = "guide">
+			<h3>안 내</h3>
+			 <h4>서비스 이용 주의사항</h4>
+			WAFLEX 서비스는 국내에서 이용하실 수 있습니다. <br />
+			해외에서는 서비스 이용이 불가하며, 콘텐츠제공사(CP)의 별도 요청, 저작권 문제, 기타 사업권역 문제 등으로 서비스 이용이 제한됩니다. <br />
+			하나의 계정으로 동시시청을 할 수 없습니다. <br />
+			<br />
+			 <h4>서비스 이용 권장사양</h4>
+			PC : windows 7, html5 지원 브라우저, <br />
+			스마트폰 : Android 4.0 이상 | iOS 11.0 이상, <br />
+			태블릿 : Android 4.0 이상 | iOS 11.0 이상, <br />
+			<br />
+			 <h4>이용권 구매 주의사항</h4>
+			이용권은 부가세(VAT)포함 가격입니다. <br />
+			상품 가격은 내부 정책으로 인해 변경 될 수 있습니다. <br />
+			자동결제 시 결제 당일을 제외한 이용기간 중 언제든지 자동결제를 해지하실 수 있습니다. 이 경우 더 이상 추가 결제되지 않으며 남은 기간 동안은 계속 이용하실 수 있습니다. <br />
+			통신사, 신용카드 정보 변경 및 잔액부족 시에는 결제실패로 자동결제가 해지될 수 있습니다. <br />
+			고객센터를 통한 자동결제해지 신청은 본인만 가능합니다. <br />
+			모든 WAFLEX 상품은 선불결제 상품으로 구매 및 사용하신 이용권에 대해서는 결제취소 및 환불되지 않습니다.<br />
+
+
+	</div>
+</body>
+{% endblock %}

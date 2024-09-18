@@ -1,0 +1,116 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content %}
+
+<style>
+.centered{ display: table; margin-left: auto; margin-right: auto };
+
+.btn { align: center; bgcolor: #ca3435 };
+
+table{
+padding:15px; 
+border:1px solid rgba(169,169,169,0.4);
+border-radius: 30px;
+
+}
+td{
+	font-size: 15px; 
+	color : #fff; 
+	text-align :center;
+	width: 400px;
+	padding: 25px;
+}
+th{
+	color : #fff;
+	font-size: 20px;  
+}
+button{
+	font-size: 20px; 
+	float: right; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	padding:3px 10px;
+}
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+.table2_th{
+	border-top: 1px solid rgba(169,169,169,0.4);
+}
+.table2_td{
+	width:480px;
+	border-top: 1px solid rgba(169,169,169,0.4);
+}
+</style>
+<script>
+function fn_list(){
+	location.href = "notice_admin";
+}
+function fn_mod(){
+	location.href = "notice_mod_admin?notice_no={{notice.notice_no}}";
+}
+function fn_del(){
+    var flag_ok = confirm("한번 삭제된 자료는 복구가 불가합니다. 그래도 하시렵니까?");
+    
+    if(flag_ok){
+       location.href="notice_delact_admin?notice_no={{notice.notice_no}}"         
+    }
+}
+
+
+
+</script>
+<body>
+<div class="centered"> 
+	<p style =" color : #fff;">
+    <table>
+			<tr>
+				<th>제목</th>
+				<td>{{notice.title}}</td>
+			</tr>
+			<tr>
+				<th>조회수</th>
+				<td>{{notice.rdcnt}}</td>
+			</tr>
+			<tr>
+				<th>작성일</th>
+				<td>{{notice.in_date}}</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+					<td>{{notice.user_id}}</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td><pre>{{notice.content}}</pre></td>
+			</tr>
+			
+			<tr>
+				<th class="col1">첨부파일</th>
+				<td>
+					{% if notice.attach_file %}
+					<a href="download?attach_file={{notice.attach_file}}&attach_path={{notice.attach_path}}">{{notice.attach_file}}</a>
+					<img src="download?attach_file={{notice.attach_file}}&attach_path={{notice.attach_path}}" width="40px">
+					{% else %}
+					첨부파일없음
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td class="edit_btn" colspan="2">
+					<button onclick="fn_list()">목록</button>
+					<button onclick="fn_mod()">수정</button>
+					<button onclick="fn_del()">삭제</button>
+				</td>
+
+			</tr>
+			
+			</table>
+		</div>
+	</section>
+	{% endblock %}

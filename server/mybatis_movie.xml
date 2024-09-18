@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select_search">
+		select 
+			movie_no,
+			(select name
+               from genre
+              where movie.genre_code = genre.genre_code) genre_name,
+			(select name
+               from nation
+              where nation.nation_code = movie.nation_code) nation_name,
+			title,
+			director,
+			actor,
+			runtime,
+			release_date,
+			poster,
+			url,
+			stream_cnt,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		from 
+		    movie
+	   where	 
+		    title like '%'||:1||'%'
+	</select>
+	
+	<select id="select_all">
+		SELECT 
+			movie_no,
+			(select name
+               from genre
+              where movie.genre_code = genre.genre_code) genre_name,
+			(select name
+               from nation
+              where nation.nation_code = movie.nation_code) nation_name,
+			title,
+			director,
+			actor,
+			runtime,
+			release_date,
+			poster,
+			url,
+			stream_cnt,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		from 
+		    movie
+		order by stream_cnt desc
+	</select>
+	
+	<select id="select_all_admin">
+		SELECT 
+			movie_no,
+			(select name
+               from genre
+              where movie.genre_code = genre.genre_code) genre_name,
+			(select name
+               from nation
+              where nation.nation_code = movie.nation_code) nation_name,
+			title,
+			director,
+			actor,
+			runtime,
+			release_date,
+			poster,
+			url,
+			stream_cnt,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		from 
+		    movie
+		order by up_date desc
+	</select>
+	
+	<select id="select_one">
+		select 
+			movie_no,
+			genre_code,
+			nation_code,
+			title,
+			director,
+			actor,
+			runtime,
+			release_date,
+			poster,
+			url,
+			stream_cnt,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		from 
+		    movie
+	   where
+	    	movie_no = :1		    
+		order by up_date desc
+	</select>
+	
+	
+	
+	<update id="insert">
+		insert into movie (
+			movie_no,
+			genre_code,
+			nation_code,
+			title,
+			director,
+			actor,
+			runtime,
+			release_date,
+			poster,
+			url,
+			stream_cnt,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		) 
+		values(
+			movie_seq.nextval,
+			 :1,
+			 :2,				
+			 :3,
+			 :4,
+			 :5,
+			 :6,
+			 :7,
+			 :8,
+			 :9,
+			 0,	 
+			to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			:10,
+			to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			:11
+		)
+	</update>
+	
+	<update id="update_all">
+		update
+			movie
+		set
+		    genre_code   = :1,
+			nation_code  = :2,
+			title        = :3,
+			director     = :4,
+			actor        = :5,
+			runtime      = :6,
+			release_date = :7,
+			poster       = :8,
+			url          = :9,
+			up_date      = to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			up_user_id   = :10
+		where
+			movie_no	=:11
+	</update>
+	
+	<update id="update_stream_cnt">
+		update
+			movie
+		set
+		   stream_cnt = stream_cnt + 1
+		where
+			movie_no	=:1
+	</update>
+	
+		
+	<update id="delete">
+		delete from movie
+		 where movie_no		=:1
+	</update>
+</mapper>

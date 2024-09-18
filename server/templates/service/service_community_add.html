@@ -1,0 +1,156 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content %}
+
+<script src="js/jquery-3.5.1.js"></script>
+
+<script type="text/javascript">
+	function formCheck() {
+		if (!document.testForm.title.value) {
+			alert("제목을 입력하세요");
+			document.testForm.title.focus();
+			return false
+		} else if(!document.testForm.content.value) {
+			alert("내용을 입력하세요");
+			document.testForm.content.focus();
+			return false;
+		}
+	}
+</script>
+
+<style type="text/css">
+.notice {
+	display: flex;
+	justify-content: center;
+	color: #ffffff;
+	font-size: 35px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin-bottom: 50px;
+}
+
+form {
+	display: flex;
+	justify-content: center;
+}
+
+th {
+	text-align: center;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+	width:200px;
+}
+
+td {
+	text-align: center;
+	color: #ffffff;
+	font-size: 17px;
+	padding: 20px;
+}
+
+td>input[type=file] {
+	font-size: 15px;
+	width: 380px;
+}
+
+td>input[type=text] {
+	width:370px;
+}
+
+table {
+	border: 1px solid rgba(169, 169, 169, 0.5);
+	border-radius: 30px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+button {
+	font-size: 15px;
+	color: #fff;
+  	font-size: 17px; 
+	color:#fff; 
+	background: #2581dc;
+	border: none;
+	margin: 5px;
+	cursor: pointer;
+	border-radius: 5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding: 3px 10px;
+	width: auto;
+}
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+#file_btn{
+  	font-size: 15px; 
+	color:#fff; 
+	background: #2581dc;
+	border: none;
+	margin: 5px;
+	cursor: pointer;
+	border-radius: 5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding: 3px 10px;
+	width: auto;
+}
+#file_button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+@media (max-width: 1440px) {
+
+table{
+	width:370px;
+}
+td>input[type=text] {
+	width: 200px;
+}
+textarea{
+	width: 200px;
+}
+td>input[type=file] {
+	font-size: 15px;
+	width: 200px;
+}
+th{
+	width:120px;
+}
+}
+</style>
+
+<section class="content">
+	<div class="notice">와글와글</div>
+	<form action="community_ins" method="post" enctype="multipart/form-data" onsubmit="return formCheck()" name="testForm">
+		<table>
+			<tr>
+				<th class="th_row1">아이디</th>
+				<td class="td_row1"><input type="text" name="user_id" value="{{session.user_id}}" readonly="readonly"></td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<td><input type="text" name="title"></td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td><textarea name="content" rows="20" cols="50"></textarea></td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td><input type="text" name="writer" value="{{session.user_nm}}" readonly="readonly"></td>
+			</tr>
+			<tr>
+				<th>첨부파일</th>
+				<td><input type="file" name="file" /></td>
+			</tr>
+
+			<tr>
+				<td colspan="2">
+					<button type="submit" style="text-align: center">등록</button>
+					<button type="button" onclick="location.href='service_community'">목록</button>
+				</td>
+			</tr>
+
+		</table>
+
+	</form>
+</section>
+{% endblock %}

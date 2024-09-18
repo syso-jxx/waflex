@@ -1,0 +1,321 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+
+{% block content %}
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src='js/jquery-3.5.1.js'></script>
+
+<style type="text/css">
+@import url(http://weloveiconfonts.com/api/?family=typicons);
+
+[class*="typicons-"]:before {
+	font-family: 'Typicons', sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 16px;
+	height: 100%;
+}
+
+.login {
+	width: 300px;
+	height: 290px;
+	background: rgba(0, 0, 0, 0.8);
+	margin: 10vh auto 0 auto;
+	padding: 0 1.1em;
+}
+
+h1 {
+	color: #fff;
+	text-transform: uppercase;
+	text-align: center;
+	font-size: 1.05em;
+	letter-spacing: 0.05em;
+	font-weight: 300;
+	padding: 35px 0;
+}
+
+.wrapper {
+	margin: 0 auto 20px auto;
+	border-radius: 3px;
+	box-shadow: inset 4px 6px 10px -4px rgba(0, 0, 0, 0.3), 0 1px 1px -1px rgba(255, 255, 255, 0.5);
+}
+
+input {
+	width: 83.5%;
+	height: 47px;
+	background: rgba(0, 0, 0, 0.2);
+	font-size: 0.85em;
+	color: #fff;
+	border: none;
+	padding: 15px 5px;
+}
+
+input[placeholder] {
+	color: #666;
+}
+
+input:valid {
+	color: #fff;
+}
+
+input:focus {
+	outline: none;
+}
+
+input:invalid {
+	color: #CA3435;
+	border: none;
+}
+
+input[type=button] {
+	width: 100%;
+	text-transform: uppercase;
+	background: #ca3435;
+	cursor: pointer;
+	font-family: 'Nunito';
+	border-radius: 3px;
+	font-weight : bold;
+}
+
+#kakao {
+	width: 100%;
+	text-transform: uppercase;
+	background: #FFFF00;
+	cursor: pointer;
+	font-family: 'Nunito';
+	border-radius: 3px;
+	margin-top : 5px;
+	color : #61380B;
+	font-weight : bold;
+}
+
+input[type=submit]:hover {
+	background: rgba(202, 52, 53, 0.9);
+}
+
+label {
+	float: left;
+	background: rgba(0, 0, 0, 0.2);
+	color: #666;
+	padding: 5px 10px;
+	font-size: 1.4em;
+	height: 47px;
+	border-radius: 3px 0 0 3px;
+}
+
+label:after {
+	content: '';
+	display: inline-block;
+	border-right: 1px solid #666;
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-right: -5px;
+	height: 25px;
+}
+
+log_find {
+	color: #666;
+	font-size: 0.9em;
+	font-weight: 300;
+}
+
+a:link, a:visited {
+	text-decoration: none;
+	color: #A9A9A9;
+}
+
+a:hover, a:active {
+	color: #fff;
+}
+
+p.forget {
+	font-size: 0.9em;
+	text-align: center;
+	margin: 30px 0;
+}
+
+p.forget a:hover, p.forget a:active {
+	color: #fff;
+}
+input::placeholder{
+	color : #D8D8D8;
+/* 	font-weight : bold; */
+	
+}
+.btn{
+	color : #D8D8D8;
+	font-weight : bold;
+	
+}
+</style>
+
+<script type="text/javascript">
+	function fn_login() {
+		var user_id = $("#user_id").val();
+		var user_password = $("#user_password").val();
+
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&user_id=" + user_id
+		param += "&user_password=" + user_password
+
+		$.ajax({
+			url : "login.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async : false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				console.log(data.mngr_flag)
+				if (data.msg == "ok") {
+					if(data.mngr_flag == 'y'){
+						location.href = 'admin'	
+					}else{
+						location.href = "main"
+					}
+				}else if(data.msg == 'del'){
+					alert("탈퇴한 회원입니다.")
+				}else {
+					alert("아이디 혹은 비밀번호가 맞지 않습니다")
+				}
+			}
+		});
+	}
+	
+
+	
+// Enter Key 이벤트	
+// 	$("#password").keypress(function (e) {
+//         if (e.keyCode === 13) {
+//         	$("#login").click();
+//         }
+//     });
+	
+	
+
+	function fn_admin(){
+		$('#user_id').val('mm1004')
+		$('#user_password').val('aa')
+	}
+	
+	function fn_user(){
+		$('#user_id').val('1')
+		$('#user_password').val('1')
+	}
+	
+</script>
+
+
+<link href='https://fonts.googleapis.com/css?family=Nunito:300' rel='stylesheet' type='text/css'>
+<div class="login">
+		<div class="wrapper">
+			<label for="user_id"><span class="typicons-user"></span></label>
+			<input type="text" id="user_id" placeholder="아이디를 입력하세요"></input>
+		</div>
+		<div class="wrapper">
+			<label for="user_password"><span class="typicons-lock"></span></label>
+			<input type="password" id="user_password" placeholder="비밀번호를 입력하세요"></input>
+		</div>
+		<input type="button" id="login" onclick="fn_login()" value="로그인"></input>
+
+		<input type="button" id="kakao" class="kakao-login-btn" value="카카오 로그인" ></input>
+		<div class="wrapper">
+			<p class="forget">
+				<a class = "btn" href="yak">회원가입</a><br><br>
+				<a class = "btn" href="id">아이디 찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a class = "btn" href="pwd">비밀번호 찾기</a><br><br>
+				<a class = "btn" href="javascript:fn_admin()">관리자로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a class = "btn" href="javascript:fn_user()">회원로그인</a>
+			</p>
+		</div>
+</div>
+<script>
+
+Kakao.init('3ded306ab1fb8577ce7db3211918fa03');
+console.log(Kakao.isInitialized());
+
+Kakao.Auth.createLoginButton({
+	container: '.kakao-login-btn',
+	success: function(authObj) {
+		Kakao.API.request({
+			url: '/v2/user/me',
+			success: function(result) {
+				console.log(result);
+				
+				var user_id = result.id;
+				var user_email = result.kakao_account.email;
+				var user_nm = result.properties.nickname;
+				
+				console.log("user_id", user_id);
+				console.log("user_email", user_email);
+				console.log("user_nm", user_nm);
+				
+				var param = "";
+				param += "dummy=" + Math.random();
+				param += "&user_id=" + user_id
+				param += "&user_email=" + user_email
+				param += "&user_nm=" + user_nm
+
+				$.ajax({
+					url : "login_kakao.ajax",
+					data : param,
+					dataType : "json",
+					type : "post",
+					async : false,
+					statusCode : {
+						404 : function() {
+							alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+						}
+					},
+					
+					success : function(data) {
+						if (data.msg == "ok") {
+							if(data.mngr_flag == 'y'){
+								location.href = 'admin'	
+								if(data.pwd == "1111"){
+									alert("초기 비밀번호는 '1111' 입니다. 로그인 후 비밀번호를 변경해주세요.")
+								}else{
+									alert("WAFLEX에 오신 것을 환영합니다.")
+								}
+							}else{
+								location.href = "main"
+								if(data.pwd == "1111"){
+									alert("초기 비밀번호는 '1111' 입니다. 로그인 후 비밀번호를 변경해주세요.")
+								}else{
+									alert("WAFLEX에 오신 것을 환영합니다.")
+								}
+							}
+						} else if(data.msg == 'del'){
+							alert("탈퇴한 회원입니다.")
+						}else {
+							alert("아이디 혹은 비밀번호가 맞지 않습니다")
+						}
+					}
+				});
+			},
+			fail: function(error) {
+				alert(
+					'login success, but failed to request user information: ' +
+					JSON.stringify(error)
+				)
+			},
+		})
+	},
+	fail: function(err) {
+		alert('failed to login: ' + JSON.stringify(err))
+	},
+})
+</script>
+
+{% endblock %}

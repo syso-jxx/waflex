@@ -1,0 +1,203 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<style type="text/css">
+.intro{
+    margin: 50px;
+   	display: flex;	
+    justify-content: center;
+    font-family: 'Do hyeon', sans-serif;
+}
+#content{
+	display:flex;
+	justify-content: center;
+}
+table{
+	border-collapse:collapse;
+}
+th{
+	width:170px;
+	height:50px;
+	text-align:center;
+	color:#ffffff; 
+	font-size: 20px; 
+	font-weight: bold; 
+	border-bottom: 1px solid rgba(169,169,169,1);
+}
+tr .col1{
+width:100px;
+}
+td{
+	width:170px;
+	height:50px;
+	text-align:center;
+	color:#ffffff; 
+	font-size: 17px; 
+	border-bottom: 1px solid rgba(169,169,169,0.4);
+}
+footer{
+	background-color:#000000
+	}
+.footer-flex-container{
+color:#ffffff;
+display:flex;
+flex-direction: row;
+}
+footer ul{
+list-style-type:none;
+}
+.inner-flex0{
+flex-grow:2;
+}
+.inner-flex1{
+flex-grow:5;
+}
+.inner-flex2{
+flex-grow:2;
+}
+select{
+	font-size:20px;
+}
+.table_option{
+	text-align:right;
+}
+@media(max-width:1440px){
+.search{
+	left:10%;
+	width: 90%;
+}
+.col2{
+	display:none;
+}
+.col7{
+	display:none;
+}
+.col8{
+	display:none;
+}
+.col5{
+	display:none;
+}
+.col6{
+	display:none;
+}
+td{
+font-size:15px;
+}
+.col5{
+	width: 30px;
+}
+table{
+	display:flex;
+	justify-content:center;
+}
+tr .col2{
+	width:200px;
+}
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#sel_group').on('change', function(){
+		var sel_group = $('#sel_group option:selected').val();
+		var sel_order = $('#sel_order option:selected').val();
+		
+		// ajax
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&sel_group=" + sel_group;
+		param += "&sel_order=" + sel_order;
+		
+		$.ajax({
+			url : "/payment_sel_list.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async: false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				
+			}
+		});
+	})
+	
+	$('#sel_order').on('change', function(){
+		var sel_group = $('#sel_group option:selected').val();
+		var sel_order = $('#sel_order option:selected').val();
+		
+		// ajax
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&sel_group=" + sel_group;
+		param += "&sel_order=" + sel_order;
+		
+		$.ajax({
+			url : "/payment_sel_list.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async: false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				
+			}
+		});
+	})
+})
+</script>
+
+<header>
+	<div class="intro">매출관리</div>
+</header>
+
+<section id = "content">
+	<table>
+		<tr>
+			<th class="col1">아이디</th>
+			<th class="col2">이용권번호</th>
+			<th class="col3">이용권종류</th>
+			<th class="col4">가격</th>
+			<th class="col5">결제일</th>
+			<th class="col6">결제여부</th>
+			<th class="col7">갱신예정일</th>
+			<th class="col8">구매일</th>
+		</tr>
+		{% for pymt in pymts %}
+		<tr>
+			<td class="col1">{{pymt.user_id}}</td>
+			<td class="col2">{{pymt.ticket_no}}</td>
+			<td class="col3">{{pymt.name}}</td>
+			<td class="col4">{{pymt.price}}</td>
+			<td class="col5">{{pymt.payday}}</td>
+			<td class="col6">{{pymt.payment_flag}}</td>
+			<td class="col7">{{pymt.payment_renew}}</td>
+			<td class="col8">{{pymt.up_date}}</td>
+		</tr>
+		{% endfor %}
+		<tr>
+			<th>
+				개수
+			</th>
+			<th colspan="6">
+				{{cnt}}
+			</th>
+		</tr>
+		<tr>
+			<th>
+				합계
+			</th>
+			<th colspan="6">
+				{{total}}
+			</th>
+		</tr>
+	</table>	
+</section>
+{% endblock %}

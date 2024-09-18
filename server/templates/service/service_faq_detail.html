@@ -1,0 +1,155 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<style type="text/css">
+header {
+	color: #ffffff;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+input {
+	width: 500px;
+	font-size: 20px;
+	text-align: center;
+}
+
+button{
+	font-size: 15px; 
+	float: right; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	padding:3px 10px;
+}
+table{
+	border-collapse:collapse;
+}
+#search {
+	display: flex;
+	justify-content: center;
+}
+
+.intro {
+	margin: 50px;
+	display: flex;
+	justify-content: center;
+	font-family: 'Do hyeon', sans-serif;
+}
+
+#content {
+	display: flex;
+	justify-content: center;
+}
+
+th {
+	width: 250px;
+	height: 50px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 25px;
+	font-weight: bold;
+	border-bottom: 1px solid rgba(169, 169, 169, 0.4);
+}
+
+tr .col1 {
+	width: 100px;
+}
+
+tr .col2 {
+	width: 500px;
+}
+
+td {
+	width: 400px;
+	height: 50px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 15px;
+	border-bottom:1px solid rgba(169,169,169,0.4);
+}
+#td_content{
+	height:300px;
+}
+#list{
+	border-bottom:0;
+}
+
+footer {
+	background-color: #000000
+}
+
+.footer-flex-container {
+	color: #ffffff;
+	display: flex;
+	flex-direction: row;
+}
+
+footer ul {
+	list-style-type: none;
+}
+
+.inner-flex0 {
+	flex-grow: 2;
+}
+
+.inner-flex1 {
+	flex-grow: 5;
+}
+
+.inner-flex2 {
+	flex-grow: 2;
+}
+@media(max-width:1440px){
+	td{
+	width:230px;
+	}
+	th{
+	width:50px;
+	
+	}
+}
+</style>
+
+<header>
+	<div class="intro">FAQ</div>
+</header>
+<script>
+function fn_list(){
+	location.href = "service_faq";
+}
+</script>
+<section id="content">
+	<table>
+		<tr>
+			<td class="col1">글번호</td>
+				<td>{{faq.faq_no}}</td>
+		</tr>
+		<tr>
+			<td class="col1">제목</td>
+				<td>{{faq.title}}</td>
+		</tr>
+		<tr>
+			<td class="col1" id="td_content">내용</td>
+				<td>{{faq.content}}</td>
+		</tr>
+		<tr>
+			<td class="col1">작성자</td>
+			<td>{{faq.user_id}}</td>
+		</tr>
+		<tr>
+			<td class="col1">작성일</td>
+			<td>{{faq.in_date}}</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="col1" id="list">
+				<button type="button" onclick="fn_list()">목록</button>
+			</td>	 
+		</tr>
+	</table>
+</section>
+{% endblock %}

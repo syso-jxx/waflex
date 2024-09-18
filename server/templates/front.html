@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script type="text/javascript">
+	$(document).ready(function(){
+
+	});
+
+	function fn_login(){
+		location.href="login"
+	}
+
+</script>
+<style>
+#nav4{
+	display: flex;
+	position:relative;
+	justify-content:center;
+	padding:50px;
+	color:#e50914;
+    font-size: 70px;
+    font-weight: bold;
+    margin: 10px;
+    font-family: 'Black Han Sans', sans-serif;
+    text-decoration: none;
+}
+  .img{
+    position: relative;
+    background-image: url(img/avengers.png);                                                               
+    height: 100vh;
+    background-size: cover;
+  }
+  .img .content{
+     position: absolute;
+     top:60%;
+     left:50%;
+     transform: translate(-50%, -50%);                                                                   
+     font-size:6rem;
+     color: white;
+     z-index: 2;
+     text-align: center;
+     font-family: 'Jua', sans-serif;
+     
+  }
+ body{
+ background-color:black;
+ }
+.join_btn{
+	display:flex;
+	justify-content:center;
+	height:300px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+button{
+	background-color:#f82f62;
+	border:none;
+	border-radius: 20px;
+	color:white;
+	font-size:35px;
+	font-weight:bold;
+	width: 40%;
+	height: 20%;
+	cursor:pointer
+}
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+button:before{
+	content:"시청하기";
+}
+button:hover:before{
+	content:"입장"
+}
+
+
+@media (max-width: 1000px) {
+.img .content{
+	font-size:230%;
+	position:relative;
+	top:25%;
+	
+}
+button{
+	font-size:50%;
+	position:relative;
+	top:95%;
+}
+  .img{
+  background-size: 100%;
+  background-repeat:no-repeat;
+  background-position:center center; 
+  }
+  
+}
+</style>
+<head>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+	});
+
+	function fn_login(){
+		location.href="login"
+	}
+
+
+</script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+    <div class="img">
+		<div><a href="main" id="nav4" >WAFLEX</a></div>
+        <div class="content">
+            원하는 영화를 무제한 <br>시청하세요!
+        <div class="join_btn">
+        <button onclick="fn_login()"></button>
+        </div>
+        </div>
+    </div>
+</body>
+</html>

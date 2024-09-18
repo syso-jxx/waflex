@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>1조영화추천</title>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="https://kit.fontawesome.com/14223caa2a.js" crossorigin="anonymous"></script>
+<style type="text/css">
+a:link, a:visited {
+	color: #A9A9A9;
+	text-decoration: none;
+}
+button:focus{
+	border:none;
+	outline:none;
+}
+a:hover, a:active {
+	color: #ffffff;
+}
+.p_nav{
+	color: #A9A9A9;
+	font-size:25px;
+	font-family:'Jua' sans-serif;
+}
+.nav {
+	display: flex;
+	align-items: center;
+	margin-top: 110px;
+}
+.nav_flex1{
+	display: flex;
+	justify-content:center;
+	align-items:center;
+	width: 30%;
+}
+.nav_flex2{
+	display: flex;
+	flex-grow:1;
+	justify-content:center;
+}
+.nav_flex3{
+	display: flex;
+	justify-content:center;
+	align-items:center;
+	width: 30%;
+}
+header {
+	color: #ffffff;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+#search {
+	display: flex;
+	justify-content: center;
+}
+
+input {
+	width: 500px;
+	font-size: 20px;
+	text-align: center;
+}
+
+#nav1 {
+	margin: 10px;
+	font-family: 'Jua', sans-serif;
+}
+
+#nav2 {
+	margin: 10px;
+	font-family: 'Jua', sans-serif;
+}
+
+#nav3 {
+	margin: 10px;
+	font-family: 'Jua', sans-serif;
+}
+
+#nav4 {
+	color: #e50914;
+	font-size: 70px;
+	font-weight: bold;
+	margin: 10px;
+	font-family: 'Black Han Sans', sans-serif;
+	position:relative;
+	left:9px;
+}
+#nav4:hover{
+	color:rgba(229,9,20,0.9);
+}
+#nav5 {
+	margin: 10px;
+	font-family: 'Jua', sans-serif;
+}
+
+#nav6 {
+	color: #A9A9A9;
+	cursor:pointer;
+	margin: 10px;
+	font-family: 'Jua', sans-serif;
+}
+#nav6:hover{
+	color:white;
+}
+#nav7 {
+	margin: 10px;
+	font-family: 'Jua', sans-serif;
+}
+
+#nav8 {
+	font-family: 'Jua', sans-serif;
+}
+
+header .bookmark {
+	padding: 20px;
+}
+
+body {
+	background-color: #000000;
+}
+
+#search {
+	display: block;
+}
+
+.service {
+	display: inline-block;
+}
+
+.service_menu {
+	display: block;
+}
+
+.intro {
+	color: #ffffff;
+	font-size: 40px;
+	margin: 70px;
+	display: flex;
+	justify-content: center;
+	font-family: 'Jua', sans-serif;
+}
+
+.row1 {
+	display: flex;
+	justify-content: center;
+}
+
+.row1 img {
+	margin: 10px;
+}
+
+.row2 {
+	display: flex;
+	justify-content: center;
+}
+
+.row2 img {
+	margin: 10px;
+}
+
+.row3 {
+	display: flex;
+	justify-content: center;
+}
+
+.row3 img {
+	margin: 10px;
+}
+
+.inner-flex0 {
+	flex-grow: 2;
+}
+
+.inner-flex1 {
+	flex-grow: 5;
+}
+
+.inner-flex2 {
+	flex-grow: 2;
+}
+
+ul.wafflex_rcm {
+	list-style: none;
+}
+
+ul.wafflex_rcm li {
+	float: left;
+}
+
+.dropbtn {
+	background-color: black;
+	padding: 16px;
+	font-size: 25px;
+	border: none;
+	cursor: pointer;
+	font-weight: bold;
+	font-family: 'Jua', sans-serif;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: black;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	font-size: 15px;
+}
+
+.dropdown-content a:hover {
+	background-color: black
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+.dropdown:hover .dropbtn {
+	background-color: black;
+}
+
+.dropdown:hover .dropbtn {
+	background-color: black;
+}
+
+footer {
+	margin-top: 300px;
+	background-color: #000000;
+	display: flex;
+	justify-content: center;
+	color: #ffffff;
+}
+footer p{
+	font-family:'Jua';
+}
+
+.footer {
+	text-align: center;
+}
+.navbar__toggleBtn{
+		position:relative;
+		padding-top: 5%;
+		padding-left: 5%;
+		display:none;
+		font-size:50px;
+		cursor:pointer;
+		color: #A9A9A9;
+	}
+
+@media (max-width: 1440px) {
+.nav{
+	width:20%;
+}
+footer {
+margin-top: 90px;
+}
+.nav{
+	display:flex;
+	flex-direction:column;
+	width:100%;
+	margin-top: 10%;
+}
+.nav_flex1{
+	order:2;
+}
+.nav_flex2{
+	order:1;
+}
+.nav_flex3{
+	order:3;
+	
+}
+#nav1{
+	display:none;
+}
+#nav2{
+	display:none;
+}
+#nav3{
+	display:none;
+}
+#nav5{
+	display:none;
+}
+#nav6{
+	display:none;
+}
+#nav4{
+	left:0px;
+}
+.nav_flex1{
+	display:flex;
+	flex-direction:column;
+	width:100%;
+}
+.nav_flex3{
+	display:flex;
+	flex-direction:column;
+	width:100%;
+}
+.navbar__toggleBtn{
+	display:block;
+	display:active;
+}
+.navbar__toggleBtn:hover{
+	color:#ffffff;
+}
+#nav1.active{
+	display:flex;
+}
+#nav2.active{
+	display:flex;
+}
+#nav3.active{
+	display:flex;
+}
+#nav5.active{
+	display:flex;
+}
+#nav6.active{
+	display:flex;
+}
+.dropdown-content a:hover {
+	background-color: black
+}
+
+.dropdown:hover .dropdown-content {
+	position:relative;
+	left:30%;
+	display: block;
+}
+
+.dropdown:hover .dropbtn {
+	background-color: black;
+}
+
+.dropdown:hover .dropbtn {
+	background-color: black;
+}
+.p_nav{
+	color:#a9a9a9;
+}
+}
+	
+</style>
+<script>
+window.onload = function() {
+	var toggleBtn = document.querySelector('.navbar__toggleBtn');
+	toggleBtn.addEventListener('click',function(){
+		
+		var nav1 = document.querySelector('#nav1');
+		var nav2 = document.querySelector('#nav2');
+		var nav3 = document.querySelector('#nav3');
+		var nav5 = document.querySelector('#nav5');
+		var nav6 = document.querySelector('#nav6');
+		
+		nav1.classList.toggle('active');
+		nav2.classList.toggle('active');
+		nav3.classList.toggle('active');
+		nav5.classList.toggle('active');
+		nav6.classList.toggle('active');
+		
+	});
+	
+	
+	
+}
+	function fn_logout(){
+		var flag = confirm('로그아웃하시겠습니까?');
+		
+		if(flag){
+			location.href="logout" 
+		}
+	}
+	
+
+</script>
+</head>
+
+
+<body>
+	<header>
+		<span class="navbar__toggleBtn"><i class="fas fa-bars"></i></span>
+		<section class="nav">
+		<div class="nav_flex1">
+
+				<a href="genre" id="nav1">장르</a>
+
+			<div class="dropdown" id="nav2">
+				<button class="dropbtn">
+					<p class="p_nav">와플추천</p>
+				</button>
+				<div class="dropdown-content">
+					<a href="customer_reco">와플추천</a>
+					<a href="customer_HOT10">HOT10</a>
+					<a href="customer_bkmk">내가 찜한 콘텐츠</a>
+				</div>
+			</div>
+				<a href="service_community" id="nav3">와글와글</a>
+		</div>
+		
+		<div class="nav_flex2">
+			<a href="main" id="nav4">WAFLEX</a>
+		</div>	
+		
+		<div class="nav_flex3">
+			<div class="dropdown" id="nav5">
+				<button class="dropbtn">
+					<p class="p_nav">고객센터</p>
+				</button>
+				<div class="dropdown-content">
+					<a href="service_notice">공지사항</a>
+					<a href="service_faq">FAQ</a>
+					<a href="service_qna">Q&A</a>
+				</div>
+			</div>
+		
+			
+			{% if session.user_id %}
+			<div class="dropdown" id="nav2">
+				<button class="dropbtn">
+					<a href="user_my_page">마이페이지</a>
+				</button>
+				<div class="dropdown-content">
+					<a href="user_my_page">내 정보</a>
+					<a href="user_my_evl">내가 본 영화</a>
+					<a href="voucher" id="nav8">이용권</a>
+				</div>
+			</div>
+			<a id="nav6" onclick="fn_logout()" style="cursor:pointer";>로그아웃</a>
+			{% else %}
+				<a href="login" id="nav6">로그인</a>
+			{% endif %}
+		</div>
+		</section>
+
+
+	</header>
+
+	{% block content%}{% endblock %}
+
+
+	<footer>
+		<br>
+		<br>
+		<br>
+		<div class="footer">
+			<p>고객센터 | 070-123-4567 (이용시간 평일 09:00~17:30)</p>
+			<p>오시는길 | 대전광역시 중구 중앙로 76 영민빌딩 4층 401</p>
+			<p class="copyright">ⓒ Team 1 all rights reserved.</p>
+		</div>
+	</footer>
+
+</body>
+</html>

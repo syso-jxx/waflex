@@ -1,0 +1,113 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<style>
+.centered{ display: table; margin-left: auto; margin-right: auto; }
+.btn { align: center; bgcolor: #ca3435; }
+
+table{
+	padding:15px; 
+	border-radius: 30px;
+	border-collapse:collapse;
+}
+td{
+	font-size: 15px; 
+	color : #fff; 
+	text-align :center;
+	width: 400px;
+	padding: 25px;
+	border-bottom:1px solid rgba(169,169,169,0.4)
+}
+th{
+	color : #fff;
+	font-size: 20px;  
+	border-bottom:1px solid rgba(169,169,169,0.4)
+}
+button{
+	font-size: 15px; 
+	float: right; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	padding:3px 10px;
+}
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+
+@media(max-width:1440px){
+	pre{
+	width:230px;
+	white-space: pre-wrap;
+	}
+	td{
+	width:230px;
+	}
+	th{
+	width:100px;
+	
+	}
+}
+
+</style>
+<script>
+function fn_list(){
+	location.href = "service_notice";
+
+}
+
+
+</script>
+<body>
+<div class="centered"> 
+	<p style =" color : #fff;">
+    <table>
+		<tr>
+				<th>공지번호</th>	
+				<td>{{notice.notice_no}}</td>
+			</tr>
+			<tr>
+				<th>아이디</th>		
+				<td>{{notice.user_id}}</td>
+			</tr>
+			<tr>
+				<th>제목</th>		
+				<td>{{notice.title}}</td>
+			</tr>
+			<tr>
+				<th>조회수</th>
+				<td>{{notice.rdcnt}}</td>
+			</tr>
+			<tr>
+				<th>작성일</th>
+				<td>{{notice.in_date}}</td>
+			</tr>
+			<tr>
+				<th>첨부파일</th>
+				<td>
+					{% if notice.attach_file %}
+					<a href="download?attach_file={{notice.attach_file}}&attach_path={{notice.attach_path}}">{{notice.attach_file}}</a>
+					<img src="download?attach_file={{notice.attach_file}}&attach_path={{notice.attach_path}}" width="23px">
+					{% else %}
+					첨부파일없음
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td><pre>{{notice.content}}</pre></td>
+			</tr>
+			
+	</table>
+	<tr>
+		<td>	
+			<button type='button' class='btn' onclick="fn_list()">목록</button>
+		</td>
+	</tr>
+   </div>
+
+   {% endblock %}

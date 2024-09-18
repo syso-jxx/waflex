@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>1조영화추천</title>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/css.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcd-n.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script>
+</script>
+<style type="text/css">
+header{
+	color:#ffffff; 
+	font-size: 25px; 
+	font-weight: bold; 
+}
+input {
+  width:500px;
+  font-size:20px;
+  text-align:center;
+}
+header #logo{
+	color:#e50914;
+	display: flex;	
+    justify-content: center;
+    font-size: 50px;
+    font-weight: bold;
+    margin: 10px;
+}
+body{
+ 	background-color:#000000; 
+}
+#search{
+	display: flex;	
+    justify-content: center;
+    
+}
+.intro{
+    margin: 50px;
+   	display: flex;	
+    justify-content: center;
+}
+#content{
+	display:flex;
+	justify-content: center;
+	color:#ffffff; 
+	font-size: 25px; 
+	font-weight: bold; 
+	}
+#content1{
+	display:flex;
+	justify-content: center;
+	flex-direction: column;
+}
+#content2{
+	display:flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+#content li{
+	list-style:none;
+	float: left;
+	color:#ffffff;
+}
+#content2{
+	padding: 30px;
+	display: flex;	
+    justify-content: center;
+}
+#content3{
+	display: flex;	
+    justify-content: center;
+}
+footer{
+	background-color:#000000
+	}
+.footer-flex-container{
+color:#ffffff;
+display:flex;
+flex-direction: row;
+}
+footer ul{
+list-style-type:none;
+}
+.inner-flex0{
+flex-grow:2;
+}
+.inner-flex1{
+flex-grow:5;
+}
+.inner-flex2{
+flex-grow:2;
+}
+
+
+</style>
+</head>
+
+
+<body>
+<header>
+	<div id="logo">	
+		<a href="main.html" id="logo">WAFLIX</a>
+	</div>
+	<div id ="search"><input type="text" value="검색을 통해 추천 영화를 찾아보세요" onfocus="this.value=''" ></div>
+	<div class="intro">고질라 -콩을 선택해 주셨군요!</div>
+</header>
+
+<section id = "content">
+	<section id = "content1">
+	<div class="movpick">뽑은 영화</div>
+	<img src="img/pick/1.jpg" width = "400">
+	</section>
+	<section id = "content2">
+	<div class="ourpick">뽑은 영화와 비슷한 영화</div>
+	<img src="img/pick/2.jpg" width = "400">
+<!-- 	<img src="../img/pick/3.jpg" width = "500"> -->
+<!-- 	<img src="../img/pick/4.jpg" width = "500"> -->
+<!-- 	<img src="../img/pick/5.jpg" width = "500"> -->
+<!-- 	<img src="../img/pick/6.jpg" width = "500"> -->
+<!-- 	<img src="../img/pick/7.jpg" width = "500"> -->
+<!-- 	<img src="../img/pick/8.jpg" width = "500"> -->
+<!-- 	<img src="../img/pick/9.jpg" width = "500"> -->
+<!-- 	<img src="../img/pick/10.jpg" width = "500"> -->
+<!-- 	<img src="../img/pick/11.jpg" width = "500"> -->
+	</section>
+</section>
+
+
+<footer>
+<div class="footer-flex-container">
+<div class="inner-flex0">
+<ul>
+<li>오시는 길</li>
+<li>개인정보처리방침</li>
+</ul>
+<br>
+<ul>
+<li>고객센터</li>
+<li>1:1이메일문의</li>
+</ul>
+<br>
+<ul>
+<li>070-123-4567 (이용시간 평일 09:00~17:30)</li>
+<li>대전광역시 중구 중앙로 76 영민빌딩 4층 401호</li>
+</ul>
+<div><ul><li>ⓒ Team 1 all rights reserved.</li></ul></div>
+</div>
+<div class="inner-flex1"></div>
+<div class="inner-flex2">
+</div>
+</div>
+</footer>
+
+</body>
+</html>

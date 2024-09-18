@@ -1,0 +1,136 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content %}
+
+<script src="js/jquery-3.5.1.js"></script>
+<style type="text/css">
+.notice{
+	display: flex;
+	justify-content:center;
+	color: #ffffff;
+	font-size: 35px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin-bottom: 50px;
+}
+form{
+	display: flex;
+	justify-content:center;
+}
+th {
+	text-align: center;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+tr .col1 {
+	width: 100px;
+}
+
+tr .col2 {
+	width: 200px;
+}
+
+td {
+	text-align: center;
+	color: #ffffff;
+	font-size: 17px;
+	padding:10px;
+}
+td>input[type=file]{
+	font-size:15px;
+}
+td>input[type=text]{
+	width:490px;
+}
+table{
+	border:1px solid rgba(169,169,169,0.5); 
+	border-radius: 30px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+th{
+	width:120px;
+}
+td{
+	width:550px;
+	padding: 20px;
+}
+button{
+  	font-size: 18px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:3px 10px;
+	width:auto;
+}
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+@media (max-width: 1440px) {
+
+table{
+	width:370px;
+}
+td>input[type=text] {
+	width: 200px;
+}
+textarea{
+	width: 200px;
+}
+td>input[type=file] {
+	font-size: 15px;
+	width: 200px;
+}
+td{
+	width:230px;
+}
+th{
+	width:150px;
+}
+}
+</style>
+<script>
+function fn_mod(){
+	document.frm.submit();
+	
+}
+</script>
+<header>
+	<div class="intro">1:1 질문하기</div>
+</header>
+<section class="content">
+	<form name="frm" action="service_qna_addact" method="post" enctype="multipart/form-data">
+		<table>
+			<tr>
+				<th>글번호</th>
+				<td>자동생성</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td>{{user_id}}</td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<td><input type="text" name="title" value=""></td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td><textarea name="content" rows="20" cols="70"></textarea></td>
+			</tr>
+
+			<tr>
+				<td colspan="2">
+					<button type="button" onclick="fn_mod()">등록</button>
+					<button type="button" onclick="location.href='service_qna_one'">목록</button>
+				</td>
+			</tr>
+
+		</table>
+	</form>
+</section>
+	{% endblock %}

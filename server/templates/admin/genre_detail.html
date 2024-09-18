@@ -1,0 +1,148 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content%}
+<style>
+.moviecon{
+	display:flex;
+	justify-content: center;
+	font-size: 30px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin: 20px;
+}
+table{
+	text-align:center;
+	color:#ffffff;
+}
+th{
+	font-size:20px;
+	text-align:center;
+	font-family:'Noto-Sans KR', sans-serif;
+}
+td{	
+	padding:10px;
+	font-size:15px;
+}
+.intro{
+    margin: 50px;
+   	display: flex;	
+    justify-content: center;
+    font-family: 'Do hyeon', sans-serif;
+}
+input[type=button]{
+  	font-size: 17px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:3px 20px;
+	width:auto;
+}
+input[type=button]:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+input[type=text]{
+	width:350px;
+}
+</style>
+<script type="text/javascript">
+	function fn_genre_mod(){
+		var genre_code   = $('#genre_code').val();
+		var name   = $('#name').val();
+		
+		// ajax
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&genre_code=" + genre_code;
+		param += "&name=" + name;
+		
+		$.ajax({
+			url : "/genre_mod.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async: false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg == 'ok'){
+					alert('정상적으로 수정되었습니다.')
+				}else{
+					alert('수정 도중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요.')
+				}
+				location.href="genre_admin";
+			}
+		});
+	} 
+	
+	function fn_genre_del(){
+		var flag = confirm('정말로 삭제하시겠습니까?')
+		var genre_code   = $('#genre_code').val();
+		
+		if(flag){
+			// ajax
+			var param = "";
+			param += "dummy=" + Math.random();
+			param += "&genre_code=" + genre_code;
+			
+			$.ajax({
+				url : "/genre_del.ajax",
+				data : param,
+				dataType : "json",
+				type : "post",
+				async: false,
+				statusCode : {
+					404 : function() {
+						alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+					}
+				},
+				success : function(data) {
+					if(data.msg == 'ok'){
+						alert('정상적으로 삭제되었습니다.')
+					}else{
+						alert('삭제 도중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요.')
+					}
+					location.href="genre_admin";
+				}
+			});
+		}else{
+			location.href="genre_admin";
+		}
+	} 
+</script>
+<section id = "content">
+	<div class="intro">장르관리</div>
+<table class="moviecon">
+	{% for genre in genres %}
+	<tr>
+		<th>
+			장르코드
+		</th>
+		<td>
+			<input type="text" id="genre_code" value="{{genre.genre_code}}">
+		</td>
+	</tr>
+	<tr>
+		<th>
+			장르명
+		</th>
+		<td>
+			<input type="text" id="name" value="{{genre.name}}">
+		</td>
+	</tr>
+	{% endfor %}
+	<tr>
+		<td colspan="2">
+			<input type="button" value="수정" onclick="fn_genre_mod()">
+			<input type="button" value="삭제" onclick="fn_genre_del()">
+		</td>
+	</tr>
+</table>
+</section>
+{% endblock %}

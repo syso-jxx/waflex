@@ -1,0 +1,102 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<style type="text/css">
+
+#content{
+	display:flex;
+	justify-content: center;
+	}
+#button{
+	display:flex;
+	justify-content: center;
+	font-weight: bold;
+	}
+th{
+width:250px;
+text-align:center;
+color:#ffffff; 
+font-size: 25px; 
+font-weight: bold; 
+}
+footer{
+	background-color:#000000
+	}
+.footer-flex-container{
+color:#ffffff;
+display:flex;
+flex-direction: row;
+}
+footer ul{
+list-style-type:none;
+}
+.inner-flex0{
+flex-grow:2;
+}
+.inner-flex1{
+flex-grow:5;
+}
+.inner-flex2{
+flex-grow:2;
+}
+pre{
+text-align:center;
+background: #000000;
+border-style: none;
+color:#ffffff; 
+font-size: 20px; 
+}
+input[type=button]{
+  	font-size: 20px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:7px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:5px 10px;
+	width:180px;
+}
+input[type=button]:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+@media(max-width:1440px){
+	.intro{
+		font-size:35px;
+	}
+	pre{
+		font-size:12px;
+	}
+}
+</style>
+<script>
+function fn_qna(){
+	location.href='service_qna_one';
+}
+</script>
+</head>
+
+
+<body>
+<header>
+<header>
+	<div class="intro">Q&A</div>
+</header>
+	<div class="intro">☎ 1234 - 5678</div>
+</header>
+
+<section id = "content">
+<div class="pre">
+<pre id="text">
+평일 09:00-18:00 *점심시간 12:00-13:00주말 및 공휴일 휴무
+WAFLEX 서비스 이용 시 불편사항이나 문의사항을 1:1 문의로 보내주시면
+신속하고 친절하게 안내해 드리겠습니다.
+</pre>
+</div>
+</section>
+<section id="button">
+<div><input type="button" value="1:1 문의하기" onclick="fn_qna()"></div>
+</section>
+{% endblock %}

@@ -1,0 +1,270 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content%}
+<style>
+table{
+border-collapse:collapse;
+}
+
+input {
+	width: 500px;
+	font-size: 20px;
+	text-align: center;
+}
+
+body {
+	background-color: #000000;
+}
+
+.table1{
+	border-radius:10px;
+	display:flex;
+	justify-content:center;
+}
+
+.table2{
+	display:flex;
+	justify-content:center;
+
+}
+th {
+	height: 20px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 10px;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-bottom:1px solid  rgba(169,169,169,0.4);
+}
+
+td {
+	text-align: center;
+	color: #ffffff;
+	font-size: 15px;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-bottom:1px solid  rgba(169,169,169,0.4);
+	width: 500px;
+}
+.edit_btn button{
+  	font-size: 17px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	padding:3px 10px;
+	width:80px;
+	
+}
+.edit_btn button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+.edit_btn{
+text-align:center;
+padding: 20px;
+border-bottom:0;
+}
+.td_content{
+	height:300px;
+}
+.cmt_list{
+	display: flex;
+	justify-content:center;
+	color: #ffffff;
+	font-size: 35px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin-bottom: 50px;
+}
+.t2_row1{
+	padding:10px;
+}
+@media(max-width:1440px){
+	td{
+		width:250px;
+	}
+	.edit_btn button{
+	width:70px;
+	}
+}
+input[type=button]{
+  	font-size: 15px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:3px 10px;
+	width:auto;
+}
+input[type=button]:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+</style>
+<script>
+
+function fn_upd(){
+	var qestn_no = "{{qestn.qestn_no}}"
+	var answer = $('textarea').val();
+	if(answer==""){
+		alert("답변 내용을 입력해 주세요");
+		answer="{{qestn.answer}}";
+	}
+	var in_date = "{{qestn.in_date}}"
+	var in_user_id = "{{qestn.in_user_id}}"
+	var up_date = "{{qestn.up_date}}"
+	var up_user_id = "{{qestn.up_user_id}}"
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&qestn_no="+qestn_no;
+		param += "&answer="+answer;
+		param += "&in_date="+in_date;
+		param += "&in_user_id="+in_user_id;
+		param += "&up_date="+up_date;
+		param += "&up_user_id="+up_user_id;
+		
+		$.ajax({
+			url : "qestn_upd.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async: false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg=="ok"){
+					location.reload();
+				} else{
+					alert("수정도중 문제가 생겼습니다.");
+				}
+				console.log(data.msg)
+			}
+		});
+	}
+
+function fn_del(){
+	var param = "";
+	var qestn_no = "{{qestn.qestn_no}}"
+	param += "dummy=" + Math.random();
+	param += "&qestn_no="+qestn_no;
+	
+	$.ajax({
+		url : "del_answer.ajax",
+		data : param,
+		dataType : "json",
+		type : "post",
+		async: false,
+		statusCode : {
+			404 : function() {
+				alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+			}
+		},
+		success : function(data) {
+			if(data.msg=="ok"){
+				location.reload();
+			} else{
+				alert("삭제도중 문제가 생겼습니다.");
+			}
+			console.log(data.msg)
+		}
+	});
+}	
+
+</script>
+<header>
+	<div class="intro">Q & A 관리</div>
+</header>
+<section id = "content">
+	<table class="table1">
+		<tr>
+			<th>
+				글번호
+			</th>
+			<td>
+				{{qestn.qestn_no}}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				작성자
+			</th>
+			<td>
+				{{qestn.user_id}}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				제목
+			</th>
+			<td>
+				{{qestn.title}}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				내용
+			</th>
+			<td>
+				{{qestn.content}}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				이름
+			</th>
+			<td>
+				{{qestn.in_user_name}}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				등록일
+			</th>
+			<td>
+				{{qestn.in_date}}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				답변 내용
+			</th>
+			<td id="answer">
+				{{qestn.answer}}
+			</td>
+		</tr>
+	</table>
+<table class="table2">
+	<tr>
+		<th>
+			질문 답변
+		</th>
+		<td>
+			<textarea rows="5" cols="30" wrap="virtual">{{qestn.answer}}</textarea>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			관리자 아이디
+		</th>
+		<td>
+			{{qestn.writer}}
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="edit_btn">
+			<input type="button" value="답변등록" onclick="fn_upd()">
+			<input type="button" value="답변삭제" onclick="fn_del()">
+			<input type="button" value="목록" onclick="location.href='qna_admin'">
+		</td>
+	</tr>
+</table>
+</section>
+{% endblock %}

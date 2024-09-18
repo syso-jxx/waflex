@@ -1,0 +1,196 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<style type="text/css">
+
+    
+table{
+border-collapse:collapse;
+}
+.intro{
+    margin: 50px;
+   	display: flex;	
+    justify-content: center;
+    font-family: 'Do hyeon', sans-serif;
+}
+#content{
+	display:flex;
+	justify-content: center;
+
+	
+	}
+th{
+	width:250px;
+	height:50px;
+	text-align:center;
+	color:#ffffff; 
+	font-size: 25px; 
+	font-weight: bold; 
+	border-bottom: 1px solid rgba(169,169,169,1);
+}
+tr .col1{
+width:100px;
+}
+tr .col2{
+width:500px;
+}
+td{
+width:250px;
+height:50px;
+text-align:center;
+color:#ffffff; 
+font-size: 15px;
+border-bottom: 1px solid rgba(169,169,169,0.4); 
+}
+footer{
+	background-color:#000000
+	}
+.footer-flex-container{
+color:#ffffff;
+display:flex;
+flex-direction: row;
+}
+footer ul{
+list-style-type:none;
+}
+.inner-flex0{
+flex-grow:2;
+}
+.inner-flex1{
+flex-grow:5;
+}
+.inner-flex2{
+flex-grow:2;
+}
+.search{
+	display:flex;
+	justify-content:center;
+	position: relative;
+	left: 50px;
+	margin-bottom: 30px;
+}
+.search_btn{
+	margin-left: 30px;
+	margin-right: 30px;
+	cursor:pointer;
+	width: auto;
+	color:#fff; 
+	font-size: 17px;
+	font-family: 'Noto Sans KR', sans-serif;
+	border:none;
+	font-weight: bold;
+	border-radius:5px;
+	background: #2581dc;
+	width:70px;
+	height: 35px;
+}
+.search_btn:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+
+@media (max-width:1440px){
+	input[type=text]{
+		width:50%;
+	}
+	.btn{
+		width:80px;
+		font-size:15px;
+		position: relative;
+		margin-top:40px;
+	}
+	table{
+		display:flex;
+		justify-content:center;
+	}
+	tr .col1{
+		width:250px;
+	}
+	tr .col2{
+		width:800px;
+	}
+	.col3{
+		display:none;
+	}
+	tr .col5{
+		width:250px;
+	}
+	.col4{
+		display:none;
+	}
+}
+</style>
+
+<script type="text/javascript">
+	function fn_detail(notice_no){
+		location.href = "notice_detail?notice_no="+notice_no;
+	}
+	
+	function fn_search(){
+		var target = $('#search').val().trim();
+		
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&target=" + target;
+		
+		$.ajax({
+			url : "/notice_search.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async: false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				var notices = data.notices;
+				
+				for(var i = 0; i < $('.notice_lists').length; i++){
+					$('.notice_lists').eq(i).empty();
+				}
+				
+				for(var j = 0; j < notices.length; j++){
+					var content = '';
+					content += '	<td>'+ (j + 1) +'</td>       '                                       
+					content += '	<td><a href="javascript:fn_detail('+ notices[j].notice_no +')">'+ notices[j].title +'</a></td>       '                            
+					content += '	<td>'+ notices[j].user_id +'</td> '                                          
+					content += '	<td>'+ notices[j].in_date +'</td>   '                                     
+					content += '	<td>'+ notices[j].rdcnt +'</td>     '                          
+					$('.notice_lists').eq(j).append(content);
+				}
+				
+			}
+		});
+	} 
+</script>
+<header>
+	<div class="intro">공지사항</div>
+</header>
+<div class="search">
+		<input type="text" id="search">
+		<input class="search_btn" type="button" onclick="fn_search()" value="검색">
+</div>
+<section id = "content">
+	<table>
+		<tr>
+			<th class="col1">글번호</th>
+			<th class="col2">제목</th>
+			<th class="col3">작성자</th>
+			<th class="col4">작성일</th>
+			<th class="col5">조회수</th>
+		</tr>
+		<tr>
+            {%for i in range(len(list)-1,0,-1) %}
+            <td class="col1">{{i}}</td>
+            <td class="col2"><a href="javascript:fn_detail('{{list[i].notice_no}}')">{{list[i].title}}</a></td>
+            <td class="col3">{{list[i].user_id}}</td>
+            <td class="col4">{{list[i].in_date}}</td>   
+            <td>{{list[i].rdcnt}}</td>
+         </tr>   
+        {% endfor %}
+      
+      </table>
+
+</section>
+{% endblock %}

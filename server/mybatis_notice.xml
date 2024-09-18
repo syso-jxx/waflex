@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+
+   <select id="select_list">
+   select 
+       notice_no,
+       user_id,
+       title,
+       content,
+       attach_file,
+       attach_path,
+       rdcnt,
+       in_date,
+       in_user_id,
+       up_date,
+       up_user_id
+      from
+         notice
+      order by in_date asc
+   </select>
+   
+   <select id="search">
+   select 
+       notice_no,
+       user_id,
+       title,
+       content,
+       attach_file,
+       attach_path,
+       rdcnt,
+       in_date,
+       in_user_id,
+       up_date,
+       up_user_id
+    from
+       notice
+   where
+   	   title like '%'||:1||'%'
+   order by 8 asc   	 
+   </select>
+   
+   <select id="select">
+   select 
+       notice_no,
+       user_id,
+       title,
+       content,
+       attach_file,
+       attach_path,
+       rdcnt,
+       in_date,
+       in_user_id,
+       up_date,
+       up_user_id,
+       (select user_nm from users u where user_id=n.in_user_id) in_user_name 
+      from
+         notice n
+      where
+	     notice_no =:1
+
+   </select>
+
+   <update id="insert">
+   insert into notice
+   (
+       notice_no,
+       user_id,
+       title,
+       content,
+       attach_file,
+       attach_path,
+       rdcnt,
+       in_date,
+       in_user_id,
+       up_date,
+       up_user_id
+   )
+    values
+   (
+  	   notice_seq.nextval,
+       :1,
+       :2,
+       :3,
+       :4,
+       :5,
+       '0',
+       to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+       :6,
+       to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+       :7
+   )
+   
+   </update>
+
+   <update id="update">
+      update
+          notice
+       set 
+          user_id = :1,
+          title = :2,
+          content =:3,
+          attach_file = :4,
+          attach_path = :5,
+          up_date = TO_CHAR(sysdate,'YYYYMMDD.HH24MISS'),
+          up_user_id = :6
+       where
+          notice_no =:7
+           
+   </update>
+   
+   <update id="mydel_img">
+        update 
+        	notice 
+       	set 
+	        attach_path			= '',
+	        attach_file			= '',
+	        up_date				=to_char(sysdate, 'YYYYMMDD.HHMISS'),
+	        up_user_id			=:1
+         where 
+         	notice_no=:2
+	        
+    </update>
+	  
+   <update id="rdcnt">
+    update 
+       	notice 
+     set 
+        rdcnt = rdcnt + 1
+     where
+   		notice_no=:1	
+   </update>
+
+   <update id="delete">
+      delete from notice where notice_no =:1
+   </update>
+
+</mapper>

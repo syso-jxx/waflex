@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<script type="text/javascript">
+
+	var cnt = '{{cnt}}'
+	
+	if(cnt == '1'){
+		alert("FAQ가 정상적으로 삭제되었습니다.");
+		location.href="faq_admin?faq_no={{faq_no}}"
+	}else{
+		alert("삭제도중 오류가 생겼습니다.");
+		history.back();
+	}
+</script>
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content %}
+
+<script src="js/jquery-3.5.1.js"></script>
+<style type="text/css">
+table{
+border-collapse:collapse;
+}
+
+input {
+	width: 500px;
+	font-size: 20px;
+	text-align: center;
+}
+
+body {
+	background-color: #000000;
+}
+
+.table1{
+	border-radius:10px;
+	display:flex;
+	justify-content:center;
+}
+
+.table2{
+	display:flex;
+	justify-content:center;
+
+}
+th {
+	height: 20px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 10px;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-bottom:1px solid  rgba(169,169,169,0.4);
+}
+
+td {
+	text-align: center;
+	color: #ffffff;
+	font-size: 15px;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-bottom:1px solid  rgba(169,169,169,0.4);
+	width: 500px;
+}
+.edit_btn button{
+  	font-size: 17px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	padding:3px 10px;
+	width:80px;
+	
+}
+.edit_btn button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+.edit_btn{
+text-align:center;
+padding: 20px;
+border-bottom:0;
+}
+.td_content{
+	height:300px;
+}
+.cmt_list{
+	display: flex;
+	justify-content:center;
+	color: #ffffff;
+	font-size: 35px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin-bottom: 50px;
+}
+.t2_row1{
+	padding:10px;
+}
+@media(max-width:1440px){
+	td{
+		width:250px;
+	}
+	.edit_btn button{
+	width:70px;
+	}
+}
+
+</style>
+
+<script>
+function fn_list(){
+	location.href = "faq_admin";
+}
+function fn_mod(){
+	location.href = "faq_mod_admin?faq_no={{faq.faq_no}}";
+}
+function fn_del(){
+    var flag_ok = confirm("한번 삭제된 자료는 복구가 불가합니다. 그래도 하시렵니까?");
+    
+    if(flag_ok){
+       location.href="faq_delact_admin?faq_no={{faq.faq_no}}"         
+    }
+}
+
+
+
+</script>
+
+<header>
+	<div class="intro">FAQ 관리</div>
+</header>
+	<section id="content1">
+		<table class="table1">
+			<tr>
+				<th>제목</th>
+				<td>{{faq.title}}</td>
+			</tr>
+<!-- 			<tr> -->
+<!-- 				<th>조회수</th> -->
+<!-- 				<td>{{faq.rdcnt}}</td> -->
+<!-- 			</tr> -->
+			<tr>
+				<th>작성일</th>
+				<td>{{faq.in_date}}</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td>{{faq.user_id}}</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td class="td_content">{{faq.content}}</td>
+			</tr>
+			
+			</table>
+			<table class="table2">
+				<tr>
+					<td class="edit_btn" colspan="2">
+						<button onclick="fn_list()">목록</button>
+						<button onclick="fn_mod()">수정</button>
+						<button onclick="fn_del()">삭제</button>
+					</td>
+	
+				</tr>
+			</table>
+		
+	</section>
+	{% endblock %}

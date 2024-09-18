@@ -1,0 +1,103 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content%}
+<style>
+.moviecon {
+	display: flex;
+	justify-content: center;
+	font-size: 30px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin: 20px;
+}
+
+table {
+	text-align: center;
+	color: #ffffff;
+	border-collapse:collapse;
+}
+
+th {
+	padding: 20px;
+	font-size: 20px;
+	text-align: center;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-bottom:1px solid rgba(169,169,169,1);
+}
+
+td {
+	
+	padding: 10px;
+	font-size: 15px;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-bottom: 1px solid rgba(169,169,169,0.4);
+}
+
+.intro {
+	margin: 50px;
+	display: flex;
+	justify-content: center;
+	font-family: 'Do hyeon', sans-serif;
+}
+
+button{
+  	font-size: 17px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:3px 10px;
+	width:auto;
+}
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+.btn{
+	position:relative;
+	left:70%;
+}
+@media(max-width:1440px){
+	th{
+		font-size:20px;
+	}
+	.col5{
+		display:none;
+	}
+	table{
+	display:flex;
+	justify-content:center;
+	}
+}
+</style>
+<script>
+function fn_detail(qestn_no){
+	location.href = "service_qna_detail?qestn_no="+qestn_no;
+}
+</script>
+<section id="content">
+	<div class="intro">Q&A 목록</div>
+	<button type="button" class="btn" onclick="location.href='service_qna_add'">글쓰기</button>
+	<table class="moviecon">
+		<tr class="th">
+			<th class="col1">글번호</th>
+			<th class="col2">아이디</th>
+			<th class="col3">제목</th>
+			<th class="col4">이름</th>
+			<th class="col5">등록일</th>
+		</tr>
+		</tr>
+		{%for q in list%}
+		<tr>
+			<td class="col1">{{q.qestn_no}}</td>
+			<td class="col2">{{q.user_id}}</td>
+			<td class="col3"><a href="javascript:fn_detail('{{q.qestn_no}}')">{{q.title}}</a></td>
+			<td class="col4">{{q.in_user_name}}</td>
+			<td class="col5">{{q.in_date}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+</section>
+{% endblock %}

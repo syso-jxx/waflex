@@ -1,0 +1,208 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content%}
+<link rel="stylesheet" href="js/jquery-ui.css">
+<link rel="stylesheet" href="css/common.css">
+<script src="js/jquery-3.5.1.js"></script>
+<script src="js/jquery-ui.js"></script>
+<style>
+.moviecon{
+	display:flex;
+	justify-content: center;
+	font-size: 30px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin: 20px;
+}
+.moviecon{
+	text-align:center;
+	color:#ffffff;
+}
+th{
+	font-size:20px;
+	text-align:center;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+td{
+	padding:10px;
+	font-size:15px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+.intro{
+    margin: 50px;
+   	display: flex;	
+    justify-content: center;
+    font-family: 'Do hyeon', sans-serif;
+}
+button{
+  	font-size: 17px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:5px 10px;
+	width:auto;
+}
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+input[type=text]{
+	font-size:20px;
+	height: 25px;
+	background-color:#eeeeee;
+	border-radius:1px;
+	border:none;
+	font-family: 'Jua';
+	padding: 2px;
+	width: 350px;
+}
+select{
+	width: 360px;
+	font-size: 18px;
+	font-family: 'Noto Sans KR', sans-serif;
+	text-align-last: center;
+}
+.poster_td{
+	text-align:left;
+}
+.poster_input{
+	font-size: 15px;
+	width: 200px;
+}
+@media(max-width:1440px){
+	select{
+		width:200px;
+	}
+	td{
+		wdith:200px;
+	}
+	.poster_td{
+		wdith:200px;
+	}
+	input[type=text]{
+		width:200px;
+	}
+}
+</style>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$("#release_date").datepicker({
+		dateFormat: "yy-mm-dd",		
+		changeMonth: true,
+		changeYear: true,
+		yearRange: 'c-100:c',
+		dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], 
+		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
+    });
+});
+	
+	function formCheck() {
+		if(!document.testForm.title.value) {
+			alert("제목을 입력하세요");
+			document.testForm.title.focus();
+			return false;
+		} else if(!document.testForm.director.value) {
+			alert("감독을 입력하세요");
+			document.testForm.director.focus();
+			return false;
+		} else if(!document.testForm.actor.value) {
+			alert("배우를 입력하세요");
+			document.testForm.actor.focus();
+			return false;
+		} else if(!document.testForm.runtime.value) {
+			alert("런타임을 입력하세요");
+			document.testForm.runtime.focus();
+			return false;
+		} else if(!document.testForm.release_date.value) {
+			alert("개봉일을 입력하세요");
+			document.testForm.release_date.focus();
+			return false;
+		}
+	}
+
+</script>
+
+<section id = "content">
+	<div class="intro">영화추가</div>
+	<table class="moviecon">
+	  <form action="movie_add_act" method="post" enctype="multipart/form-data" onsubmit="return formCheck()" name="testForm">
+		<tr>
+			<th>장르코드</th>
+			<td>
+				<select name="genre_code">
+					{% for genre in genres %}
+						<option value="{{genre.genre_code}}">{{genre.name}}</option>
+					{% endfor %}
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>국가코드</th>
+			<td>
+				<select name="nation_code">
+					{% for nation in nations %}
+						<option value="{{nation.nation_code}}">{{nation.name}}</option>
+					{% endfor %}
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<th>영화제목</th>
+			<td>
+				<input type="text" name="title">
+			</td>
+		</tr>
+		<tr>
+			<th>감독</th>
+			<td>
+				<input type="text" name="director">
+			</td>
+		</tr>
+		<tr>
+			<th>배우</th>
+			<td>
+				<input type="text" name="actor">
+			</td>
+		</tr>
+		<tr>
+			<th>런타임</th>
+			<td>
+				<input type="text" name="runtime">
+			</td>
+		</tr>
+		<tr>
+			<th>개봉일</th>
+			<td>
+				<input type="text" name="release_date" id="release_date">
+			</td>
+		</tr>
+		<tr>
+			<th>포스터</th>
+			<td class="poster_td">
+				<input type="file" class="poster_input" name="poster">
+			</td>
+		</tr>
+		<tr>
+			<th>영상경로</th>
+			<td>
+				<input type="text" name="url">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<button type="submit" id="add" value="">추가하기</button>
+				<button value="" onclick="location.href='movie_admin'">목록으로</button>
+			</td>
+		</tr>
+	  </form>	
+	</table>
+</section>
+
+
+{% endblock %}

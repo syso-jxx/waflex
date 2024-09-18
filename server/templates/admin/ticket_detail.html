@@ -1,0 +1,143 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<script src="./js/jquery-3.5.1.js"></script>
+<script type="text/javascript">
+
+
+function fn_ticket_list(){
+		location.href="ticket_admin"
+	}
+	
+function fn_ticket_upd(){
+ 	var ticket_no = $("#ticket_no").val();
+	var ticket_name = $("#ticket_name").val();
+	var ticket_price = $("#ticket_price").val();
+
+	var param = "";
+	param += "dummy=" + Math.random();
+ 	param += "&ticket_no=" + ticket_no
+	param += "&ticket_name=" + ticket_name
+	param += "&ticket_price=" + ticket_price
+
+	$.ajax({
+		url : "ticket_upd.ajax",
+		data : param,
+		dataType : "json",
+		type : "post",
+		async : false,
+		statusCode : {
+			404 : function() {
+				alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+			}
+		},
+		success : function(data) {
+			if(data.msg == "ok"){
+				var flag_ok = confirm("수정하시겠습니까?");
+				if(flag_ok){
+					location.href="ticket_admin";
+				}
+			} else{
+				alert("업데이트 도중 문제가 생겼습니다")
+			}
+			console.log(data.msg)
+		}
+	});
+}
+
+function fn_ticket_del(){
+	var flag_ok =confirm("한번 삭제된 자료는 복구가 불가합니다. 그래도 삭제하시겠습니까?");
+	if(flag_ok){
+		location.href="ticket_delact?ticket_no={{ticket.ticket_no}}"		
+	}
+}
+
+</script>
+<style type="text/css">
+header{
+	color:#ffffff; 
+	font-size: 25px; 
+	font-weight: bold; 
+}
+input[type=button]{
+  	font-size: 17px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	padding:3px 10px;
+	width:80px;
+}
+.intro{
+    margin: 50px;
+   	display: flex;	
+    justify-content: center;
+    font-family: 'Do hyeon', sans-serif;
+}
+#content{
+	display:flex;
+	justify-content: center;
+
+	
+	}
+th{
+	width:250px;
+	height:50px;
+	text-align:center;
+	color:#ffffff; 
+	font-size: 20px; 
+	font-weight: bold; 
+	font-family: 'Noto Sans KR', sans-serif;
+}
+tr .col1{
+width:100px;
+}
+td{
+width:250px;
+height:50px;
+text-align:center;
+color:#ffffff; 
+ 
+}
+input[type=text]{
+	width:300px;
+	font-size: 15px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+</style>
+
+<header>
+	<div class="intro">이용권 관리</div>
+</header>
+
+<section id = "content">
+	<table>
+		<tr style="display:none;">
+			<th>이용권번호</th>
+			<td><input type="text" id = "ticket_no" value='{{ticket.ticket_no}}'></td>
+		</tr>
+		
+		<tr>
+			<th>요금명</th>
+			<td><input type="text" id = "ticket_name" value='{{ticket.name}}'></td>
+		</tr>
+		<tr>
+			<th>가격</th>
+			<td><input type="text" id = "ticket_price" value='{{ticket.price}}'></td>
+		</tr>
+
+		<tr>
+			<td class="td_btn" colspan="2">
+			
+				<input type="button" onclick="fn_ticket_list()" value="목록">
+				<input type="button" onclick="fn_ticket_upd()" value="수정">
+				<input type="button" onclick="fn_ticket_del()" value="삭제">
+			</td>	
+		</tr>
+	</table>	
+</section>
+{% endblock %}

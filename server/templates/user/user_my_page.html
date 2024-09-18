@@ -1,0 +1,163 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<style type="text/css">
+
+.intro {
+	margin: 30px;
+	display: flex;
+	justify-content: center;
+	font-family: 'Do hyeon', sans-serif;
+}
+
+#content {
+	display: flex;
+	justify-content: center;
+}
+
+th {
+	width: 150px;
+	height: 50px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+	padding:5px;
+}
+table{
+border: 1px solid white;
+border-radius: 30px;
+}
+
+tr .col1 {
+	width: 100px;
+}
+
+tr .col2 {
+	width: 500px;
+}
+
+td {
+	width: 250px;
+	height: 50px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 15px;
+}
+
+footer {
+	background-color: #000000
+}
+
+.footer-flex-container {
+	color: #ffffff;
+	display: flex;
+	flex-direction: row;
+}
+
+footer ul {
+	list-style-type: none;
+}
+
+.inner-flex0 {
+	flex-grow: 2;
+}
+
+.inner-flex1 {
+	flex-grow: 5;
+}
+
+.inner-flex2 {
+	flex-grow: 2;
+}
+input[type=button]{
+  	font-size: 20px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:20px;
+	cursor:pointer;
+	border-radius:15px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:5px 15px;
+	width:auto;
+}
+input[type=button]:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+.input_btn{
+	display: flex;
+	justify-content: center;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+	if('{{msg}}' == 'ok'){
+		alert('수정되었습니다.')
+	}else if('{{msg}}' == 'ng'){
+		alert('수정 도중 문제가 생겼습니다. 다시 시도해 주세요.')
+	}
+});
+
+</script>
+
+<header>
+	<div class="intro">내 정보</div>
+</header>
+<section id="content">
+	<div class="table">
+	<table>
+		{% for info in infos%}
+		<tr>
+			<th id="id">아이디</th>
+			<td id="id_info">{{info.user_id}}</td>
+		</tr>
+		<tr>
+			<th class="col1">이름</th>
+			<td class="col5">{{info.user_nm}}</td>
+		</tr>
+		<tr>
+			<th class="col1">전화번호</th>
+			<td class="col5">{{info.user_telno}}</td>
+		</tr>
+		<tr>
+			<th class="col1">이메일</th>
+			<td class="col5">{{info.user_email}}</td>
+		</tr>
+		<tr>
+			<th class="col1">회원구분</th>
+			<td class="col5">
+			{% if session.payment_flag == 'y' %}
+			유료회원
+			{% else %}
+			일반회원
+			{% endif %}
+			</td>
+		</tr>
+		{% if session.payment_flag == 'y' %}
+		<tr>
+			<th class="col1">결제일</th>
+			<td class="col5">{{info.payday}}</td>
+		</tr>
+		<tr>
+			<th class="col1">다음결제일</th>
+			<td class="col5">{{info.payment_renew}}</td>
+		</tr>
+		{% endif %}
+		<tr>
+			<th class="col1">가입일</th>
+			<td class="col5">{{info.in_date}}</td>
+		</tr>
+		<tr>
+			<th class="col1">내 정보<br>수정일
+			</th>
+			<td class="col5">{{info.up_date}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	</div>
+</section>
+<div class="input_btn"><input type="button" value="수정" onclick="location.href='user_detail'"></div>
+{% endblock %}

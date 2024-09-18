@@ -1,0 +1,112 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content%}
+<style>
+.moviecon{
+	display:flex;
+	justify-content: center;
+	font-size: 30px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin: 20px;
+}
+table{
+	text-align:center;
+	color:#ffffff;
+}
+th{
+	font-size:20px;
+	text-align:center;
+}
+td{
+	padding:10px;
+	font-size:15px;
+}
+.intro{
+    margin: 50px;
+   	display: flex;	
+    justify-content: center;
+    font-family: 'Do hyeon', sans-serif;
+}
+input[type=button] {
+  	font-size: 15px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:3px 10px;
+	width:auto;
+}
+input[type=button]:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+@media(max-width:1440px){
+	input[type=text]{
+		width:200px;
+	}
+}
+</style>
+<script type="text/javascript">
+	function fn_nation_add(){
+		var nation_code   = $('#nation_code').val();
+		var name         = $('#name').val();
+		
+		// ajax
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&nation_code=" + nation_code;
+		param += "&name=" + name;
+		
+		$.ajax({
+			url : "/nation_add.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async: false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg == 'ok'){
+					alert('정상적으로 추가되었습니다.')
+				}else{
+					alert('추가 도중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요.')
+				}
+				location.href="nation_admin";
+			}
+		});
+	} 
+</script>
+<section id = "content">
+	<div class="intro">국가관리</div>
+<table class="moviecon">
+	<tr>
+		<th>
+			국가코드
+		</th>
+		<td>
+			<input type="text" id="nation_code">
+		</td>
+	</tr>
+	<tr>
+		<th>
+			국가명
+		</th>
+		<td>
+			<input type="text" id="name">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="button" value="추가하기" onclick="fn_nation_add()">
+			<input type="button" value="목록으로" onclick="location.href='nation_admin'">
+		</td>
+	</tr>
+</table>
+</section>
+{% endblock %}

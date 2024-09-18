@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select_bkmk">
+		select
+			movie_no
+		  from
+		    bkmk
+		 where
+		 	user_id = :1   	
+	</select>
+	<select id="select_all">
+		SELECT 
+			movie_no,
+			(select name
+               from genre
+              where movie.genre_code = genre.genre_code) genre_name,
+			(select name
+               from nation
+              where nation.nation_code = movie.nation_code) nation_name,
+			title,
+			director,
+			actor,
+			runtime,
+			release_date,
+			poster,
+			url,
+			stream_cnt,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		from 
+		    movie
+	   where
+	   		movie_no in (select movie_no
+	   					  from bkmk
+	   					 where user_id = :1)   
+		order by stream_cnt   
+	</select>
+	
+	<update id="insert">
+		insert into bkmk (
+			user_id,
+			movie_no,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		) 
+		values(
+			:1,
+			:2,	 
+			to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			:3,
+			to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			:4
+		)
+	</update>
+		
+	<update id="delete">
+		delete from bkmk
+		 where user_id		=:1
+		   and movie_no  	=:2	
+	</update>
+</mapper>

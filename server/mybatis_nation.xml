@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select_all">
+		SELECT 
+			nation_code,
+			name,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		from 
+		    nation 
+	</select>
+	
+	<select id="select_one">
+		select
+			nation_code,
+			name,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		  from
+		    nation
+		 where
+		 	nation_code = :1   	
+	</select>
+	
+	<update id="insert">
+		insert into nation (
+			nation_code,
+			name,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		) 
+		values(
+			:1,
+			:2,	 
+			to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			:3,
+			to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			:4
+		)
+	</update>
+	
+	<update id="update">
+		update
+			nation
+		set
+		    nation_code   = :1,
+			name  = :2,
+			up_date      = to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			up_user_id   = :3
+		where
+			nation_code	= :4
+	</update>
+		
+	<update id="delete">
+		delete from nation
+		 where nation_code	=:1
+	</update>
+</mapper>

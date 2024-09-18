@@ -1,0 +1,248 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<style>
+.moviecon {
+	display: flex;
+	justify-content: center;
+}
+
+table {
+	text-align: center;
+	color: #ffffff;
+	border-collapse: collapse;
+}
+
+th {
+	font-size: 20px;
+	text-align: center;
+	padding: 10px;
+	border-bottom: 1px solid rgba(169, 169, 169, 1);
+}
+
+td {
+	font-size: 15px;
+	border-bottom: 1px solid rgba(169, 169, 169, 0.4);
+}
+.intro {
+	margin: 50px;
+	display: flex;
+	justify-content: center;
+	color: #ffffff;
+	font-size: 40px;
+	font-weight: bold;
+	font-family: 'Do Hyeon', sans-serif;
+}
+
+button{
+	font-size: 17px;
+	color: #fff;
+	background: #2581dc;
+	border: none;
+	margin: 5px;
+	cursor: pointer;
+	border-radius: 5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding: 3px 10px;
+	width: auto;
+}
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+
+.star-input>.input, .star-input>.input>label:hover, .star-input>.input>input:focus+label,
+	.star-input>.input>input:checked+label {
+	display: inline-block;
+	vertical-align: middle;
+	background: url('img/grade_img.png') no-repeat;
+}
+
+.star-input {
+	display: inline-block;
+	white-space: nowrap;
+	width: 225px;
+	height: 40px;
+	padding: 25px;
+	line-height: 30px;
+}
+
+.star-input>.input {
+	display: inline-block;
+	width: 150px;
+	background-size: 150px;
+	height: 28px;
+	white-space: nowrap;
+	overflow: hidden;
+	position: relative;
+}
+
+.star-input>.input>input {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+}
+
+star-input>.input.focus {
+	outline: 1px dotted #ddd;
+}
+
+.star-input>.input>label {
+	width: 30px;
+	height: 0;
+	padding: 28px 0 0 0;
+	overflow: hidden;
+	float: left;
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.star-input>.input>label:hover, .star-input>.input>input:focus+label,
+	.star-input>.input>input:checked+label {
+	background-size: 150px;
+	background-position: 0 bottom;
+}
+
+.star-input>.input>label:hover ~label {
+	background-image: none;
+}
+
+.star-input>output {
+	display: inline-block;
+	width: 60px;
+	font-size: 18px;
+	text-align: right;
+	vertical-align: middle;
+}
+</style>
+
+<script type="text/javascript">
+	function fn_user_rate(btn){
+		var movie_no = btn.id;
+		var title = btn.value;
+		var rate = $('input[name=star-input]:checked').val();
+		
+		// ajax
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&movie_no=" + movie_no;
+		param += "&title=" + title;
+		param += "&rate=" + rate;
+		
+		$.ajax({
+			url : "/user_rate.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			beforeSend: function () {
+				$('#ajax_indicator').show().fadeIn('fast');
+	       }
+	       , complete: function () {
+	    	   $('#ajax_indicator').fadeOut();
+	       },
+			success : function(data) {
+				if(data.msg == 'ok'){
+					alert('평가 되었습니다.')
+				}else{
+					alert('평가 도중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요.')
+				}
+				location.reload();
+			}
+		});
+	}
+</script>
+<div id="ajax_indicator" style="display:none;">
+ <p style="text-align: center; padding: 16px 0 0 0; left: 50%; top: 50%; position: absolute;"><img width="100px" height="100px" src="img/loading2.gif" /></p>
+</div>
+
+<section id="moviecon">
+	<div class="intro">내가 본 영화</div>
+	<table class="moviecon">
+		<tr class="th">
+			<th class="col1">번호</th>
+			<th class="col2">제목</th>
+			<th class="col3">개봉일</th>
+			<th class="col4">제작국가</th>
+			<th class="col5">장르</th>
+			<th class="col6">감독</th>
+			<th class="col6">이전평가</th>
+			<th class="col7">평가하기</th>
+			<th class="col8"></th>
+		</tr>
+		{% for i, movie in enumerate(movies) %}
+		<tr class="row5">
+			<td>{{i + 1}}</td>
+			<td>{{movie.title}}</td>
+			<td>{{movie.release_date}}</td>
+			<td>{{movie.nation_name}}</td>
+			<td>{{movie.genre_name}}</td>
+			<td>{{movie.director}}</td>
+			<td>
+				{% if movie.rate == 0 %}
+				X
+				{% else %}
+				{{movie.rate}}
+				{% endif %}
+			</td>
+			<td>
+				<span class="star-input">
+					<span class="input">
+					<input type="radio" name="star-input" value="1" id="p{{i+1+(i*4)}}">
+					<label for="p{{i+1+(i*4)}}">1</label>
+					<input type="radio"	name="star-input" value="2" id="p{{i+2+(i*4)}}">
+					<label for="p{{i+2+(i*4)}}">2</label>                       
+					<input type="radio" name="star-input" value="3" id="p{{i+3+(i*4)}}">
+					<label for="p{{i+3+(i*4)}}">3</label>                       
+					<input type="radio"	name="star-input" value="4" id="p{{i+4+(i*4)}}">
+					<label for="p{{i+4+(i*4)}}">4</label>                       
+					<input type="radio" name="star-input" value="5" id="p{{i+5+(i*4)}}">
+					<label for="p{{i+5+(i*4)}}">5</label>
+					<style>
+						.star-input>.input>label[for="p{{i+1+(i*4)}}"] {
+							width: 30px;
+							z-index: 5;
+						}
+						
+						.star-input>.input>label[for="p{{i+2+(i*4)}}"] {
+							width: 60px;
+							z-index: 4;
+						}
+						
+						.star-input>.input>label[for="p{{i+3+(i*4)}}"] {
+							width: 90px;
+							z-index: 3;
+						}
+						
+						.star-input>.input>label[for="p{{i+4+(i*4)}}"] {
+							width: 120px;
+							z-index: 2;
+						}
+						
+						.star-input>.input>label[for="p{{i+5+(i*4)}}"] {
+							width: 150px;
+							z-index: 1;
+						}
+					</style>                       
+					</span>
+				</span>
+				<script src="js/star.js"></script>
+			</td>
+			<td>
+				<button type="button" id="{{movie.movie_no}}" value="{{movie.title}}" onclick="fn_user_rate(this)">
+					평가
+				</button>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+</section>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<style>
+table{
+	padding:15px; 
+	border:1px solid rgba(169,169,169,0.4);
+	border-radius: 30px;
+	margin-left: auto; margin-right: auto;
+	
+}
+.table2{
+	border: none;
+	display:flex;
+	justify-content:center;
+}
+td{
+	font-size: 15px; 
+	color : #fff; 
+	text-align :center;
+	width: 400px;
+	padding: 25px;
+}
+th{
+	color : #fff;
+	font-size: 20px;  
+}
+button{
+	font-size: 20px; 
+	float: right; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	padding:3px 10px;
+}
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+.table2_th{
+	border-top: 1px solid rgba(169,169,169,0.4);
+}
+.table2_td{
+	width:480px;
+	border-top: 1px solid rgba(169,169,169,0.4);
+}
+</style>
+<body>
+<div class="centered"> 
+	<p style =" color : #fff;">
+    <table>
+	<tr><!-- 두번째 줄 시작 -->
+	    <th>게시번호</th>
+	    <td >151</td>
+	</tr><!-- 두번째 줄 끝 -->
+	<tr><!-- 두번째 줄 시작 -->
+	    <th>제목</th>
+	    <td><input type="text" value="수정내용"></td>
+	</tr><!-- 두번째 줄 끝 -->
+	<tr><!-- 두번째 줄 시작 -->
+	    <th>게시일</th>
+	    <td>2021-04-08</td>
+	</tr><!-- 두번째 줄 끝 -->
+	<tr><!-- 두번째 줄 시작 -->
+	    <th>게시자</th>
+	    <td>성원제</td>
+	</tr><!-- 두번째 줄 끝 -->
+	<tr><!-- 두번째 줄 시작 -->
+	<th class="table2_th">내용</th>
+	    <td class="table2_td"><input type="text" value="수정내용"></td>
+	</tr><!-- 두번째 줄 끝 -->
+	</table>
+	<table class="table2">
+	<tr>
+	<td></td>
+	<td>	
+	<button type='button' class='btn' onclick="location.href='service_notice'"  >목록</button>
+	<button type='button' class='btn' onclick="location.href='service_notice'"  >수정완료</button>
+	</td>
+	</table>
+	
+   </div>
+
+   {% endblock %}

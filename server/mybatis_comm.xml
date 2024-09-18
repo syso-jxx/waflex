@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select_list">
+		select bbs_no,
+		       comm_no,
+		       user_id,
+		       content,
+ 		       (select count(*) 
+ 				from   commlike 
+ 				where  comm_no = d.comm_no
+ 				and    like_yn = 'y') 
+				likes,
+ 		       (select count(*) 
+ 				from   commlike 
+ 				where  comm_no = d.comm_no
+ 				and    like_yn = 'n') 
+				dislike,
+		       in_date,
+		       in_user_id,
+		       up_date,
+			   up_user_id
+		 from  comm d
+
+		 where bbs_no = :1
+		 order by in_date
+
+	</select>
+	
+	<update id="insert">
+		insert into comm 
+		(
+		       bbs_no,
+		       comm_no,
+		       user_id,
+		       content,
+		       likes,
+		       dislike,
+		       in_date,
+		       in_user_id,
+		       up_date,
+			   up_user_id
+		) 
+		values
+		(
+			:1,
+			comm_seq.nextval,
+			:2,
+			:3,
+			0,
+			0,
+			to_char(sysdate, 'YYYY-MM-DD.HH24:MI:SS'),
+			:4,
+			to_char(sysdate, 'YYYY-MM-DD.HH24:MI:SS'),
+			:5
+		)
+	</update>
+	
+<!-- 	<select id="getlike_not"> -->
+<!-- 		select (select count(*) -->
+<!-- 				from   commlike -->
+<!-- 				where  comm_no = :1 -->
+<!-- 				and    like_yn = 'y') cnt_like, -->
+<!-- 			   (select count(*) -->
+<!-- 				from   commlike -->
+<!-- 				where  comm_no = :1 -->
+<!-- 				and    like_yn = 'n') cnt_dislike -->
+<!-- 		from   dual -->
+<!-- 	</select> -->
+	
+	<update id="delete">
+		delete
+		  from comm
+		 where comm_no=:1
+	</update>
+</mapper>

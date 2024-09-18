@@ -1,0 +1,134 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<style type="text/css">
+
+table{
+border-collapse:collapse;
+}
+
+.intro {
+	margin: 50px;
+	display: flex;
+	justify-content: center;
+	font-family: 'Do hyeon', sans-serif;
+}
+
+#content {
+	display: flex;
+	justify-content: center;
+}
+
+th {
+	width: 250px;
+	height: 50px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 25px;
+	font-weight: bold;
+	border-bottom: 1px solid rgba(169, 169, 169, 1);
+}
+
+tr .col1 {
+	width: 100px;
+}
+
+tr .col2 {
+	width: 500px;
+}
+
+td {
+	width: 250px;
+	height: 50px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 15px;
+	border-bottom: 1px solid rgba(169,169,169,0.4);
+}
+
+footer {
+	background-color: #000000
+}
+
+.footer-flex-container {
+	color: #ffffff;
+	display: flex;
+	flex-direction: row;
+}
+
+footer ul {
+	list-style-type: none;
+}
+
+.inner-flex0 {
+	flex-grow: 2;
+}
+
+.inner-flex1 {
+	flex-grow: 5;
+}
+
+.inner-flex2 {
+	flex-grow: 2;
+}
+@media (max-width:1440px){
+	input[type=text]{
+		width:50%;
+	}
+	.btn{
+		width:80px;
+		font-size:15px;
+		position: relative;
+		margin-top:40px;
+	}
+	table{
+		display:flex;
+		justify-content:center;
+	}
+	tr .col1{
+		width:250px;
+	}
+	tr .col2{
+		width:800px;
+	}
+	tr .col5{
+		width:250px;
+	}
+	.col4{
+		display:none;
+	}
+}
+</style>
+
+<header>
+	<div class="intro">FAQ</div>
+</header>
+
+<script type="text/javascript">
+
+function fn_detail(faq_no){
+	location.href = "service_faq_detail?faq_no="+faq_no;
+}
+
+</script>
+
+
+<section id="content">
+	<table>
+		<tr>
+			<th class="col1">번호</th>
+			<th class="col2">제목</th>
+			<th class="col3">작성자</th>
+			<th class="col4">작성일</th>
+		</tr>
+		{% for a in range(len(list)-1,0,-1) %}
+		<tr>
+		<td class="col1">{{a}}</td>
+		<td class="col2"><a href="javascript:fn_detail('{{list[a].faq_no}}')">{{list[a].title}}</a></td>
+		<td class="col3">{{list[a].user_id}}</td>
+		<td class="col4">{{list[a].in_date}}</td>	
+		</tr>	
+		{% endfor %}
+	</table>
+</section>
+{% endblock %}

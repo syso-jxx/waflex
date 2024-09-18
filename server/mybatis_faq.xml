@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+
+   <select id="select_list">
+   
+   select 
+		faq_no,
+		user_id,
+		title,
+		content,
+		writer,
+		in_date,
+		in_user_id,
+		up_date,
+		up_user_id
+      from
+         faq
+      order by in_date asc
+   </select>
+   
+   <select id="select">
+   
+   select 
+        faq_no,
+		user_id,
+		title,
+		content,
+		writer,
+		in_date,
+		in_user_id,
+		up_date,
+		up_user_id,
+       (select user_nm from users u where user_id=f.in_user_id) in_user_name 
+      from
+         faq f
+      where
+	     faq_no =:1
+
+   </select>
+
+   <update id="insert">
+   insert into faq
+   (
+       
+        faq_no,
+		user_id,
+		title,
+		content,
+		writer,
+		in_date,
+		in_user_id,
+		up_date,
+		up_user_id
+   )
+    values
+   (
+  	   faq_seq.nextval,
+       :1,
+       :2,
+       :3,
+       :4,
+       to_char(sysdate,'YYYYMMDD.HHMISS'),
+       :6,
+       to_char(sysdate,'YYYYMMDD.HHMISS'),
+       :7
+   )
+   
+   </update>
+
+   <update id="update">
+      update
+          faq
+       set 
+          user_id = :1,
+          title = :2,
+          content =:3,
+          writer =:4,
+          up_date = TO_CHAR(sysdate,'YYYYMMDD.HH24MISS'),
+          up_user_id = :5
+       where
+          faq_no =:6
+           
+   </update>
+   
+	 
+
+   <update id="delete">
+      delete from faq where faq_no =:1
+   </update>
+
+</mapper>

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select">
+		select 
+			user_id,
+			user_nm,
+			user_password,
+			user_telno,
+			user_email,
+			mngr_flag,
+			act_flag,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id,
+			(select p.user_id
+			   from payment p
+			  where p.user_id = u.user_id) pay_id
+		from 
+			users u
+	   order by 8 desc
+	</select>
+	
+	<select id="select_login">
+		SELECT 
+			user_id,
+			user_nm,
+			user_password,
+			user_telno,
+			user_email,
+			mngr_flag,
+			act_flag,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		from 
+			users
+		where 
+			user_id=:1 and
+			user_password=:2
+	</select>
+	<select id="kakao_login">
+		SELECT 
+			user_id,
+			user_nm,
+			user_password,
+			user_telno,
+			user_email,
+			mngr_flag,
+			act_flag,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		from 
+			users
+		where 
+			user_id=:1
+	</select>
+	
+	<select id="find_id">
+		select 
+			user_id
+		from 
+			users
+		where 
+			user_nm= :1
+		  and
+			user_email = :2
+	</select>
+	
+	<select id="find_pwd">
+		select 
+			user_id
+		from 
+			users
+		where 
+			user_id= :1
+		  and
+			user_email = :2
+	</select>
+	
+	<update id="find_pwd2">
+		update 
+			users
+		set 
+			user_password	= :1,
+			up_date= to_char(sysdate, 'YYYY-MM-DD.HH24:MI:SS'),
+			up_user_id		= :2
+		where 
+			user_id		= :3
+	</update>
+	
+	<select id="my_info">
+		select 
+			user_id,
+			user_nm,
+			user_password,
+			user_telno,
+			user_email,
+			mngr_flag,
+			act_flag,
+			(select substr(in_date, 1, 10)
+			   from payment
+			  where user_id = :1) payday, 
+			(select payment_renew
+			   from payment
+			  where user_id = :2) payment_renew, 
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		from 
+			users
+	   where
+	   	 	user_id = :3		
+	</select>
+	
+	<select id="search">
+		select 
+			user_id,
+			user_nm,
+			user_password,
+			user_telno,
+			user_email,
+			mngr_flag,
+			act_flag,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		from 
+			users
+	   where
+	   	 	user_nm like '%'||:1||'%'		
+	</select>
+	
+	<select id="select_dupl">
+		SELECT 
+			user_id,
+			user_nm,
+			user_password,
+			user_telno,
+			user_email,
+			mngr_flag,
+			act_flag,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		from 
+			users
+		where 
+			user_id=:1
+	</select>
+	
+	<update id="insert">
+		insert into 
+		users
+		(
+			user_id,
+			user_nm,
+			user_password,
+			user_telno,
+			user_email,
+			mngr_flag,
+			act_flag,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		) 
+		values
+		(
+			:1, 
+			:2, 
+			:3,
+			:4,
+			:5,
+			'n', 
+			'y',
+			to_char(sysdate, 'YYYY-MM-DD.HH24:MI:SS'), 
+			:8,
+			to_char(sysdate, 'YYYY-MM-DD.HH24:MI:SS'),  
+			:9
+		)
+	</update>
+	
+	<update id="update">
+		update 
+			users
+		set 
+			user_nm       	= :1,
+			user_password	= :2,
+			user_telno		= :3,
+			user_email		= :4,
+			up_date= to_char(sysdate, 'YYYY-MM-DD.HH24:MI:SS'),
+			up_user_id		= :5
+		where 
+			user_id		=:6
+	</update>
+	
+	<update id="delete">
+		update
+			users
+		set
+			act_flag = 'n'
+		where
+			user_id = :1	   		
+	</update>
+	
+	<update id="merge_kakao">
+		MERGE INTO users
+			using dual
+			on (user_id = :1)
+			when matched then
+			     update set
+			     user_nm = :2, 
+			     user_email = :3
+			when not matched then
+			insert 
+				(
+				user_id,
+				user_nm,
+				user_password,
+				user_telno,
+				user_email,
+				mngr_flag,
+				act_flag,
+				in_date,
+				in_user_id,
+				up_date,
+				up_user_id
+				) 
+			values 
+				(
+				:1, 
+				:2, 
+				'1111',
+				'01012345678',
+				:3,
+				'n', 
+				'y',
+				to_char(sysdate, 'YYYY-MM-DD.HH24:MI:SS'),  
+				:4,
+				to_char(sysdate, 'YYYY-MM-DD.HH24:MI:SS'),  
+				:5
+				)
+	</update>
+	
+</mapper>

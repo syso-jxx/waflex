@@ -1,0 +1,174 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content %}
+
+<script src="./js/jquery-3.5.1.js"></script>
+<script type="text/javascript">
+
+function fn_ticket_list(){
+	location.href="ticket_admin"
+}
+function fn_ticket_add(){
+	
+	var ticket_no = $("#ticket_no").val();
+	var ticket_name = $("#ticket_name").val();
+	var ticket_price = $("#ticket_price").val();
+
+	var param = "";
+	param += "dummy=" + Math.random();
+	param += "&ticket_no=" + ticket_no
+	param += "&ticket_name=" + ticket_name
+	param += "&ticket_price=" + ticket_price
+
+	if(ticket_name == ""){
+		alert("요금명을 입력하세요");
+		$("input[name=ticket_name]").focus();
+		return;
+	}else if(ticket_price == ""){
+		alert("가격을 입력하세요");
+		$("input[name=ticket_price]").focus();
+		return;
+	}else{
+		$.ajax({
+			url : "ticket_ins.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async : false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg == "ok"){
+					var flag_ok = confirm("추가하시겠습니까?");
+					if(flag_ok){
+						location.href="ticket_admin";
+					}
+				} else{
+					alert("추가 도중 문제가 생겼습니다")
+				}
+				console.log(data.msg)
+			}
+		});
+	}
+
+}
+
+
+
+</script>
+<style type="text/css">
+header{
+	color:#ffffff; 
+	font-size: 25px; 
+	font-weight: bold; 
+}
+input[type=button]{
+  	font-size: 20px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	padding:3px 10px;
+	width:80px;
+}
+input[type=button]:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+.intro{
+    margin: 50px;
+   	display: flex;	
+    justify-content: center;
+    font-family: 'Do hyeon', sans-serif;
+}
+#content{
+	display:flex;
+	justify-content: center;
+
+	
+	}
+th{
+	width:250px;
+	height:50px;
+	text-align:center;
+	color:#ffffff; 
+	font-size: 20px; 
+	font-weight: bold; 
+	font-family:'Noto Sans KR', sans-serif;
+}
+tr .col1{
+width:100px;
+}
+td{
+	width:200px;
+	height:50px;
+	text-align:center;
+	color:#ffffff; 
+	font-size: 15px; 
+	font-family:'Noto Sans KR', sans-serif;
+}
+.td_btn{
+	text-align:right;
+	
+}
+input[type=text]{
+	width:350px;
+}
+@media(max-width:1440px){
+	th{
+		width:150px;
+	}
+	input[type=text]{
+		width:200px;
+	}
+	#title{
+		width:200px;
+	}
+	input[type=file]{
+		width:200px;
+	}
+	textarea{
+		width:200px;
+	}
+}
+</style>
+
+<header>
+	<div class="intro">이용권 관리</div>
+</header>
+
+<section id = "content">
+<form name="frm" action="ticket_addact" method="post" enctype="multipart/form-data">
+	<table>
+	
+		<tr>
+			<th>이용권번호</th>
+			<td><input id="ticket_no" type="text" value='자동생성' readonly></td>
+		</tr>
+		<tr>
+			<th>요금명</th>
+			<td>
+				<input id="ticket_name" name= "ticket_name" type="text" value="">
+			</td>
+		</tr>
+		<tr>
+			<th>가격</th>
+			<td>
+				<input id="ticket_price" name= "ticket_price" type="text" value="">
+			</td>
+		</tr>
+		<tr>
+			<td class="td_btn" colspan="2">
+				<input type="button" value="추가" onclick="fn_ticket_add()">
+				<input type="button" value="목록" onclick="fn_ticket_list()">
+			</td>	
+		</tr>
+	</table>	
+</form>
+</section>
+{% endblock %}

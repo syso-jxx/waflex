@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+
+	<select id="select_list">
+		select bbs_no,
+		       user_id,
+		       title,
+		       content,
+		       attach_file,
+		       attach_path,
+		       rdcnt,
+		       writer,
+		       in_date,
+		       in_user_id,
+		       up_date,
+		       up_user_id
+		from   bbs
+		order by bbs_no
+	</select>
+	
+	<select id="select">
+		select bbs_no,
+		       user_id,
+		       title,
+		       content,
+		       attach_file,
+		       attach_path,
+		       rdcnt,
+		       writer,
+		       in_date,
+		       in_user_id,
+		       up_date,
+		       up_user_id
+		from   bbs
+		where  bbs_no = :1
+	</select>
+	
+	<select id="search">
+		select bbs_no,
+		       user_id,
+		       title,
+		       content,
+		       attach_file,
+		       attach_path,
+		       rdcnt,
+		       writer,
+		       in_date,
+		       in_user_id,
+		       up_date,
+		       up_user_id
+		from   bbs
+		where  title like '%'||:1||'%'
+	</select>
+	
+	<select id="select_ins">
+		select user_id,
+		       user_nm,
+		       in_date,
+		       in_user_id,
+		       up_date,
+		       up_user_id
+		from   users
+	</select>
+	
+	<update id="insert">
+		insert into bbs (
+			bbs_no,
+		    user_id,
+		    title,
+		    content,
+		    attach_file,
+		    attach_path,
+		    rdcnt,
+		    writer,
+		    in_date,
+		    in_user_id,
+		    up_date,
+		    up_user_id 
+		) 
+		values (
+			bbs_seq.nextval,
+			:1,
+			:2,
+			:3,
+			:4,
+			:5,
+			0,
+			:6,
+			to_char(sysdate, 'YYYY-MM-DD.HH24:MI:SS'),
+			:7,
+			to_char(sysdate, 'YYYY-MM-DD.HH24:MI:SS'),
+			:8
+		)
+	</update>
+	
+	<update id="update">
+		update bbs 
+		set    user_id  	= :1,
+			   title 		= :2,
+               content 		= :3, 
+               attach_file	= :4,
+		       attach_path 	= :5,
+               up_date 		= to_char(sysdate, 'YYYY-MM-DD.HH24:MI:SS')
+		where  bbs_no 		= :6
+	</update>
+	
+	  
+   <update id="mydel_img">
+        update 
+        	bbs 
+       	set 
+	        attach_path			= '',
+	        attach_file			= '',
+	        up_date				=to_char(sysdate, 'YYYYMMDD.HHMISS'),
+	        up_user_id			=:1
+         where 
+         	bbs_no=:2
+	        
+    </update>
+	
+	<update id="rdcntup">
+		update bbs 
+		set    rdcnt 	= rdcnt + 1
+		where  bbs_no	= :1
+		
+	</update>
+	
+	<update id="delete_reply">
+		delete
+		  from comm
+		 where bbs_no	= :1
+	</update>
+	
+	<update id="delete">
+		delete
+		  from bbs
+		 where bbs_no	= :1
+	</update>
+	
+</mapper>

@@ -1,0 +1,239 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content%}
+<style>
+.moviecon{
+	display:flex;
+	justify-content: center;
+	font-size: 30px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin: 20px;
+}
+table{
+	text-align:center;
+	color:#ffffff;
+}
+th{
+	font-size:20px;
+	text-align:center;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+td{
+	padding:10px;
+	font-size:15px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+.intro{
+    margin: 50px;
+   	display: flex;	
+    justify-content: center;
+    font-family: 'Do hyeon', sans-serif;
+    text-decoration: underline;
+    text-underline-position: under;
+}
+button{
+  	font-size: 17px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:5px 10px;
+	width:auto;
+}
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+input[type=text]{
+	font-size:20px;
+	height: 25px;
+	background-color:#eeeeee;
+	border-radius:1px;
+	border:none;
+	font-family: 'Jua';
+	padding: 2px;
+}
+select{
+	width: 510px;
+	font-size: 18px;
+	font-family: 'Noto Sans KR', sans-serif;
+	text-align-last: center;
+}
+.file_name{
+	width:41%;
+}
+.select_file{
+	width:50%;
+}
+.poster{
+	text-align:right;
+}
+</style>
+<script type="text/javascript">
+
+
+
+	function fn_movie_del(){
+		var flag = confirm('정말로 삭제하시겠습니까?')
+		var movie_no = $('input[name=movie_no]').val();
+		
+		if(flag){
+			// ajax
+			var param = "";
+			param += "dummy=" + Math.random();
+			param += "&movie_no=" + movie_no;
+			
+			$.ajax({
+				url : "/movie_del.ajax",
+				data : param,
+				dataType : "json",
+				type : "post",
+				async: false,
+				statusCode : {
+					404 : function() {
+						alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+					}
+				},
+				success : function(data) {
+					if(data.msg == 'ok'){
+						alert('정상적으로 삭제되었습니다.')
+					}else{
+						alert('삭제 도중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요.')
+					}
+					location.href="movie_admin";
+				}
+			});
+		}else{
+			window.history.back();
+		}
+		
+	} 
+</script>
+<section id = "content">
+	<div class="intro">영화관리</div>
+<table class="moviecon">
+   <form action="movie_mod_act" method="post" enctype="multipart/form-data">
+		{% for movie in movies %}
+		<tr class="th">
+			<th>영화번호</th>
+			<td>
+				<input type="text" name="movie_no" value="{{movie.movie_no}}" readonly>
+			</td>
+		</tr>
+		<tr>
+			<th>장르코드</th>
+			<td>
+				<select name="genre_code">
+					{% for genre in genres %}
+						<option id="{{genre.genre_code}}" value="{{genre.genre_code}}">{{genre.name}}</option>
+					{% if movie.genre_code == genre.genre_code %}
+					<script type="text/javascript">
+						$('#{{movie.genre_code}}').prop('selected', true)
+					</script>
+					{% endif %}
+					{% endfor %}
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>국가코드</th>
+			<td>
+				<select name="nation_code">
+					{% for nation in nations %}
+						<option id="{{nation.nation_code}}" value="{{nation.nation_code}}">{{nation.name}}</option>
+					{% if movie.nation_code == nation.nation_code %}
+					<script type="text/javascript">
+						$('#{{nation.nation_code}}').prop('selected', true)
+					</script>
+					{% endif %}	
+					{% endfor %}
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>영화제목</th>
+			<td>
+				<input type="text" name="title" value="{{movie.title}}">
+			</td>
+		</tr>
+		<tr>
+			<th>감독</th>
+			<td>
+				<input type="text" name="director" value="{{movie.director}}">
+			</td>
+		</tr>
+		<tr>
+			<th>배우</th>
+			<td>
+				<input type="text" name="actor" value="{{movie.actor}}">
+			</td>
+		</tr>
+		<tr>
+			<th>런타임</th>
+			<td>
+				<input type="text" name="runtime" value="{{movie.runtime}}">
+			</td>
+		</tr>
+		<tr>
+			<th>개봉일</th>
+			<td>
+				<input type="text" name="release_date" id="release_date" value="{{movie.release_date}}">
+			</td>
+		</tr>
+		<tr>
+			<th>포스터</th>
+			<td class="poster">
+				<input type="text" class="file_name" name="poster" value="{{movie.poster}}">
+				<input type="file" class="select_file" name="file">
+			</td>
+		</tr>
+		<tr>
+			<th>영상경로</th>
+			<td>
+				<input type="text" name="url" value="{{movie.url}}">
+			</td>
+		</tr>
+		<tr>
+			<th>스트리밍 횟수</th>
+			<td>
+				<input type="text" name="stream_cnt" value="{{movie.stream_cnt}}" readonly>
+			</td>
+		</tr>
+		<tr>
+			<th>등록일</th>
+			<td>
+				<input type="text" name="in_date" value="{{movie.in_date}}" readonly>
+			</td>
+		</tr>
+		<tr>
+			<th>등록자</th>
+			<td>
+				<input type="text" name="in_user_id" value="{{movie.in_user_id}}">
+			</td>
+		</tr>
+		<tr>
+			<th>수정일</th>
+			<td>
+				<input type="text" name="up_date" value="{{movie.up_date}}">
+			</td>
+		</tr>
+		<tr>
+			<th>수정자</th>
+			<td>
+				<input type="text" name="up_user_id" value="{{movie.up_user_id}}">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<button type="submit">수정하기</button>
+				<button type="button" onclick="fn_movie_del()">삭제하기</button>
+			</td>
+		</tr>
+		{% endfor %}
+	</form>
+</table>
+</section>
+{% endblock %}

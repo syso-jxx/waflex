@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select_all">
+		SELECT 
+			genre_code,
+			name,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		from 
+		    genre 
+	</select>
+	
+	<select id="select_one">
+		select
+			genre_code,
+			name,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		  from
+		    genre
+		 where
+		 	genre_code = :1   	
+	</select>
+	
+	<update id="insert">
+		insert into genre (
+			genre_code,
+			name,
+			in_date,
+			in_user_id,
+			up_date,
+			up_user_id
+		) 
+		values(
+			:1,
+			:2,	 
+			to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			:3,
+			to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			:4
+		)
+	</update>
+	
+	<update id="update">
+		update
+			genre
+		set
+		    genre_code   = :1,
+			name  = :2,
+			up_date      = to_char(sysdate,'YYYY-MM-DD.HH24:MI:SS'),
+			up_user_id   = :3
+		where
+			genre_code	= :4
+	</update>
+		
+	<update id="delete">
+		delete from genre
+		 where genre_code	=:1
+	</update>
+</mapper>

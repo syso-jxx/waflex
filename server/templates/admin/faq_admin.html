@@ -1,0 +1,155 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<style type="text/css">
+header {
+	color: #ffffff;
+	font-size: 25px;
+	font-weight: bold;
+}
+table{
+border-collapse:collapse;
+}
+
+.intro {
+	margin: 50px;
+	display: flex;
+	justify-content: center;
+	font-family: 'Do hyeon', sans-serif;
+}
+
+#content {
+	display: flex;
+	justify-content: center;
+}
+
+th {
+	width: 250px;
+	height: 50px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 25px;
+	font-weight: bold;
+	border-bottom: 1px solid rgba(169, 169, 169, 1);
+}
+
+tr .col1 {
+	width: 100px;
+}
+
+tr .col2 {
+	width: 500px;
+}
+
+td {
+	width: 250px;
+	height: 50px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 15px;
+	border-bottom: 1px solid rgba(169, 169, 169, 0.4);
+}
+
+footer {
+	background-color: #000000
+}
+
+.footer-flex-container {
+	color: #ffffff;
+	display: flex;
+	flex-direction: row;
+}
+
+footer ul {
+	list-style-type: none;
+}
+
+.inner-flex0 {
+	flex-grow: 2;
+}
+
+.inner-flex1 {
+	flex-grow: 5;
+}
+
+.inner-flex2 {
+	flex-grow: 2;
+}
+#btn{
+  	font-size: 15px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:3px 10px;
+	width:auto;
+	position:relative;
+	left: 80%;
+}
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+@media(max-width:1440px){
+.search{
+	left:10%;
+	width: 90%;
+}
+.col4{
+	display:none;
+}
+.col5{
+	width: 30px;
+}
+table{
+	display:flex;
+	justify-content:center;
+}
+tr .col2{
+	width:200px;
+}
+.btn{
+	width:80px;
+	font-size:15px;
+	position: relative;
+	left: 80%;
+}
+}
+</style>
+
+<header>
+	<div class="intro">FAQ 목록</div>
+</header>
+
+<script type="text/javascript">
+
+function fn_detail(faq_no){
+	location.href = "faq_detail_admin?faq_no="+faq_no;
+}
+
+  
+</script>
+<button type="button" id="btn" class="btn" onclick="location.href='faq_add_admin'">글쓰기</button>
+<section id="content">
+	<table>
+		<tr>
+			<th class="col1">번호</th>
+			<th class="col2">제목</th>
+			<th class="col3">작성자</th>
+			<th class="col4" colspan="2">작성일</th>
+		</tr>
+		{% for a in range(len(list)-1, 0, -1) %}
+		<tr>
+		<td class="col1">{{a}}</td>
+		<td class="col2"><a href="javascript:fn_detail('{{list[a].faq_no}}')">{{list[a].title}}</a></td>
+		<td class="col3">{{list[a].user_id}}</td>
+		<td class="col4" colspan="2">{{list[a].in_date}}</td>	
+		</tr>	
+		{% endfor %}
+		
+	</table>
+</section>
+{% endblock %}

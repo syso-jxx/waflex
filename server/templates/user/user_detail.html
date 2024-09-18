@@ -1,0 +1,274 @@
+{% extends 'layout.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<style type="text/css">
+header {
+	color: #ffffff;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+input {
+	width: 300px;
+	height: 30px;
+	font-size: 17px;
+	text-align: center;
+}
+
+header #logo {
+	color: #e50914;
+	display: flex;
+	justify-content: center;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 10px;
+}
+
+body {
+	background-color: #000000;
+}
+
+#search {
+	display: flex;
+	justify-content: center;
+}
+
+.intro {
+	margin: 50px;
+	display: flex;
+	justify-content: center;
+	font-family: 'Do hyeon', sans-serif;
+}
+
+#content {
+	display: flex;
+	justify-content: center;
+}
+
+th {
+	width: 200px;
+	height: 50px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+	padding:5px;
+}
+
+tr .col1 {
+	width: 100px;
+}
+
+tr .col2 {
+	width: 500px;
+}
+
+td {
+	width: 250px;
+	height: 50px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 17px;
+}
+
+footer {
+	background-color: #000000
+}
+
+.footer-flex-container {
+	color: #ffffff;
+	display: flex;
+	flex-direction: row;
+}
+
+footer ul {
+	list-style-type: none;
+}
+
+.inner-flex0 {
+	flex-grow: 2;
+}
+
+.inner-flex1 {
+	flex-grow: 5;
+}
+
+.inner-flex2 {
+	flex-grow: 2;
+}
+input[type=button],input[type=submit]{
+  	font-size: 20px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:20px;
+	cursor:pointer;
+	border-radius:15px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding: 10px 15px 40px;
+	width:auto;
+}
+input[type=button]:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+input[type=submit]:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	let idReg = /^[a-z][a-zA-Z0-9]{3,11}$/;
+	let passReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[~!@#$%^&*]).{8,12}$/;
+	let nameReg = /^[가-힣]{2,10}$/;
+	let telReg = /\d{11}/;
+	let mailReg = /^[a-zA-Z0-9]+@[a-z0-9_]+(\.[a-z]+){1,2}$/;
+	
+	$('input[name=user_nm]').focus();
+	
+	$('input[name=user_nm]').blur(function(){
+		var user_nm = $(this).val();
+		
+		if(!nameReg.test(user_nm)){
+			alert('이름 형식을 맞춰주세요.');
+			
+			setTimeout(function(){
+				$('input[name=user_nm]').focus();
+			}, 1)
+			return false;
+		}
+	})
+	
+	$('input[name=user_password]').blur(function(){
+		var user_password = $(this).val();
+		
+		if(!passReg.test(user_password)){
+			alert('비밀번호 형식을 맞춰주세요.');
+			
+			setTimeout(function(){
+				$('input[name=user_password]').focus();
+			}, 1)
+			return false;
+		}
+	})
+	
+	$('input[name=user_telno]').blur(function(){
+		var user_telno = $(this).val();
+		
+		if(!telReg.test(user_telno)){
+			alert('전화번호 형식을 맞춰주세요.');
+			
+			setTimeout(function(){
+				$('input[name=user_telno]').focus();
+			}, 1)
+			return false;
+		}
+	})
+	
+	$('input[name=user_email]').blur(function(){
+		var user_email = $(this).val();
+		
+		if(!mailReg.test(user_email)){
+			alert('이메일 형식을 맞춰주세요.');
+			
+			setTimeout(function(){
+				$('input[name=user_email]').focus();
+			}, 1)
+			return false;
+		}
+	})
+})
+
+	function fn_user_del(){
+		var flag = confirm('정말로 탈퇴하시겠습니까? (이용권 환불은 불가합니다.)');
+		
+		if(flag){
+			var user_id = $('input[name=user_id]').val();
+			// ajax
+			var param = "";
+			param += "dummy=" + Math.random();
+			param += "&user_id=" + user_id;
+			
+			$.ajax({
+				url : "/user_del.ajax",
+				data : param,
+				dataType : "json",
+				type : "post",
+				async: false,
+				statusCode : {
+					404 : function() {
+						alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+					}
+				},
+				success : function(data) {
+					if(data.msg == 'ok'){
+						alert('정상적으로 탈퇴되었습니다.')
+						location.href="logout"
+					}else{
+						alert('탈퇴 도중 문제가 생겼습니다. 잠시 후 다시 시도해주세요.')
+					}				
+				}
+			});
+		}else{
+			window.history.back();
+		}
+	}
+</script>
+<header>
+	<div class="intro">내 정보 수정</div>
+</header>
+<section id="content">
+	<form action="user_mod" method="POST">
+		<table>
+			{% for info in infos%}
+			<tr>
+				<th class="col1">아이디</th>
+				<td class="col5">
+					<input type="text" name="user_id" value="{{info.user_id}}" readonly>
+				</td>
+			</tr>
+			<tr>
+				<th class="col1">이름</th>
+				<td class="col5">
+					<input type="text" name="user_nm" value="{{info.user_nm}}">
+				</td>
+			</tr>
+			<tr>
+				<th class="col1">비밀번호</th>
+				<td class="col5">
+					<input type="password" name="user_password" value="{{info.user_password}}">
+				</td>
+			</tr>
+			<tr>
+				<th class="col1">전화번호</th>
+				<td class="col5">
+					<input type="text" name="user_telno" value="{{info.user_telno}}">
+				</td>
+			</tr>
+			<tr>
+				<th class="col1">이메일</th>
+				<td class="col5">
+					<input type="text" name="user_email" value="{{info.user_email}}">
+				</td>
+			</tr>
+			<tr>
+				<th class="col1">가입일</th>
+				<td class="col5">{{info.in_date}}</td>
+			</tr>
+			<tr>
+				<th class="col1">마지막<br>수정일
+				</th>
+				<td class="col5">{{info.up_date}}</td>
+			</tr>
+			{% endfor %}
+			<tr>
+				<td colspan="2">
+					<input type="submit" value="수정완료">
+					<input type="button" value="회원탈퇴" onclick="fn_user_del()">
+				</td>
+			</tr>
+		</table>
+	</form>
+</section>
+{% endblock %}

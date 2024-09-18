@@ -1,0 +1,114 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content %}
+
+<style type="text/css">
+
+input[type=button]{
+  	font-size: 20px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	padding:3px 10px;
+	width:80px;
+}
+input[type=button]:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+table{
+	border-collapse:collapse;
+}
+body{
+ 	background-color:#000000; 
+}
+#search{
+	display: flex;	
+    justify-content: center;
+    
+}
+.intro{
+    margin: 50px;
+   	display: flex;	
+    justify-content: center;
+    font-family: 'Do hyeon', sans-serif;
+}
+#content{
+	display:flex;
+	justify-content: center;
+
+	
+	}
+th{
+	width:250px;
+	height:50px;
+	text-align:center;
+	color:#ffffff; 
+	font-size: 20px; 
+	font-weight: bold; 
+	border-bottom: 1px solid rgba(169,169,169,1);
+	font-family:'Noto Sans KR', san-serif;
+}
+tr .col1{
+width:100px;
+}
+td{
+width:250px;
+height:50px;
+text-align:center;
+color:#ffffff; 
+font-size: 15px; 
+font-family:'Noto Sans KR', san-serif;
+border-bottom: 1px solid rgba(169, 169, 169, 0.4);
+}
+
+.td_btn{
+	text-align:right;
+	border-bottom:0;
+}
+
+</style>
+
+<script type="text/javascript">
+
+function fn_detail(ticket_no){
+	location.href="ticket_detail?ticket_no="+ticket_no;
+}
+
+function fn_add(){
+	location.href="ticket_add";
+}
+  
+</script>
+
+<header>
+	<div class="intro">이용권 관리</div>
+</header>
+
+<section id = "content">
+	<table>
+		<tr>
+			<th>이용권번호</th>
+			<th>요금명</th>
+			<th>가격</th>
+		</tr>
+		{% for s in range(len(ticket)-1, -1, -1) %}
+		<tr>
+			<td id = "ticket_no">{{s+1}}</td>
+			<td>
+				<a id = "ticket_name" href="javascript:fn_detail('{{ticket[s].ticket_no}}')">{{ticket[s].name}}</a>
+			</td>
+			<td>{{ticket[s].price}}</td>
+		</tr>
+		{% endfor %}
+		<tr>
+			<td class="td_btn" colspan="3">
+				<input type="button" value="추가" onclick="fn_add()">
+			</td>
+		</tr>
+	</table>	
+</section>
+{% endblock %}

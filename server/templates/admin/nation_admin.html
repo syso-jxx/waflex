@@ -1,0 +1,122 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content%}
+<style>
+.moviecon {
+	display: flex;
+	justify-content: center;
+	font-size: 30px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin: 20px;
+}
+
+table {
+	text-align: center;
+	color: #ffffff;
+	border-collapse:collapse;
+}
+
+th {
+	font-size: 20px;
+	text-align: center;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-bottom:1px solid rgba(169,169,169,1);
+	
+}
+
+td {
+	padding: 10px;
+	font-size: 15px;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-bottom:1px solid rgba(169,169,169,0.4);
+}
+
+.intro {
+	margin: 50px;
+	display: flex;
+	justify-content: center;
+	font-family: 'Do hyeon', sans-serif;
+}
+
+button{
+  	font-size: 17px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:5px 10px;
+	width:auto;
+}
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+.add_btn{
+	text-align:right;
+	border-bottom:0;
+}
+@media (max-width:1440px){
+	.btn{
+		width:80px;
+		font-size:15px;
+		position: relative;
+		margin-top:40px;
+	}
+	table{
+		display:flex;
+		justify-content:center;
+	}
+	tr .col1{
+		width:250px;
+	}
+	tr .col2{
+		width:800px;
+	}
+	tr .col5{
+		width:250px;
+	}
+	.col3{
+		display:none;
+	}
+	.col5{
+		display:none;
+	}
+	.col6{
+		display:none;
+	}
+}
+</style>
+<section id="content">
+	<div class="intro">국가관리</div>
+	<table class="moviecon">
+		<tr>
+			<td class="add_btn" colspan="6">
+				<button value="" onclick="location.href='nation_add'">국가추가</button>
+			</td>
+		</tr>
+		<tr class="th">
+			<th class="col1">국가코드</th>
+			<th class="col2">국가명</th>
+			<th class="col3">등록일</th>
+			<th class="col4">등록자</th>
+			<th class="col5">수정일</th>
+			<th class="col6">수정자</th>
+		</tr>
+		{% for nation in nations %}
+		<tr id="row1">
+			<td class="col1">{{nation.nation_code}}</td>
+			<td class="col2">
+				<a href="nation_detail?nation_code={{nation.nation_code}}">{{nation.name}}</a>
+			</td>
+			<td class="col3">{{nation.in_date}}</td>
+			<td class="col4">{{nation.in_user_id}}</td>
+			<td class="col5">{{nation.up_date}}</td>
+			<td class="col6">{{nation.up_user_id}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+</section>
+{% endblock %}

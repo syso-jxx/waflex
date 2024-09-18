@@ -1,0 +1,113 @@
+{% extends 'admin/layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content%}
+<style>
+.moviecon {
+	display: flex;
+	justify-content: center;
+	font-size: 30px;
+	font-family: 'Do Hyeon', sans-serif;
+	margin: 20px;
+}
+
+table {
+	text-align: center;
+	color: #ffffff;
+	border-collapse:collapse;
+}
+
+th {
+	font-size: 20px;
+	text-align: center;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-bottom:1px solid rgba(169,169,169,1);
+	
+}
+
+td {
+	padding: 10px;
+	font-size: 15px;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-bottom:1px solid rgba(169,169,169,0.4);
+}
+.add_btn{
+	border-bottom:0;
+	position:relative;
+	left:40%;
+}
+
+.intro {
+	margin: 50px;
+	display: flex;
+	justify-content: center;
+	font-family: 'Do hyeon', sans-serif;
+}
+
+button {
+  	font-size: 17px; 
+	color:#fff; 
+	background: #2581dc;
+	border:none;
+	margin:5px;
+	cursor:pointer;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	padding:5px 10px;
+	width:auto;
+}
+
+
+button:hover{
+	background-color:rgba(37,129,220,0.9);
+}
+@media(max-width:1440px){
+.col3{
+	display:none;
+}
+.col5{
+	display:none;
+}
+.col6{
+	display:none;
+}
+	table{
+		display:flex;
+		justify-content:center;
+	}
+	tr .col2{
+		width:200px;
+	}
+}
+</style>
+<section id="content">
+	<div class="intro">장르관리</div>
+	<table class="moviecon">
+		<tr>
+			<td class="add_btn" colspan="6">
+				<button value="" onclick="location.href='genre_add'">장르추가</button>
+			</td>
+		</tr>
+		<tr class="th">
+			<th class="col1">장르코드</th>
+			<th class="col2">장르명</th>
+			<th class="col3">등록일</th>
+			<th class="col4">등록자</th>
+			<th class="col5">수정일</th>
+			<th class="col6">수정자</th>
+		</tr>
+		{% for genre in genres %}
+		<tr id="row1">
+			<td class="col1">{{genre.genre_code}}</td>
+			<td class="col2">
+				<a href="genre_detail?genre_code={{genre.genre_code}}">{{genre.name}}</a>
+			</td>
+			<td class="col3">{{genre.in_date}}</td>
+			<td class="col4">{{genre.in_user_id}}</td>
+			<td class="col5">{{genre.up_date}}</td>
+			<td class="col6">{{genre.up_user_id}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+</section>
+{% endblock %}
